@@ -1,3 +1,5 @@
+![OpenPods Logo](https://github.com/adolfintel/OpenPods/blob/master/.github/logo.png?raw=true)
+
 # OpenPods
 The Free and Open Source app for monitoring your AirPods on Android
 
@@ -17,7 +19,10 @@ Right now, this project should be considered in alpha state. It was not extensiv
 **Feedback is appreciated**
 
 ## Screenshots
-TODO
+![Screenshot: notification](https://github.com/adolfintel/OpenPods/blob/master/.github/screen1.png?raw=true)  
+![Screenshot: notification](https://github.com/adolfintel/OpenPods/blob/master/.github/screen2.png?raw=true)  
+![Screenshot: permissions](https://github.com/adolfintel/OpenPods/blob/master/.github/screen3.png?raw=true)
+![Screenshot: main app](https://github.com/adolfintel/OpenPods/blob/master/.github/screen4.png?raw=true)
 
 ## License
 This program is free software: you can redistribute it and/or modify
