@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name" translatable="false">OpenPods</string>
+    <string name="intro1">This app lets you check the status of your AirPods on any Android device</string>
+    <string name="intro2">To operate, we need permission to use Bluetooth LE (Location) and permission to run in background</string>
+    <string name="introAllow">Allow</string>
+    <string name="main1">The app will show a notification when your AirPods are connected</string>
+    <string name="main2">You can hide this app if you want</string>
+    <string name="mainHide">Hide app</string>
+    <string name="hideClicked">The icon will disappear soon</string>
+    <string name="noBtText">It looks like this device doesn\'t have Bluetooth</string>
+</resources>

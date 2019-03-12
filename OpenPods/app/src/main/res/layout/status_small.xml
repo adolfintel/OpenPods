@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:gravity="center"
+    >
+
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/leftPod"
+        >
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="30dp"
+            android:src="@drawable/left_pod"
+            android:id="@+id/leftPodImg"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:layout_toRightOf="@id/leftPodImg"
+            android:gravity="center_vertical"
+            android:text="100%+"
+            android:id="@+id/leftPodText"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/leftPod"
+        android:id="@+id/rightPod"
+        >
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="30dp"
+            android:src="@drawable/right_pod"
+            android:id="@+id/rightPodImg"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:layout_toRightOf="@id/rightPodImg"
+            android:gravity="center_vertical"
+            android:text="100%+"
+            android:id="@+id/rightPodText"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/rightPod"
+        android:id="@+id/podCase"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:src="@drawable/pod_case"
+            android:id="@+id/podCaseImg"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:layout_toRightOf="@id/podCaseImg"
+            android:gravity="center_vertical"
+            android:text="100%+"
+            android:id="@+id/podCaseText"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
