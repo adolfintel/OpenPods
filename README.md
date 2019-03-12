@@ -6,7 +6,8 @@ The Free and Open Source app for monitoring your AirPods on Android
 ## Download
 The project is currently in Alpha.
 
-Download links are coming soon ;)
+[Download APK](https://downloads.fdossena.com/geth.php?r=openpods-apk)
+
 
 ## Features
 * Shows a notification with AirPods status when they are connected
