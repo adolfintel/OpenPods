@@ -19,6 +19,9 @@ Right now, this project should be considered in alpha state. It was not extensiv
 
 **Feedback is appreciated**
 
+## Donate
+[Donate with PayPal](https://www.paypal.me/sineisochronic)
+
 ## Screenshots
 ![Screenshot: notification](https://github.com/adolfintel/OpenPods/blob/master/.github/screen1.png?raw=true)  
 ![Screenshot: notification](https://github.com/adolfintel/OpenPods/blob/master/.github/screen2.png?raw=true)  
