@@ -7,5 +7,5 @@
     <string name="main2">Puoi nascondere l\'app se vuoi</string>
     <string name="mainHide">Nascondi app</string>
     <string name="hideClicked">L\'icona sarà rimossa presto</string>
-    <string name="noBtText">Questo dispositivo non sembra avere il Bluetooth</string>
+    <string name="noBtText">Questo dispositivo non supporta Bluetooth LE</string>
 </resources>
