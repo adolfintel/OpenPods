@@ -16,11 +16,16 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.ParcelUuid;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import java.util.ArrayList;
+
+//todo: document how this class works
 public class PodsService extends Service {
+    private static final boolean ENABLE_LOGGING=BuildConfig.DEBUG;
 
     private static NotificationThread n=null;
     private static BluetoothLeScanner btScanner;
@@ -30,6 +35,8 @@ public class PodsService extends Service {
     private static final long TIMEOUT_CONNECTED=30000;
     private static boolean maybeConnected =true;
 
+    private static ArrayList<ScanResult> recentBeacons=new ArrayList<>();
+    private static final long RECENT_BEACONS_MAX_T_NS=10000000000L; //10s
     private void startAirPodsScanner() {
         try {
             BluetoothManager btManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -42,9 +49,19 @@ public class PodsService extends Service {
                 public void onScanResult(int callbackType, ScanResult result) {
                     try {
                         byte[] data = result.getScanRecord().getManufacturerSpecificData(76);
-                        if (data == null) return;
-                        String a = decodeHex(data);
-                        if (a.length() < 16) return;
+                        if (data == null||data.length!=27) return;
+                        recentBeacons.add(result);
+                        ScanResult strongestBeacon=null;
+                        for(int i=0;i<recentBeacons.size();i++){
+                            if(SystemClock.elapsedRealtimeNanos()-recentBeacons.get(i).getTimestampNanos()>RECENT_BEACONS_MAX_T_NS){
+                                recentBeacons.remove(i--);
+                                continue;
+                            }
+                            if(strongestBeacon==null||strongestBeacon.getRssi()<recentBeacons.get(i).getRssi()) strongestBeacon=recentBeacons.get(i);
+                        }
+                        if(strongestBeacon!=null&&strongestBeacon.getDevice().getAddress().equals(result.getDevice().getAddress())) strongestBeacon=result;
+                        result=strongestBeacon;
+                        String a=decodeHex(result.getScanRecord().getManufacturerSpecificData(76));
                         String str = ""; //left airpod (0-10 batt; 15=disconnected)
                         String str2 = ""; //right airpod (0-10 batt; 15=disconnected)
                         if (isFlipped(a)) {
@@ -65,13 +82,24 @@ public class PodsService extends Service {
                         chargeCase = (chargeStatus & 0b00000100) != 0;
                         lastSeenConnected = System.currentTimeMillis();
                     } catch (Throwable t) {
-                        Log.d("PODS", "" + t);
+                        if(ENABLE_LOGGING) Log.d(TAG, "" + t);
                     }
                 }
             });
         } catch (Throwable t) {
-            Log.d("PODS", "" + t);
+            if(ENABLE_LOGGING) Log.d(TAG, "" + t);
         }
+    }
+
+    private void stopAirPodsScanner(){
+        try{
+            if(btScanner!=null){
+                btScanner.stopScan(new ScanCallback() {
+                    @Override
+                    public void onScanResult(int callbackType, ScanResult result) {}});
+            }
+            leftStatus=15; rightStatus=15; caseStatus=15;
+        }catch (Throwable t){}
     }
 
     private final char[] hexCharset = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
@@ -112,19 +140,19 @@ public class PodsService extends Service {
             for(;;){
                 if(maybeConnected &&!(leftStatus==15&&rightStatus==15&&caseStatus==15)){
                     if(!notificationShowing){
-                        Log.d("PODS","Creating notification");
+                        if(ENABLE_LOGGING) Log.d(TAG,"Creating notification");
                         notificationShowing=true;
                         mNotifyManager.notify(1,mBuilder.build());
                     }
                 }else{
                     if(notificationShowing){
-                        Log.d("PODS","Removing notification");
+                        if(ENABLE_LOGGING) Log.d(TAG,"Removing notification");
                         notificationShowing=false;
                         mNotifyManager.cancel(1);
                     }
                 }
                 if(notificationShowing){
-                    Log.d("PODS","Left: "+leftStatus+(chargeL?"+":"")+" "+"Right: "+rightStatus+(chargeR?"+":"")+" "+"Case: "+caseStatus+(chargeCase?"+":""));
+                    if(ENABLE_LOGGING) Log.d(TAG,"Left: "+leftStatus+(chargeL?"+":"")+" "+"Right: "+rightStatus+(chargeR?"+":"")+" "+"Case: "+caseStatus+(chargeCase?"+":""));
                     notificationBig.setImageViewResource(R.id.leftPodImg,leftStatus<=10?R.drawable.left_pod:R.drawable.left_pod_disconnected);
                     notificationBig.setImageViewResource(R.id.rightPodImg,rightStatus<=10?R.drawable.right_pod:R.drawable.right_pod_disconnected);
                     notificationBig.setImageViewResource(R.id.podCaseImg,caseStatus<=10?R.drawable.pod_case:R.drawable.pod_case_disconnected);
@@ -191,6 +219,9 @@ public class PodsService extends Service {
                     int state= intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
                     if(state==BluetoothAdapter.STATE_OFF){
                         maybeConnected =false;
+                        stopAirPodsScanner();
+                        recentBeacons.clear();
+                        //lastScanResult=null;
                     }
                     if(state==BluetoothAdapter.STATE_ON){
                         startAirPodsScanner();
@@ -198,11 +229,13 @@ public class PodsService extends Service {
                 }
                 if (bluetoothDevice != null && action != null && !action.isEmpty()&&checkUUID(bluetoothDevice)){
                     if(action.equals("android.bluetooth.device.action.ACL_CONNECTED")){
+                        if(ENABLE_LOGGING) Log.d(TAG,"ACL CONNECTED");
                         maybeConnected =true;
-                        startAirPodsScanner();
                     }
                     if(action.equals("android.bluetooth.device.action.ACL_DISCONNECTED")){
+                        if(ENABLE_LOGGING) Log.d(TAG,"ACL DISCONNECTED");
                         maybeConnected =false;
+                        recentBeacons.clear();
                     }
                 }
             }
@@ -213,7 +246,7 @@ public class PodsService extends Service {
         try{
             registerReceiver(btReceiver,intentFilter);
         }catch(Throwable t){}
-        startAirPodsScanner();
+        if(((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter().isEnabled())startAirPodsScanner();
     }
 
     private boolean checkUUID(BluetoothDevice bluetoothDevice){
@@ -243,7 +276,6 @@ public class PodsService extends Service {
             n=new NotificationThread();
             n.start();
         }
-        startAirPodsScanner();
         return START_STICKY;
     }
 
