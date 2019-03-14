@@ -11,7 +11,6 @@ import android.util.Log;
 public class Starter extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("PODS","BOOT COMPLETE!!!!!!!!");
         context.startService(new Intent(context,PodsService.class));
     }
 }
