@@ -26,9 +26,9 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
         ((Button)findViewById(R.id.allowBtn)).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                try {
+            public void onClick(View view) { //allow button clicked, ask for permissions
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1); //location (for BLE)
+                try { //run in background
                     if(!getSystemService(PowerManager.class).isIgnoringBatteryOptimizations(getPackageName())) {
                         Intent intent = new Intent();
                         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -40,14 +40,15 @@ public class IntroActivity extends AppCompatActivity {
                 }
             }
         });
+        //wait for permissions to be granted. When they are granted, go to MainActivity
         t= new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 boolean ok=true;
-                if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
-                    if(!getSystemService(PowerManager.class).isIgnoringBatteryOptimizations(getPackageName())) ok=false;
-                }
+                try {
+                    if (!getSystemService(PowerManager.class).isIgnoringBatteryOptimizations(getPackageName())) ok = false;
+                }catch(Throwable t){}
                 if (ContextCompat.checkSelfPermission(IntroActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) ok=false;
                 if(ok){
                     t.cancel();
@@ -61,7 +62,7 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy() { //activity destroyed (or screen rotated). destroy the timer too
         super.onDestroy();
         if(t!=null) t.cancel();
     }

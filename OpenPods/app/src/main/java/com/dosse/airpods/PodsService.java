@@ -23,18 +23,45 @@ import android.widget.RemoteViews;
 
 import java.util.ArrayList;
 
-//todo: document how this class works
+/**
+ * This is the class that does most of the work. It has 3 functions:
+ * - Detect when AirPods are detected
+ * - Receive beacons from AirPods and decode them (easier said than done thanks do google's autism)
+ * - Display the notification with the status
+ *
+ */
 public class PodsService extends Service {
-    private static final boolean ENABLE_LOGGING=BuildConfig.DEBUG;
+    private static final boolean ENABLE_LOGGING=BuildConfig.DEBUG; //Log is only displayed if this is a debug build, not release
 
-    private static NotificationThread n=null;
     private static BluetoothLeScanner btScanner;
     private static int leftStatus=15, rightStatus=15, caseStatus=15;
     private static boolean chargeL=false, chargeR=false, chargeCase=false;
-    private static long lastSeenConnected=0;
-    private static final long TIMEOUT_CONNECTED=30000;
-    private static boolean maybeConnected =true;
 
+    /**
+     * The following method (startAirPodsScanner) creates a bluetoth LE scanner.
+     * This scanner receives all beacons from nearby BLE devices (not just your devices!) so we need to do 3 things:
+     * - Check that the beacon comes from something that looks like a pair of AirPods
+     * - Make sure that it is YOUR pair of AirPods
+     * - Decode the beacon to get the status
+     *
+     * On a normal OS, we would use the bluetooth address of the device to filter out beacons from other devices.
+     * UNFORTUNATELY, someone at google was so concerned about privacy (yea, as if they give a shit) that he decided it was a good idea to not allow access to the bluetooth address of incoming BLE beacons. As a result, we have no reliable way to make sure that the beacon comes from YOUR airpods and not the guy sitting next to you on the bus.
+     * What we did to workaround this issue is this:
+     * - When a beacon arrives that looks like a pair of AirPods, look at the other beacons received in the last 10 seconds and get the strongest one
+     * - If the strongest beacon's fake address is the same as this, use this beacon; otherwise use the strongest beacon
+     * - Decode...
+     *
+     * Decoding the beacon:
+     * This was done through reverse engineering. Hopefully it's correct.
+     * - The beacon coming from a pair of AirPods contains a manufacturer specific data field n°76 of 27 bytes
+     * - We convert this data to a hexadecimal string
+     * - The 12th and 13th characters in the string represent the charge of the left and right pods. Under unknown circumstances, they are right and left instead (see isFlipped). Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
+     * - The 15th character in the string represents the charge of the case. Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
+     * - The 14th character in the string represents the "in charge" status. Bit 0 (LSB) is the left pod; Bit 1 is the right pod; Bit 2 is the case. Bit 3 might be case open/closed but I'm not sure and it's not used
+     *
+     * After decoding a beacon, the status is written to leftStatus, rightStatus, caseStatus, chargeL, chargeR, chargeCase so that the NotificationThread can use the information
+     *
+     */
     private static ArrayList<ScanResult> recentBeacons=new ArrayList<>();
     private static final long RECENT_BEACONS_MAX_T_NS=10000000000L; //10s
     private void startAirPodsScanner() {
@@ -117,7 +144,20 @@ public class PodsService extends Service {
         return (Integer.toString(Integer.parseInt(""+str.charAt(10),16)+0x10,2)).charAt(3)=='0';
     }
 
+    /**
+     * The following class is a thread that manages the notification while your AirPods are connected.
+     *
+     * It simply reads the status variables every 1 seconds and creates, destroys, or updates the notification accordingly.
+     * The notification is shown when BT is on and AirPods are connected. The status is updated every 1 second. Battery% is hidden if we didn't receive a beacon for 30 seconds (screen off for a while)
+     *
+     * This thread is the reason why we need permission to disable doze. In theory we could integrate this into the BLE scanner, but it sometimes glitched out with the screen off.
+     *
+     */
+    private static NotificationThread n=null;
     private static final String TAG="AirPods";
+    private static long lastSeenConnected=0;
+    private static final long TIMEOUT_CONNECTED=30000;
+    private static boolean maybeConnected =true;
     private class NotificationThread extends Thread{
         public void run(){
             boolean notificationShowing=false;
@@ -164,7 +204,6 @@ public class PodsService extends Service {
                         notificationSmall.setTextViewText(R.id.rightPodText, (rightStatus <= 10 ? (rightStatus * 10) + "%" : "") + (chargeR ? "+" : ""));
                         notificationSmall.setTextViewText(R.id.podCaseText, (caseStatus <= 10 ? (caseStatus * 10) + "%" : "") + (chargeCase ? "+" : ""));
                     }else{
-                        //haven't received an update in a while (screen off), wait for an update before showing battery%
                         notificationBig.setTextViewText(R.id.leftPodText, "");
                         notificationBig.setTextViewText(R.id.rightPodText, "");
                         notificationBig.setTextViewText(R.id.podCaseText, "");
@@ -174,15 +213,11 @@ public class PodsService extends Service {
                     }
                     mNotifyManager.notify(1,mBuilder.build());
                 }
-                sleepMs(1000);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) { }
             }
         }
-    }
-
-    private static void sleepMs(long ms){
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException e) { }
     }
 
     public PodsService() {
@@ -195,6 +230,10 @@ public class PodsService extends Service {
 
     private BroadcastReceiver btReceiver=null;
 
+    /**
+     * When the service is created, we register to get as many bluetooth and airpods related events as possible.
+     * ACL_CONNECTED and ACL_DISCONNECTED should have been enough, but you never know with android these days.
+     */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -217,22 +256,21 @@ public class PodsService extends Service {
                 String action = intent.getAction();
                 if(action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)){
                     int state= intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
-                    if(state==BluetoothAdapter.STATE_OFF){
+                    if(state==BluetoothAdapter.STATE_OFF){ //bluetooth turned off, stop scanner and remove notification
                         maybeConnected =false;
                         stopAirPodsScanner();
                         recentBeacons.clear();
-                        //lastScanResult=null;
                     }
-                    if(state==BluetoothAdapter.STATE_ON){
+                    if(state==BluetoothAdapter.STATE_ON){ //bluetooth turned on, start/restart scanner
                         startAirPodsScanner();
                     }
                 }
-                if (bluetoothDevice != null && action != null && !action.isEmpty()&&checkUUID(bluetoothDevice)){
-                    if(action.equals("android.bluetooth.device.action.ACL_CONNECTED")){
+                if (bluetoothDevice != null && action != null && !action.isEmpty()&&checkUUID(bluetoothDevice)){ //airpods filter
+                    if(action.equals("android.bluetooth.device.action.ACL_CONNECTED")){ //airpods connected, show notification
                         if(ENABLE_LOGGING) Log.d(TAG,"ACL CONNECTED");
                         maybeConnected =true;
                     }
-                    if(action.equals("android.bluetooth.device.action.ACL_DISCONNECTED")){
+                    if(action.equals("android.bluetooth.device.action.ACL_DISCONNECTED")){ //airpods disconnected, remove notification but leave the scanner going
                         if(ENABLE_LOGGING) Log.d(TAG,"ACL DISCONNECTED");
                         maybeConnected =false;
                         recentBeacons.clear();
@@ -246,7 +284,7 @@ public class PodsService extends Service {
         try{
             registerReceiver(btReceiver,intentFilter);
         }catch(Throwable t){}
-        if(((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter().isEnabled())startAirPodsScanner();
+        if(((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter().isEnabled())startAirPodsScanner(); //if BT is already on when the app is started, start the scanner without waiting for an event to happen
     }
 
     private boolean checkUUID(BluetoothDevice bluetoothDevice){

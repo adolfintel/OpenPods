@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //check if Bluetooth LE is available on this device. If not, show an error
         BluetoothAdapter btAdapter=((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
         if(btAdapter==null||((BluetoothAdapter) btAdapter).getBluetoothLeScanner()==null){
             Intent i=new Intent(this,NoBTActivity.class);
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
+        //check if all permissions have been granted
         boolean ok=true;
         try {
             if (!getSystemService(PowerManager.class).isIgnoringBatteryOptimizations(getPackageName())) ok = false;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         }
         ((Button)(findViewById(R.id.mainHide))).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) { //hide app clicked
                 PackageManager p = getPackageManager();
                 p.setComponentEnabledSetting(new ComponentName(MainActivity.this,MainActivity.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
                 Toast.makeText(getApplicationContext(),getString(R.string.hideClicked), Toast.LENGTH_LONG).show();
