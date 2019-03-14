@@ -1,6 +1,8 @@
 package com.dosse.airpods;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -21,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter()==null){
+        BluetoothAdapter btAdapter=((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
+        if(btAdapter==null||((BluetoothAdapter) btAdapter).getBluetoothLeScanner()==null){
             Intent i=new Intent(this,NoBTActivity.class);
             startActivity(i);
             finish();
