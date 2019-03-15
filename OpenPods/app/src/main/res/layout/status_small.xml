@@ -31,6 +31,15 @@
             android:id="@+id/leftPodText"
             />
 
+        <ProgressBar
+            android:id="@+id/leftPodUpdating"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="18dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/leftPodImg"
+            android:indeterminate="true"
+            />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -58,6 +67,15 @@
             android:id="@+id/rightPodText"
             />
 
+        <ProgressBar
+            android:id="@+id/rightPodUpdating"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="18dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/rightPodImg"
+            android:indeterminate="true"
+            />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -83,6 +101,15 @@
             android:gravity="center_vertical"
             android:text="100%+"
             android:id="@+id/podCaseText"
+            />
+
+        <ProgressBar
+            android:id="@+id/podCaseUpdating"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="18dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/podCaseImg"
+            android:indeterminate="true"
             />
 
     </RelativeLayout>
