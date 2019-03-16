@@ -13,10 +13,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.ParcelUuid;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
@@ -160,10 +162,16 @@ public class PodsService extends Service {
     private static final long TIMEOUT_CONNECTED=30000;
     private static boolean maybeConnected =true;
     private class NotificationThread extends Thread{
+        private boolean isLocationEnabled(){
+            LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+            return service!=null&&service.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        }
         public void run(){
             boolean notificationShowing=false;
             RemoteViews notificationBig=new RemoteViews(getPackageName(),R.layout.status_big);
             RemoteViews notificationSmall=new RemoteViews(getPackageName(),R.layout.status_small);
+            RemoteViews locationDisabledBig=new RemoteViews(getPackageName(),R.layout.location_disabled_big);
+            RemoteViews locationDisabledSmall=new RemoteViews(getPackageName(),R.layout.location_disabled_small);
             NotificationManager mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationCompat.Builder mBuilder=new NotificationCompat.Builder(PodsService.this,TAG);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //on oreo and newer, create a notification channel
@@ -173,8 +181,6 @@ public class PodsService extends Service {
                 channel.setShowBadge(true);
                 mNotifyManager.createNotificationChannel(channel);
             }
-            mBuilder.setCustomContentView(notificationSmall);
-            mBuilder.setCustomBigContentView(notificationBig);
             mBuilder.setShowWhen(false);
             mBuilder.setOngoing(true);
             mBuilder.setSmallIcon(R.drawable.left_pod);
@@ -191,6 +197,13 @@ public class PodsService extends Service {
                         notificationShowing=false;
                         mNotifyManager.cancel(1);
                     }
+                }
+                if(isLocationEnabled()) {
+                    mBuilder.setCustomContentView(notificationSmall);
+                    mBuilder.setCustomBigContentView(notificationBig);
+                }else{
+                    mBuilder.setCustomContentView(locationDisabledSmall);
+                    mBuilder.setCustomBigContentView(locationDisabledBig);
                 }
                 if(notificationShowing){
                     if(ENABLE_LOGGING) Log.d(TAG,"Left: "+leftStatus+(chargeL?"+":"")+" "+"Right: "+rightStatus+(chargeR?"+":"")+" "+"Case: "+caseStatus+(chargeCase?"+":""));
