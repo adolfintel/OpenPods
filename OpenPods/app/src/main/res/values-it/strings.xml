@@ -9,4 +9,5 @@
     <string name="hideClicked">L\'icona sarà rimossa presto</string>
     <string name="noBtText">Questo dispositivo non supporta Bluetooth LE</string>
     <string name="locationDisabledText">Attiva la posizione per permttere a OpenPods di leggere lo stato</string>
+    <string name="supportedDevices">Dispositivi supportati:\n&#8226; Apple AirPods 1st gen</string>
 </resources>

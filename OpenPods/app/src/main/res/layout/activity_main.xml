@@ -17,7 +17,7 @@
             android:layout_height="120dp"
             android:src="@drawable/tick"
             android:layout_alignParentTop="true"
-            android:id="@+id/mainTick"
+            android:id="@+id/tick"
             android:layout_marginBottom="24dp"
             />
         <TextView
@@ -27,14 +27,21 @@
             android:layout_marginBottom="24dp"
             android:text="@string/main1"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-            android:layout_below="@id/mainTick"
+            android:layout_below="@id/tick"
             />
+        <TextView
+            android:id="@+id/supportedDevices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:layout_below="@id/main1"
+            android:text="@string/supportedDevices" />
         <TextView
             android:id="@+id/main2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="80dp"
-            android:layout_below="@id/main1"
+            android:layout_marginBottom="24dp"
+            android:layout_below="@id/supportedDevices"
             android:text="@string/main2" />
         <Button
             android:layout_width="wrap_content"
@@ -44,6 +51,7 @@
             android:id="@+id/mainHide"
             android:layout_alignParentEnd="true"
             />
+
     </RelativeLayout>
 
 </RelativeLayout>

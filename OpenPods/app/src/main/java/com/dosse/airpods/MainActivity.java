@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 PackageManager p = getPackageManager();
                 p.setComponentEnabledSetting(new ComponentName(MainActivity.this,MainActivity.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
                 Toast.makeText(getApplicationContext(),getString(R.string.hideClicked), Toast.LENGTH_LONG).show();
-                try{getApplicationContext().openFileOutput("hidden",MODE_PRIVATE).close();}catch(Throwable t){}
+                finish();
             }
         });
     }

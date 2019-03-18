@@ -14,6 +14,9 @@ The project is currently in Alpha.
 * Respects your privacy
 * Free and Open Source software
 
+## Supported devices
+* Apple AirPods 1st gen
+
 ## Project status
 Right now, this project should be considered in alpha state. It was not extensively tested, it may not be stable or work at all on your device.
 
