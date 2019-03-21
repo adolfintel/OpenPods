@@ -6,7 +6,7 @@ The Free and Open Source app for monitoring your AirPods on Android
 ## Download
 The project is currently in Alpha.
 
-[Download from F-Droid](https://f-droid.org/repository/browse/?fdid=com.dosse.airpods)
+[Download from F-Droid](https://f-droid.org/repository/browse/?fdid=com.dosse.airpods)  
 [Download APK](https://downloads.fdossena.com/geth.php?r=openpods-apk)
 
 ## Features
