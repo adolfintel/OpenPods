@@ -200,7 +200,7 @@ public class PodsService extends Service {
                         if(ENABLE_LOGGING) Log.d(TAG,"Removing notification");
                         notificationShowing=false;
                         mNotifyManager.cancel(1);
-                        return;
+                        continue;
                     }
                 }
                 if(isLocationEnabled()) {
