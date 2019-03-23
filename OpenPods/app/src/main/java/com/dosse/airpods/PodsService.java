@@ -1,5 +1,6 @@
 package com.dosse.airpods;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -52,6 +53,7 @@ public class PodsService extends Service {
      * What we did to workaround this issue is this:
      * - When a beacon arrives that looks like a pair of AirPods, look at the other beacons received in the last 10 seconds and get the strongest one
      * - If the strongest beacon's fake address is the same as this, use this beacon; otherwise use the strongest beacon
+     * - Filter for signals stronger than -70db
      * - Decode...
      *
      * Decoding the beacon:
@@ -91,6 +93,7 @@ public class PodsService extends Service {
                         }
                         if(strongestBeacon!=null&&strongestBeacon.getDevice().getAddress().equals(result.getDevice().getAddress())) strongestBeacon=result;
                         result=strongestBeacon;
+                        if(result.getRssi()<-70) return;
                         String a=decodeHex(result.getScanRecord().getManufacturerSpecificData(76));
                         String str = ""; //left airpod (0-10 batt; 15=disconnected)
                         String str2 = ""; //right airpod (0-10 batt; 15=disconnected)
@@ -179,13 +182,14 @@ public class PodsService extends Service {
                 channel.enableVibration(false);
                 channel.enableLights(false);
                 channel.setShowBadge(true);
+                channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
                 mNotifyManager.createNotificationChannel(channel);
             }
             mBuilder.setShowWhen(false);
             mBuilder.setOngoing(true);
             mBuilder.setSmallIcon(R.drawable.left_pod);
             for(;;){
-                if(maybeConnected &&!(leftStatus==15&&rightStatus==15&&caseStatus==15)){
+                if(maybeConnected &&!(leftStatus==15&&rightStatus==15&&caseStatus==15)/*&&System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED*/){
                     if(!notificationShowing){
                         if(ENABLE_LOGGING) Log.d(TAG,"Creating notification");
                         notificationShowing=true;
@@ -196,6 +200,7 @@ public class PodsService extends Service {
                         if(ENABLE_LOGGING) Log.d(TAG,"Removing notification");
                         notificationShowing=false;
                         mNotifyManager.cancel(1);
+                        return;
                     }
                 }
                 if(isLocationEnabled()) {
@@ -223,12 +228,12 @@ public class PodsService extends Service {
                         notificationSmall.setViewVisibility(R.id.leftPodUpdating, View.INVISIBLE);
                         notificationSmall.setViewVisibility(R.id.rightPodUpdating, View.INVISIBLE);
                         notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.INVISIBLE);
-                        notificationBig.setTextViewText(R.id.leftPodText, (leftStatus <= 10 ? (leftStatus * 10) + "%" : "") + ((chargeL && leftStatus < 10) ? "+" : ""));
-                        notificationBig.setTextViewText(R.id.rightPodText, (rightStatus <= 10 ? (rightStatus * 10) + "%" : "") + ((chargeR && rightStatus < 10) ? "+" : ""));
-                        notificationBig.setTextViewText(R.id.podCaseText, (caseStatus <= 10 ? (caseStatus * 10) + "%" : "") + (chargeCase ? "+" : ""));
-                        notificationSmall.setTextViewText(R.id.leftPodText, (leftStatus <= 10 ? (leftStatus * 10) + "%" : "") + (chargeL ? "+" : ""));
-                        notificationSmall.setTextViewText(R.id.rightPodText, (rightStatus <= 10 ? (rightStatus * 10) + "%" : "") + (chargeR ? "+" : ""));
-                        notificationSmall.setTextViewText(R.id.podCaseText, (caseStatus <= 10 ? (caseStatus * 10) + "%" : "") + (chargeCase ? "+" : ""));
+                        notificationBig.setTextViewText(R.id.leftPodText, (leftStatus==10?"100%":leftStatus<10?((leftStatus+1)*10+"%"):"") + ((chargeL && leftStatus < 10) ? "+" : ""));
+                        notificationBig.setTextViewText(R.id.rightPodText, (rightStatus==10?"100%":rightStatus<10?((rightStatus+1)*10+"%"):"") + ((chargeR && rightStatus < 10) ? "+" : ""));
+                        notificationBig.setTextViewText(R.id.podCaseText, (caseStatus==10?"100%":caseStatus<10?((caseStatus+1)*10+"%"):"") + ((chargeCase && caseStatus < 10) ? "+" : ""));
+                        notificationSmall.setTextViewText(R.id.leftPodText, (leftStatus==10?"100%":leftStatus<10?((leftStatus+1)*10+"%"):"") + ((chargeL && leftStatus < 10) ? "+" : ""));
+                        notificationSmall.setTextViewText(R.id.rightPodText, (rightStatus==10?"100%":rightStatus<10?((rightStatus+1)*10+"%"):"") + ((chargeR && rightStatus < 10) ? "+" : ""));
+                        notificationSmall.setTextViewText(R.id.podCaseText, (caseStatus==10?"100%":caseStatus<10?((caseStatus+1)*10+"%"):"") + ((chargeCase && caseStatus < 10) ? "+" : ""));
                     }else{
                         notificationBig.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
                         notificationBig.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
@@ -288,7 +293,7 @@ public class PodsService extends Service {
                 String action = intent.getAction();
                 if(action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)){
                     int state= intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
-                    if(state==BluetoothAdapter.STATE_OFF){ //bluetooth turned off, stop scanner and remove notification
+                    if(state==BluetoothAdapter.STATE_OFF||state==BluetoothAdapter.STATE_TURNING_OFF){ //bluetooth turned off, stop scanner and remove notification
                         maybeConnected =false;
                         stopAirPodsScanner();
                         recentBeacons.clear();
@@ -298,11 +303,11 @@ public class PodsService extends Service {
                     }
                 }
                 if (bluetoothDevice != null && action != null && !action.isEmpty()&&checkUUID(bluetoothDevice)){ //airpods filter
-                    if(action.equals("android.bluetooth.device.action.ACL_CONNECTED")){ //airpods connected, show notification
+                    if(action.equals(BluetoothDevice.ACTION_ACL_CONNECTED)){ //airpods connected, show notification
                         if(ENABLE_LOGGING) Log.d(TAG,"ACL CONNECTED");
                         maybeConnected =true;
                     }
-                    if(action.equals("android.bluetooth.device.action.ACL_DISCONNECTED")){ //airpods disconnected, remove notification but leave the scanner going
+                    if(action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)||action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)){ //airpods disconnected, remove notification but leave the scanner going
                         if(ENABLE_LOGGING) Log.d(TAG,"ACL DISCONNECTED");
                         maybeConnected =false;
                         recentBeacons.clear();
