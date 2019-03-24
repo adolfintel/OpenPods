@@ -1,0 +1,13 @@
+<resources>
+    <string name="intro1">Esta aplicación te permite ver el estado de tus AirPods en cualquier dispositivo Android</string>
+    <string name="intro2">Para operar, necesitamos permiso para usar Bluetooth LE (Localización) y permiso para ejecutarnos en el fondo</string>
+    <string name="introAllow">Permitir</string>
+    <string name="main1">Esta aplicación  mostrará una notificación cuando tus AirPods estén conectados</string>
+    <string name="main2">Puedes ocultar la app si gustas</string>
+    <string name="mainHide">Ocultar app</string>
+    <string name="hideClicked">El ícono desaparecerá pronto</string>
+    <string name="noBtText">Parece que este dispositivo no tiene Bluetooth LE</string>
+    <string name="locationDisabledText">Necesitas encender Localización para permitir que OpenPods lea el estado</string>
+    <string name="supportedDevices">Dispositivos compatibles:\n
+ • Apple AirPods 1st gen</string>
+</resources>
