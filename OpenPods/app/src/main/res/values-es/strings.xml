@@ -9,5 +9,5 @@
     <string name="noBtText">Parece que este dispositivo no tiene Bluetooth LE</string>
     <string name="locationDisabledText">Necesitas encender Localización para permitir que OpenPods lea el estado</string>
     <string name="supportedDevices">Dispositivos compatibles:\n
-  &amp;#8226 Apple AirPods 1st gen</string>
+  &#8226 Apple AirPods 1st gen</string>
 </resources>
