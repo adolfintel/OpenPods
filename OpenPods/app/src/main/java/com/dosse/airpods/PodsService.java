@@ -187,7 +187,7 @@ public class PodsService extends Service {
             }
             mBuilder.setShowWhen(false);
             mBuilder.setOngoing(true);
-            mBuilder.setSmallIcon(R.drawable.left_pod);
+            mBuilder.setSmallIcon(R.mipmap.notification_icon);
             for(;;){
                 if(maybeConnected &&!(leftStatus==15&&rightStatus==15&&caseStatus==15)/*&&System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED*/){
                     if(!notificationShowing){
