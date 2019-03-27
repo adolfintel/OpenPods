@@ -6,7 +6,9 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -53,7 +55,7 @@ public class PodsService extends Service {
      * What we did to workaround this issue is this:
      * - When a beacon arrives that looks like a pair of AirPods, look at the other beacons received in the last 10 seconds and get the strongest one
      * - If the strongest beacon's fake address is the same as this, use this beacon; otherwise use the strongest beacon
-     * - Filter for signals stronger than -70db
+     * - Filter for signals stronger than -60db
      * - Decode...
      *
      * Decoding the beacon:
@@ -83,6 +85,7 @@ public class PodsService extends Service {
                         byte[] data = result.getScanRecord().getManufacturerSpecificData(76);
                         if (data == null||data.length!=27) return;
                         recentBeacons.add(result);
+                        Log.d(TAG,""+result.getRssi());
                         ScanResult strongestBeacon=null;
                         for(int i=0;i<recentBeacons.size();i++){
                             if(SystemClock.elapsedRealtimeNanos()-recentBeacons.get(i).getTimestampNanos()>RECENT_BEACONS_MAX_T_NS){
@@ -93,7 +96,7 @@ public class PodsService extends Service {
                         }
                         if(strongestBeacon!=null&&strongestBeacon.getDevice().getAddress().equals(result.getDevice().getAddress())) strongestBeacon=result;
                         result=strongestBeacon;
-                        if(result.getRssi()<-70) return;
+                        if(result.getRssi()<-60) return;
                         String a=decodeHex(result.getScanRecord().getManufacturerSpecificData(76));
                         String str = ""; //left airpod (0-10 batt; 15=disconnected)
                         String str2 = ""; //right airpod (0-10 batt; 15=disconnected)
@@ -163,7 +166,7 @@ public class PodsService extends Service {
     private static final String TAG="AirPods";
     private static long lastSeenConnected=0;
     private static final long TIMEOUT_CONNECTED=30000;
-    private static boolean maybeConnected =true;
+    private static boolean maybeConnected =false;
     private class NotificationThread extends Thread{
         private boolean isLocationEnabled(){
             LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -321,7 +324,34 @@ public class PodsService extends Service {
         try{
             registerReceiver(btReceiver,intentFilter);
         }catch(Throwable t){}
-        if(((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter().isEnabled())startAirPodsScanner(); //if BT is already on when the app is started, start the scanner without waiting for an event to happen
+        //this BT Profile Proxy allows us to know if airpods are already connected when the app is started. It also fires an event when BT is turned off, in case the BroadcastReceiver doesn't do its job
+        BluetoothAdapter ba=((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
+        ba.getProfileProxy(getApplicationContext(), new BluetoothProfile.ServiceListener() {
+            @Override
+            public void onServiceConnected(int i, BluetoothProfile bluetoothProfile) {
+                if(i==BluetoothProfile.HEADSET){
+                    if(ENABLE_LOGGING) Log.d(TAG,"BT PROXY SERVICE CONNECTED");
+                    BluetoothHeadset h=(BluetoothHeadset)bluetoothProfile;
+                    for(BluetoothDevice d:h.getConnectedDevices()){
+                        if(checkUUID(d)){
+                            if(ENABLE_LOGGING) Log.d(TAG,"BT PROXY: AIRPODS ALREADY CONNECTED");
+                            maybeConnected=true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onServiceDisconnected(int i) {
+                if(i==BluetoothProfile.HEADSET){
+                    if(ENABLE_LOGGING) Log.d(TAG,"BT PROXY SERVICE DISCONNECTED ");
+                    maybeConnected=false;
+                }
+
+            }
+        },BluetoothProfile.HEADSET);
+        if(ba.isEnabled())startAirPodsScanner(); //if BT is already on when the app is started, start the scanner without waiting for an event to happen
     }
 
     private boolean checkUUID(BluetoothDevice bluetoothDevice){
