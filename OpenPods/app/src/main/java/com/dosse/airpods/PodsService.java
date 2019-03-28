@@ -85,7 +85,8 @@ public class PodsService extends Service {
                         byte[] data = result.getScanRecord().getManufacturerSpecificData(76);
                         if (data == null||data.length!=27) return;
                         recentBeacons.add(result);
-                        Log.d(TAG,""+result.getRssi());
+                        if(ENABLE_LOGGING) Log.d(TAG,""+result.getRssi()+"db");
+                        if(ENABLE_LOGGING) Log.d(TAG, decodeHex(data));
                         ScanResult strongestBeacon=null;
                         for(int i=0;i<recentBeacons.size();i++){
                             if(SystemClock.elapsedRealtimeNanos()-recentBeacons.get(i).getTimestampNanos()>RECENT_BEACONS_MAX_T_NS){
@@ -297,11 +298,13 @@ public class PodsService extends Service {
                 if(action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)){
                     int state= intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
                     if(state==BluetoothAdapter.STATE_OFF||state==BluetoothAdapter.STATE_TURNING_OFF){ //bluetooth turned off, stop scanner and remove notification
+                        if(ENABLE_LOGGING) Log.d(TAG,"BT OFF");
                         maybeConnected =false;
                         stopAirPodsScanner();
                         recentBeacons.clear();
                     }
                     if(state==BluetoothAdapter.STATE_ON){ //bluetooth turned on, start/restart scanner
+                        if(ENABLE_LOGGING) Log.d(TAG,"BT ON");
                         startAirPodsScanner();
                     }
                 }
