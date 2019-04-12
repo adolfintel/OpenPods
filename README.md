@@ -1,4 +1,4 @@
-![OpenPods Logo](https://github.com/adolfintel/OpenPods/blob/master/.github/logo.png?raw=true)
+![OpenPods Logo](fastlane/metadata/android/en-US/images/featureGraphic.png)
 
 # OpenPods
 The Free and Open Source app for monitoring your AirPods on Android
@@ -26,10 +26,10 @@ Right now, this project should be considered in alpha state. It was not extensiv
 [Donate with PayPal](https://www.paypal.me/sineisochronic)
 
 ## Screenshots
-![Screenshot: notification](https://github.com/adolfintel/OpenPods/blob/master/.github/screen1.png?raw=true)  
-![Screenshot: notification](https://github.com/adolfintel/OpenPods/blob/master/.github/screen2.png?raw=true)  
-![Screenshot: permissions](https://github.com/adolfintel/OpenPods/blob/master/.github/screen3.png?raw=true)
-![Screenshot: main app](https://github.com/adolfintel/OpenPods/blob/master/.github/screen4.png?raw=true)
+![Screenshot: notification](fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png)  
+![Screenshot: notification](fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png)  
+![Screenshot: permissions](fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png)
+![Screenshot: main app](fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png)
 
 ## License
 Copyright (C) 2019 Federico Dossena
