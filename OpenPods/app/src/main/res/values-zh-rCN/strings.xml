@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro1">此应用可以让您在任何安卓设备上查看 AirPods 的状态</string>
+    <string name="intro2">我们需要蓝牙、定位以及在后台运行的权限来正常运作</string>
+    <string name="introAllow">允许</string>
+    <string name="main1">当您的 AirPods 接入时，我们会在通知栏显示通知</string>
+    <string name="main2">您可以隐藏此应用</string>
+    <string name="mainHide">隐藏</string>
+    <string name="hideClicked">桌面图标很快就会隐藏掉</string>
+    <string name="noBtText">看起来您的设备并不支持蓝牙</string>
+    <string name="locationDisabledText">您需要开启定位来让 OpenPods 读取状态</string>
+    <string name="supportedDevices">支持的设备:\n&#8226; Apple AirPods 一代</string>
+</resources>
