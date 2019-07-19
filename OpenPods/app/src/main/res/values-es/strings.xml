@@ -8,6 +8,5 @@
     <string name="hideClicked">El ícono desaparecerá pronto</string>
     <string name="noBtText">Parece que este dispositivo no tiene Bluetooth LE</string>
     <string name="locationDisabledText">Necesitas encender Localización para permitir que OpenPods lea el estado</string>
-    <string name="supportedDevices">Dispositivos compatibles:\n
-  &#8226; Apple AirPods 1st gen</string>
+    <string name="supportedDevices">Dispositivos compatibles:\n&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen</string>
 </resources>
