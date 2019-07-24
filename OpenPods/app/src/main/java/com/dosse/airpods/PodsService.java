@@ -11,7 +11,10 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanFilter;
+import android.bluetooth.le.ScanFilter.Builder;
 import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,13 +24,13 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.ParcelUuid;
 import android.os.SystemClock;
-import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
-
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This is the class that does most of the work. It has 3 functions:
@@ -78,7 +81,20 @@ public class PodsService extends Service {
             btScanner = btAdapter.getBluetoothLeScanner();
             if (btAdapter == null) throw new Exception("No BT");
             if (!btAdapter.isEnabled()) throw new Exception("BT Off");
-            btScanner.startScan(new ScanCallback() {
+
+            List<ScanFilter> filters = getScanFilters();
+            ScanSettings settings = new ScanSettings.Builder().setScanMode(2).setReportDelay(2).build();
+
+            btScanner.startScan(
+                    filters,
+                    settings,
+                    new ScanCallback() {
+                @Override
+                public void onBatchScanResults(List<ScanResult> scanResults) {
+                    for (ScanResult result : scanResults) onScanResult(-1, result);
+                    super.onBatchScanResults(scanResults);
+                }
+
                 @Override
                 public void onScanResult(int callbackType, ScanResult result) {
                     try {
@@ -126,6 +142,21 @@ public class PodsService extends Service {
         } catch (Throwable t) {
             if(ENABLE_LOGGING) Log.d(TAG, "" + t);
         }
+    }
+
+    private List<ScanFilter> getScanFilters() {
+        byte[] manufacturerData = new byte[27];
+        byte[] manufacturerDataMask = new byte[27];
+
+        manufacturerData[0] = 7;
+        manufacturerData[1] = 25;
+
+        manufacturerDataMask[0] = -1;
+        manufacturerDataMask[1] = -1;
+
+        Builder builder = new Builder();
+        builder.setManufacturerData(76, manufacturerData, manufacturerDataMask);
+        return Collections.singletonList(builder.build());
     }
 
     private void stopAirPodsScanner(){
