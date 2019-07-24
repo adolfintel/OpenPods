@@ -15,6 +15,7 @@ The project is currently in Alpha.
 * Free and Open Source software
 
 ## Supported devices
+* Apple AirPods 1st gen
 * Apple AirPods 2nd gen
 
 ## Project status
