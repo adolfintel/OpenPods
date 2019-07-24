@@ -16,6 +16,7 @@ The project is currently in Alpha.
 
 ## Supported devices
 * Apple AirPods 1st gen
+* Apple AirPods 2nd gen
 
 ## Project status
 Right now, this project should be considered in alpha state. It was not extensively tested, it may not be stable or work at all on your device.
