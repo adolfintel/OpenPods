@@ -204,6 +204,7 @@ public class PodsService extends Service {
             LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
             return service!=null&&service.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         }
+        long startTime = System.currentTimeMillis();
         public void run(){
             boolean notificationShowing=false;
             RemoteViews notificationBig=new RemoteViews(getPackageName(),R.layout.status_big);
@@ -224,7 +225,7 @@ public class PodsService extends Service {
             mBuilder.setOngoing(true);
             mBuilder.setSmallIcon(R.mipmap.notification_icon);
             for(;;){
-                if(maybeConnected &&!(leftStatus==15&&rightStatus==15&&caseStatus==15)/*&&System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED*/){
+                if (maybeConnected &&!(leftStatus==15&&rightStatus==15&&caseStatus==15)/*&&System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED*/){
                     if(!notificationShowing){
                         if(ENABLE_LOGGING) Log.d(TAG,"Creating notification");
                         notificationShowing=true;
@@ -250,7 +251,29 @@ public class PodsService extends Service {
                     notificationBig.setImageViewResource(R.id.leftPodImg,leftStatus<=10?R.drawable.left_pod:R.drawable.left_pod_disconnected);
                     notificationBig.setImageViewResource(R.id.rightPodImg,rightStatus<=10?R.drawable.right_pod:R.drawable.right_pod_disconnected);
                     notificationBig.setImageViewResource(R.id.podCaseImg,caseStatus<=10?R.drawable.pod_case:R.drawable.pod_case_disconnected);
-                    if(System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED) {
+                    if(System.currentTimeMillis()-lastSeenConnected>TIMEOUT_CONNECTED){
+                        if(ENABLE_LOGGING){
+                            long timeElapsed = (System.currentTimeMillis()-lastSeenConnected);
+                            Log.d(TAG,"TIMEOUT: "+timeElapsed);
+                        }
+                        notificationBig.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
+                        notificationBig.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
+                        notificationBig.setViewVisibility(R.id.podCaseText, View.INVISIBLE);
+                        notificationBig.setViewVisibility(R.id.leftPodUpdating, View.VISIBLE);
+                        notificationBig.setViewVisibility(R.id.rightPodUpdating, View.VISIBLE);
+                        notificationBig.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
+                        notificationSmall.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
+                        notificationSmall.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
+                        notificationSmall.setViewVisibility(R.id.podCaseText, View.INVISIBLE);
+                        notificationSmall.setViewVisibility(R.id.leftPodUpdating, View.VISIBLE);
+                        notificationSmall.setViewVisibility(R.id.rightPodUpdating, View.VISIBLE);
+                        notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
+                        startTime = System.currentTimeMillis();
+                    }else if(System.currentTimeMillis()-startTime<=10000) {
+                        if(ENABLE_LOGGING){
+                            long timeElapsed = (System.currentTimeMillis()-startTime);
+                            Log.d(TAG,"10s Update: "+timeElapsed);
+                        }
                         notificationBig.setViewVisibility(R.id.leftPodText, View.VISIBLE);
                         notificationBig.setViewVisibility(R.id.rightPodText, View.VISIBLE);
                         notificationBig.setViewVisibility(R.id.podCaseText, View.VISIBLE);
@@ -269,19 +292,17 @@ public class PodsService extends Service {
                         notificationSmall.setTextViewText(R.id.leftPodText, (leftStatus==10?"100%":leftStatus<10?((leftStatus+1)*10+"%"):"") + ((chargeL && leftStatus < 10) ? "+" : ""));
                         notificationSmall.setTextViewText(R.id.rightPodText, (rightStatus==10?"100%":rightStatus<10?((rightStatus+1)*10+"%"):"") + ((chargeR && rightStatus < 10) ? "+" : ""));
                         notificationSmall.setTextViewText(R.id.podCaseText, (caseStatus==10?"100%":caseStatus<10?((caseStatus+1)*10+"%"):"") + ((chargeCase && caseStatus < 10) ? "+" : ""));
-                    }else{
-                        notificationBig.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
-                        notificationBig.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
-                        notificationBig.setViewVisibility(R.id.podCaseText, View.INVISIBLE);
-                        notificationBig.setViewVisibility(R.id.leftPodUpdating, View.VISIBLE);
-                        notificationBig.setViewVisibility(R.id.rightPodUpdating, View.VISIBLE);
-                        notificationBig.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
-                        notificationSmall.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
-                        notificationSmall.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
-                        notificationSmall.setViewVisibility(R.id.podCaseText, View.INVISIBLE);
-                        notificationSmall.setViewVisibility(R.id.leftPodUpdating, View.VISIBLE);
-                        notificationSmall.setViewVisibility(R.id.rightPodUpdating, View.VISIBLE);
-                        notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
+                    }else if(System.currentTimeMillis()-startTime>10000){
+                        if(ENABLE_LOGGING){
+                            long timeElapsed = (System.currentTimeMillis()-startTime);
+                            Log.d(TAG,"Start Sleep!: "+timeElapsed);
+                        }
+                    }else if(System.currentTimeMillis()-startTime==300000){
+                        if(ENABLE_LOGGING){
+                            long timeElapsed = (System.currentTimeMillis()-startTime);
+                            Log.d(TAG,"Stop Sleep!: "+timeElapsed);
+                        }
+                        startTime = System.currentTimeMillis();
                     }
                     mNotifyManager.notify(1,mBuilder.build());
                 }
