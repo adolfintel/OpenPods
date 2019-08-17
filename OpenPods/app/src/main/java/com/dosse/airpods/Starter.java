@@ -3,6 +3,7 @@ package com.dosse.airpods;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 /**
@@ -11,6 +12,10 @@ import android.util.Log;
 public class Starter extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        context.startService(new Intent(context,PodsService.class));
+        startPodsService(context);
+    }
+
+    public static final void startPodsService(Context context){
+        context.startService(new Intent(context, PodsService.class));
     }
 }

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         }catch(Throwable t){}
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) ok=false;
         if(ok){
-            startService(new Intent(getApplicationContext(),PodsService.class));
+            Starter.startPodsService(getApplicationContext());
         }else{
             Intent i=new Intent(this,IntroActivity.class);
             startActivity(i);

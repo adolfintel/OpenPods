@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.ParcelUuid;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
@@ -201,17 +202,20 @@ public class PodsService extends Service {
     private static boolean maybeConnected =false;
     private class NotificationThread extends Thread{
         private boolean isLocationEnabled(){
-            LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
-            return service!=null&&service.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.P){
+                LocationManager service = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
+                return service!=null&&service.isLocationEnabled();
+            }else{
+                try {
+                    return Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE) != Settings.Secure.LOCATION_MODE_OFF;
+                }catch(Throwable t){
+                    return true;
+                }
+            }
         }
-        public void run(){
-            boolean notificationShowing=false;
-            RemoteViews notificationBig=new RemoteViews(getPackageName(),R.layout.status_big);
-            RemoteViews notificationSmall=new RemoteViews(getPackageName(),R.layout.status_small);
-            RemoteViews locationDisabledBig=new RemoteViews(getPackageName(),R.layout.location_disabled_big);
-            RemoteViews locationDisabledSmall=new RemoteViews(getPackageName(),R.layout.location_disabled_small);
-            NotificationManager mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationCompat.Builder mBuilder=new NotificationCompat.Builder(PodsService.this,TAG);
+        private NotificationManager mNotifyManager;
+        public NotificationThread(){
+            mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //on oreo and newer, create a notification channel
                 NotificationChannel channel = new NotificationChannel(TAG, TAG, NotificationManager.IMPORTANCE_LOW);
                 channel.enableVibration(false);
@@ -220,6 +224,14 @@ public class PodsService extends Service {
                 channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
                 mNotifyManager.createNotificationChannel(channel);
             }
+        }
+        public void run(){
+            boolean notificationShowing=false;
+            RemoteViews notificationBig=new RemoteViews(getPackageName(),R.layout.status_big);
+            RemoteViews notificationSmall=new RemoteViews(getPackageName(),R.layout.status_small);
+            RemoteViews locationDisabledBig=new RemoteViews(getPackageName(),R.layout.location_disabled_big);
+            RemoteViews locationDisabledSmall=new RemoteViews(getPackageName(),R.layout.location_disabled_small);
+            NotificationCompat.Builder mBuilder=new NotificationCompat.Builder(PodsService.this,TAG);
             mBuilder.setShowWhen(false);
             mBuilder.setOngoing(true);
             mBuilder.setSmallIcon(R.mipmap.notification_icon);
@@ -321,6 +333,9 @@ public class PodsService extends Service {
         intentFilter.addAction("android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED");
         intentFilter.addAction("android.bluetooth.a2dp.profile.action.PLAYING_STATE_CHANGED");
         intentFilter.addCategory("android.bluetooth.headset.intent.category.companyid.76");
+        try{
+            unregisterReceiver(btReceiver);
+        }catch (Throwable t){}
         btReceiver=new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -352,9 +367,6 @@ public class PodsService extends Service {
                 }
             }
         };
-        try{
-            unregisterReceiver(btReceiver);
-        }catch (Throwable t){}
         try{
             registerReceiver(btReceiver,intentFilter);
         }catch(Throwable t){}
@@ -417,6 +429,5 @@ public class PodsService extends Service {
         }
         return START_STICKY;
     }
-
 
 }
