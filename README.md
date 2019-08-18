@@ -17,7 +17,7 @@ The Free and Open Source app for monitoring your AirPods on Android
 * Apple AirPods 2nd gen
 
 ## DO NOT REUPLOAD TO GOOGLE PLAY
-**This app is violates Google Play policies and is designed to break if you try to fix that unless you really know what you're doing.** You have been warned. I do NOT want this app to be on Google Play.
+**This app violates Google Play policies and is designed to break if you try to fix that unless you really know what you're doing.** You have been warned. I do NOT want this app to be on Google Play.
 
 I had to do this because several people were redistributing modified proprietary versions of this app on Google Play in violation of the GNU GPLv3 license.
 
