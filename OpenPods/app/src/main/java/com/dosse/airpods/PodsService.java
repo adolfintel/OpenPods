@@ -312,7 +312,7 @@ public class PodsService extends Service {
         return null;
     }
 
-    private BroadcastReceiver btReceiver=null;
+    private BroadcastReceiver btReceiver=null, screenReceiver=null;
 
     /**
      * When the service is created, we register to get as many bluetooth and airpods related events as possible.
@@ -398,6 +398,29 @@ public class PodsService extends Service {
             }
         },BluetoothProfile.HEADSET);
         if(ba.isEnabled())startAirPodsScanner(); //if BT is already on when the app is started, start the scanner without waiting for an event to happen
+        //Screen on/off listener to suspend scanning when the screen is off, to save battery
+        try{
+            unregisterReceiver(screenReceiver);
+        }catch (Throwable t){}
+        IntentFilter screenIntentFilter = new IntentFilter();
+        screenIntentFilter.addAction(Intent.ACTION_SCREEN_ON);
+        screenIntentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        screenReceiver=new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if(intent.getAction()==Intent.ACTION_SCREEN_OFF){
+                    Log.d(TAG,"SCREEN OFF");
+                    stopAirPodsScanner();
+                }else if(intent.getAction()==Intent.ACTION_SCREEN_ON){
+                    Log.d(TAG,"SCREEN ON");
+                    BluetoothAdapter ba=((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
+                    if(ba.isEnabled())startAirPodsScanner();
+                }
+            }
+        };
+        try{
+            registerReceiver(screenReceiver,screenIntentFilter);
+        }catch(Throwable t){}
     }
 
     private boolean checkUUID(BluetoothDevice bluetoothDevice){
@@ -419,6 +442,7 @@ public class PodsService extends Service {
     public void onDestroy() {
         super.onDestroy();
         if(btReceiver!=null) unregisterReceiver(btReceiver);
+        if(screenReceiver!=null) unregisterReceiver(screenReceiver);
     }
 
     @Override
