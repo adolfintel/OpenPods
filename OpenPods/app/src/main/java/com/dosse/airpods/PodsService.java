@@ -77,14 +77,20 @@ public class PodsService extends Service {
     private static final long RECENT_BEACONS_MAX_T_NS=10000000000L; //10s
     private void startAirPodsScanner() {
         try {
+            Log.d(TAG,"START SCANNER");
             BluetoothManager btManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
             BluetoothAdapter btAdapter = btManager.getAdapter();
+            if(btScanner!=null){
+                btScanner.stopScan(new ScanCallback() {
+                    @Override
+                    public void onScanResult(int callbackType, ScanResult result) {}});
+            }
             btScanner = btAdapter.getBluetoothLeScanner();
             if (btAdapter == null) throw new Exception("No BT");
             if (!btAdapter.isEnabled()) throw new Exception("BT Off");
 
             List<ScanFilter> filters = getScanFilters();
-            ScanSettings settings = new ScanSettings.Builder().setScanMode(2).setReportDelay(2).build();
+            ScanSettings settings = new ScanSettings.Builder().setScanMode(0).setReportDelay(0).build();
 
             btScanner.startScan(
                     filters,
@@ -163,6 +169,7 @@ public class PodsService extends Service {
     private void stopAirPodsScanner(){
         try{
             if(btScanner!=null){
+                Log.d(TAG,"STOP SCANNER");
                 btScanner.stopScan(new ScanCallback() {
                     @Override
                     public void onScanResult(int callbackType, ScanResult result) {}});
