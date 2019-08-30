@@ -282,12 +282,12 @@ public class PodsService extends Service {
                         notificationSmall.setViewVisibility(R.id.leftPodUpdating, View.INVISIBLE);
                         notificationSmall.setViewVisibility(R.id.rightPodUpdating, View.INVISIBLE);
                         notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.INVISIBLE);
-                        notificationBig.setTextViewText(R.id.leftPodText, (leftStatus==10?"100%":leftStatus<10?((leftStatus+1)*10+"%"):"") + ((chargeL && leftStatus < 10) ? "+" : ""));
-                        notificationBig.setTextViewText(R.id.rightPodText, (rightStatus==10?"100%":rightStatus<10?((rightStatus+1)*10+"%"):"") + ((chargeR && rightStatus < 10) ? "+" : ""));
-                        notificationBig.setTextViewText(R.id.podCaseText, (caseStatus==10?"100%":caseStatus<10?((caseStatus+1)*10+"%"):"") + ((chargeCase && caseStatus < 10) ? "+" : ""));
-                        notificationSmall.setTextViewText(R.id.leftPodText, (leftStatus==10?"100%":leftStatus<10?((leftStatus+1)*10+"%"):"") + ((chargeL && leftStatus < 10) ? "+" : ""));
-                        notificationSmall.setTextViewText(R.id.rightPodText, (rightStatus==10?"100%":rightStatus<10?((rightStatus+1)*10+"%"):"") + ((chargeR && rightStatus < 10) ? "+" : ""));
-                        notificationSmall.setTextViewText(R.id.podCaseText, (caseStatus==10?"100%":caseStatus<10?((caseStatus+1)*10+"%"):"") + ((chargeCase && caseStatus < 10) ? "+" : ""));
+                        notificationBig.setTextViewText(R.id.leftPodText, (leftStatus==10?"100%":leftStatus<10?(((leftStatus)*10+5)+"%"):"") + ((chargeL && leftStatus < 10) ? "+" : ""));
+                        notificationBig.setTextViewText(R.id.rightPodText, (rightStatus==10?"100%":rightStatus<10?(((rightStatus)*10+5)+"%"):"") + ((chargeR && rightStatus < 10) ? "+" : ""));
+                        notificationBig.setTextViewText(R.id.podCaseText, (caseStatus==10?"100%":caseStatus<10?(((caseStatus)*10+5)+"%"):"") + ((chargeCase && caseStatus < 10) ? "+" : ""));
+                        notificationSmall.setTextViewText(R.id.leftPodText, (leftStatus==10?"100%":leftStatus<10?(((leftStatus)*10+5)+"%"):"") + ((chargeL && leftStatus < 10) ? "+" : ""));
+                        notificationSmall.setTextViewText(R.id.rightPodText, (rightStatus==10?"100%":rightStatus<10?(((rightStatus)*10+5)+"%"):"") + ((chargeR && rightStatus < 10) ? "+" : ""));
+                        notificationSmall.setTextViewText(R.id.podCaseText, (caseStatus==10?"100%":caseStatus<10?(((caseStatus)*10+5)+"%"):"") + ((chargeCase && caseStatus < 10) ? "+" : ""));
                     }else{
                         notificationBig.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
                         notificationBig.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
