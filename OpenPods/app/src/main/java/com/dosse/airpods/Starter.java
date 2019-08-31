@@ -18,4 +18,10 @@ public class Starter extends BroadcastReceiver {
     public static final void startPodsService(Context context){
         context.startService(new Intent(context, PodsService.class));
     }
+
+    public static final void restartPodsService(Context context){
+        context.stopService(new Intent(context, PodsService.class));
+        try{Thread.sleep(500);}catch(Throwable t){}
+        context.startService(new Intent(context, PodsService.class));
+    }
 }

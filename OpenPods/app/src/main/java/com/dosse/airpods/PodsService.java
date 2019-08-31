@@ -19,6 +19,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.IBinder;
@@ -78,19 +79,29 @@ public class PodsService extends Service {
     private void startAirPodsScanner() {
         try {
             if(ENABLE_LOGGING) Log.d(TAG,"START SCANNER");
+            SharedPreferences prefs=getSharedPreferences("openpods",MODE_PRIVATE);
             BluetoothManager btManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
             BluetoothAdapter btAdapter = btManager.getAdapter();
-            if(btScanner!=null){
-                btScanner.stopScan(new ScanCallback() {
-                    @Override
-                    public void onScanResult(int callbackType, ScanResult result) {}});
+            if(prefs.getBoolean("batterySaver",false)) {
+                if (btScanner != null) {
+                    btScanner.stopScan(new ScanCallback() {
+                        @Override
+                        public void onScanResult(int callbackType, ScanResult result) {
+                        }
+                    });
+                }
             }
             btScanner = btAdapter.getBluetoothLeScanner();
             if (btAdapter == null) throw new Exception("No BT");
             if (!btAdapter.isEnabled()) throw new Exception("BT Off");
 
             List<ScanFilter> filters = getScanFilters();
-            ScanSettings settings = new ScanSettings.Builder().setScanMode(0).setReportDelay(0).build();
+            ScanSettings settings;
+            if(prefs.getBoolean("batterySaver",false)) {
+                settings = new ScanSettings.Builder().setScanMode(0).setReportDelay(0).build();
+            }else{
+                settings = new ScanSettings.Builder().setScanMode(2).setReportDelay(2).build();
+            }
 
             btScanner.startScan(
                     filters,
@@ -409,25 +420,29 @@ public class PodsService extends Service {
         try{
             unregisterReceiver(screenReceiver);
         }catch (Throwable t){}
-        IntentFilter screenIntentFilter = new IntentFilter();
-        screenIntentFilter.addAction(Intent.ACTION_SCREEN_ON);
-        screenIntentFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        screenReceiver=new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if(intent.getAction()==Intent.ACTION_SCREEN_OFF){
-                    Log.d(TAG,"SCREEN OFF");
-                    stopAirPodsScanner();
-                }else if(intent.getAction()==Intent.ACTION_SCREEN_ON){
-                    Log.d(TAG,"SCREEN ON");
-                    BluetoothAdapter ba=((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
-                    if(ba.isEnabled())startAirPodsScanner();
+        SharedPreferences prefs=getSharedPreferences("openpods",MODE_PRIVATE);
+        if(prefs.getBoolean("batterySaver",false)) {
+            IntentFilter screenIntentFilter = new IntentFilter();
+            screenIntentFilter.addAction(Intent.ACTION_SCREEN_ON);
+            screenIntentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+            screenReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    if (intent.getAction() == Intent.ACTION_SCREEN_OFF) {
+                        if (ENABLE_LOGGING) Log.d(TAG, "SCREEN OFF");
+                        stopAirPodsScanner();
+                    } else if (intent.getAction() == Intent.ACTION_SCREEN_ON) {
+                        if (ENABLE_LOGGING) Log.d(TAG, "SCREEN ON");
+                        BluetoothAdapter ba = ((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
+                        if (ba.isEnabled()) startAirPodsScanner();
+                    }
                 }
+            };
+            try {
+                registerReceiver(screenReceiver, screenIntentFilter);
+            } catch (Throwable t) {
             }
-        };
-        try{
-            registerReceiver(screenReceiver,screenIntentFilter);
-        }catch(Throwable t){}
+        }
     }
 
     private boolean checkUUID(BluetoothDevice bluetoothDevice){

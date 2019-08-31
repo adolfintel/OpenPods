@@ -46,9 +46,9 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mainHide"
+            android:text="@string/settings"
             android:layout_below="@id/main2"
-            android:id="@+id/mainHide"
+            android:id="@+id/settings"
             android:layout_alignParentEnd="true"
             />
 

@@ -2,20 +2,17 @@ package com.dosse.airpods;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,17 +41,21 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         }
-        ((Button)(findViewById(R.id.mainHide))).setOnClickListener(new View.OnClickListener() {
+        ((Button)(findViewById(R.id.settings))).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { //hide app clicked
-                PackageManager p = getPackageManager();
-                p.setComponentEnabledSetting(new ComponentName(MainActivity.this,MainActivity.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-                Toast.makeText(getApplicationContext(),getString(R.string.hideClicked), Toast.LENGTH_LONG).show();
-                finish();
+            public void onClick(View view) { //settings clicked
+                Intent i=new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(i);
             }
         });
     }
 
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try{
+            getApplicationContext().openFileInput("hidden").close();
+            finish();
+        }catch (Throwable t){}
+    }
 }

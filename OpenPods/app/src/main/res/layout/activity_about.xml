@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity"
+    android:padding="12dp"
+    android:background="#FFFFFF"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:src="@drawable/logo"
+        android:id="@+id/logo"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- LEGAL DANGER ZONE
+        The following actions are a violation of the GNU GPLv3 License:
+         - Removing, hiding or altering the license or the code that displays it
+         - Removing or changing the link to the original source code or the code that displays it
+         - Removing or changing the donation link of the original project or the code that displays it
+
+         If you're forking the application, it MUST be made clear that your version is a fork, who the original author is, and all references to the original project and license must not be removed.
+         You are free to add links to your project, donations, whatever to this activity.
+
+         I am constantly monitoring all major Android app stores for violations. You have been warned.
+
+    -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/about1"
+        android:layout_below="@id/logo"
+        android:id="@+id/about1"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:textColor="#404040"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about1"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:id="@+id/buttons">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/website"
+            android:id="@+id/website"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/github"
+            android:id="@+id/github"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/donate"
+            android:id="@+id/donate"
+            android:backgroundTint="#EABF80"
+            />
+    </LinearLayout>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/buttons"
+        android:id="@+id/license"></WebView>
+
+    <!-- END OF LEGAL DANGER ZONE -->
+
+</RelativeLayout>
