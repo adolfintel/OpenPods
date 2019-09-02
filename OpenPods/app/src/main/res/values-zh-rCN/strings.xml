@@ -9,16 +9,16 @@
 
     <string name="noBtText">看起来您的设备并不支持蓝牙</string>
     <string name="locationDisabledText">您需要开启定位来让 OpenPods 读取状态</string>
-    <string name="supportedDevices">支持的设备:\n&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen</string>
+    <string name="supportedDevices">支持的设备:\n&#8226; Apple AirPods 一代\n&#8226; Apple AirPods 二代</string>
 
     <string name="hide">隐藏</string>
-    <string name="hideClicked">桌面图标很快就会隐藏掉</string>
-    <string name="batterySaver">Battery saver (Not recommended)</string>
-    <string name="batterySaver_desc">Enable this if Bluetooth uses a lot of battery</string>
-    <string name="about">About</string>
+    <string name="hideClicked">桌面图标很快就会被隐藏掉</string>
+    <string name="batterySaver">省电模式 (不推荐)</string>
+    <string name="batterySaver_desc">可在蓝牙消耗过多电量时开启</string>
+    <string name="about">关于</string>
 
-    <string name="about1">Developed by Federico Dossena</string>
-    <string name="website">Website</string>
+    <string name="about1">由 Federico Dossena 开发</string>
+    <string name="website">网站</string>
     <string name="github">Github</string>
-    <string name="donate">Donate</string>
+    <string name="donate">捐赠</string>
 </resources>
