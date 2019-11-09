@@ -1,0 +1,24 @@
+<resources>
+    <string name="intro1">Это приложение позволяет Вам проверить статус ваших AirPods на любом Android-устройстве</string>
+    <string name="intro2">Для работы нам нужно Bluetooth LE(местоположение) и разрешение на запуск в фоновом режиме</string>
+    <string name="introAllow">Разрешить</string>
+    <string name="main1">Приложение покажет уведомление, когда будет установлено соединение с AirPods</string>
+    <string name="main2">Вы можете скрыть это приложение, если хотите</string>
+    <string name="settings">Настройки</string>
+
+    <string name="noBtText">Похоже, что Bluetooth LE не поддерживается на Вашем устройстве</string>
+    <string name="locationDisabledText">Вам нужно включить местоположение, чтобы разрешить OpenPods читать статус</string>
+    <string name="supportedDevices">Поддерживаемые устройства:\n&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen</string>
+
+    <string name="hide">Скрыть приложение</string>
+    <string name="hideClicked">Иконка скоро исчезнет</string>
+    <string name="batterySaver">Режим энергосбережения (Не рекомендуется)</string>
+    <string name="batterySaver_desc">Включите, если Bluetooth использует слишком много ресурсов</string>
+    <string name="about">О приложении</string>
+
+    <string name="about1">Разработано Federico Dossena</string>
+    <string name="website">Сайт</string>
+    <string name="github">Github</string>
+    <string name="donate">Поддержать</string>
+
+</resources>
