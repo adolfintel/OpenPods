@@ -4,6 +4,7 @@
     android:layout_height="70dp"
     android:padding="12dp"
     android:gravity="center"
+    android:background="@color/white"
     >
 
     <TextView
@@ -11,6 +12,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/locationDisabledText"
+        android:textColor="@color/black"
         />
 
 </RelativeLayout>
