@@ -9,7 +9,7 @@
 
     <string name="noBtText">It looks like this device doesn\'t have Bluetooth LE</string>
     <string name="locationDisabledText">You need to turn on Location to allow OpenPods to read the status</string>
-    <string name="supportedDevices">Supported devices:\n&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen</string>
+    <string name="supportedDevices">Supported devices:\n&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
 
     <string name="hide">Hide app</string>
     <string name="hideClicked">The icon will disappear soon</string>

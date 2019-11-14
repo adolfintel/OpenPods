@@ -15,6 +15,7 @@ The Free and Open Source app for monitoring your AirPods on Android
 ## Supported devices
 * Apple AirPods 1st gen
 * Apple AirPods 2nd gen
+* Apple AirPods Pro
 
 ## DO NOT REUPLOAD TO GOOGLE PLAY
 **This app violates Google Play policies and is designed to break if you try to fix that unless you really know what you're doing.** You have been warned. I do NOT want this app to be on Google Play.

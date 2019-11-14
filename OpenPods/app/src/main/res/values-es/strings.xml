@@ -8,7 +8,7 @@
 
     <string name="noBtText">Parece que éste dispositivo no tiene Bluetooth LE.</string>
     <string name="locationDisabledText">Necesitas activar la Localización para permitir que OpenPods lea el estado.</string>
-    <string name="supportedDevices">Dispositivos compatibles:\n&#8226; Apple AirPods 1ª generación\n&#8226; Apple AirPods 2ª generación</string>
+    <string name="supportedDevices">Dispositivos compatibles:\n&#8226; Apple AirPods 1ª generación\n&#8226; Apple AirPods 2ª generación\n&#8226; Apple AirPods Pro</string>
 
     <string name="hide">Ocultar app</string>
     <string name="hideClicked">El icono desaparecerá pronto</string>
