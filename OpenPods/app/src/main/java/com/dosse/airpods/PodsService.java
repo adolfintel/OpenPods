@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * This is the class that does most of the work. It has 3 functions:
  * - Detect when AirPods are detected
- * - Receive beacons from AirPods and decode them (easier said than done thanks do google's autism)
+ * - Receive beacons from AirPods and decode them (easier said than done thanks to google's autism)
  * - Display the notification with the status
  *
  */
