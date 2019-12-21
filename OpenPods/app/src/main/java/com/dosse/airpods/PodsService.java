@@ -46,7 +46,8 @@ public class PodsService extends Service {
 
     private static BluetoothLeScanner btScanner;
     private static int leftStatus=15, rightStatus=15, caseStatus=15;
-    private static boolean chargeL=false, chargeR=false, chargeCase=false;
+    private static boolean chargeL=false, chargeR=false, chargeCase=false,
+            pro=false; //todo: replace boolean switch for support of multiple models
 
     /**
      * The following method (startAirPodsScanner) creates a bluetoth LE scanner.
@@ -70,6 +71,7 @@ public class PodsService extends Service {
      * - The 12th and 13th characters in the string represent the charge of the left and right pods. Under unknown circumstances, they are right and left instead (see isFlipped). Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
      * - The 15th character in the string represents the charge of the case. Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
      * - The 14th character in the string represents the "in charge" status. Bit 0 (LSB) is the left pod; Bit 1 is the right pod; Bit 2 is the case. Bit 3 might be case open/closed but I'm not sure and it's not used
+     * - The 7th character in the string represents the AirPods model (E=AirPods pro)
      *
      * After decoding a beacon, the status is written to leftStatus, rightStatus, caseStatus, chargeL, chargeR, chargeCase so that the NotificationThread can use the information
      *
@@ -151,6 +153,7 @@ public class PodsService extends Service {
                         chargeL = (chargeStatus & 0b00000001) != 0;
                         chargeR = (chargeStatus & 0b00000010) != 0;
                         chargeCase = (chargeStatus & 0b00000100) != 0;
+                        pro = a.charAt(7)=='E'; //detect if these are AirPods pro or regular ones
                         lastSeenConnected = System.currentTimeMillis();
                     } catch (Throwable t) {
                         if(ENABLE_LOGGING) Log.d(TAG, "" + t);
@@ -276,10 +279,16 @@ public class PodsService extends Service {
                     mBuilder.setCustomBigContentView(locationDisabledBig);
                 }
                 if(notificationShowing){
-                    if(ENABLE_LOGGING) Log.d(TAG,"Left: "+leftStatus+(chargeL?"+":"")+" "+"Right: "+rightStatus+(chargeR?"+":"")+" "+"Case: "+caseStatus+(chargeCase?"+":""));
-                    notificationBig.setImageViewResource(R.id.leftPodImg,leftStatus<=10?R.drawable.left_pod:R.drawable.left_pod_disconnected);
-                    notificationBig.setImageViewResource(R.id.rightPodImg,rightStatus<=10?R.drawable.right_pod:R.drawable.right_pod_disconnected);
-                    notificationBig.setImageViewResource(R.id.podCaseImg,caseStatus<=10?R.drawable.pod_case:R.drawable.pod_case_disconnected);
+                    if(ENABLE_LOGGING) Log.d(TAG,"Left: "+leftStatus+(chargeL?"+":"")+" "+"Right: "+rightStatus+(chargeR?"+":"")+" "+"Case: "+caseStatus+(chargeCase?"+":"")+" "+"Pro: "+pro);
+                    if(pro){
+                        notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_podpro : R.drawable.left_podpro_disconnected);
+                        notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_podpro : R.drawable.right_podpro_disconnected);
+                        notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
+                    }else {
+                        notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_pod : R.drawable.left_pod_disconnected);
+                        notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_pod : R.drawable.right_pod_disconnected);
+                        notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
+                    }
                     if(System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED) {
                         notificationBig.setViewVisibility(R.id.leftPodText, View.VISIBLE);
                         notificationBig.setViewVisibility(R.id.rightPodText, View.VISIBLE);
