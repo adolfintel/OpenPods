@@ -284,10 +284,16 @@ public class PodsService extends Service {
                         notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_podpro : R.drawable.left_podpro_disconnected);
                         notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_podpro : R.drawable.right_podpro_disconnected);
                         notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
+                        notificationSmall.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_podpro : R.drawable.left_podpro_disconnected);
+                        notificationSmall.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_podpro : R.drawable.right_podpro_disconnected);
+                        notificationSmall.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
                     }else {
                         notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_pod : R.drawable.left_pod_disconnected);
                         notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_pod : R.drawable.right_pod_disconnected);
                         notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
+                        notificationSmall.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_pod : R.drawable.left_pod_disconnected);
+                        notificationSmall.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_pod : R.drawable.right_pod_disconnected);
+                        notificationSmall.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
                     }
                     if(System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED) {
                         notificationBig.setViewVisibility(R.id.leftPodText, View.VISIBLE);
