@@ -16,7 +16,7 @@
         >
 
         <ImageView
-            android:layout_width="15dp"
+            android:layout_width="18dp"
             android:layout_height="30dp"
             android:src="@drawable/left_pod"
             android:id="@+id/leftPodImg"
@@ -53,7 +53,7 @@
         >
 
         <ImageView
-            android:layout_width="15dp"
+            android:layout_width="18dp"
             android:layout_height="30dp"
             android:src="@drawable/right_pod"
             android:id="@+id/rightPodImg"
@@ -90,7 +90,7 @@
         >
 
         <ImageView
-            android:layout_width="20dp"
+            android:layout_width="25dp"
             android:layout_height="30dp"
             android:src="@drawable/pod_case"
             android:id="@+id/podCaseImg"

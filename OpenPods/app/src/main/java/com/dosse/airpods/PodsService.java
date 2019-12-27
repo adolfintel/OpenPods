@@ -46,8 +46,9 @@ public class PodsService extends Service {
 
     private static BluetoothLeScanner btScanner;
     private static int leftStatus=15, rightStatus=15, caseStatus=15;
-    private static boolean chargeL=false, chargeR=false, chargeCase=false,
-            pro=false; //todo: replace boolean switch for support of multiple models
+    private static boolean chargeL=false, chargeR=false, chargeCase=false;
+    private static final String MODEL_AIRPODS_NORMAL="airpods12", MODEL_AIRPODS_PRO="airpodspro";
+    private static String model=MODEL_AIRPODS_NORMAL;
 
     /**
      * The following method (startAirPodsScanner) creates a bluetoth LE scanner.
@@ -153,7 +154,7 @@ public class PodsService extends Service {
                         chargeL = (chargeStatus & 0b00000001) != 0;
                         chargeR = (chargeStatus & 0b00000010) != 0;
                         chargeCase = (chargeStatus & 0b00000100) != 0;
-                        pro = a.charAt(7)=='E'; //detect if these are AirPods pro or regular ones
+                        if(a.charAt(7)=='E') model = MODEL_AIRPODS_PRO; else model = MODEL_AIRPODS_NORMAL; //detect if these are AirPods pro or regular ones
                         lastSeenConnected = System.currentTimeMillis();
                     } catch (Throwable t) {
                         if(ENABLE_LOGGING) Log.d(TAG, "" + t);
@@ -279,21 +280,21 @@ public class PodsService extends Service {
                     mBuilder.setCustomBigContentView(locationDisabledBig);
                 }
                 if(notificationShowing){
-                    if(ENABLE_LOGGING) Log.d(TAG,"Left: "+leftStatus+(chargeL?"+":"")+" "+"Right: "+rightStatus+(chargeR?"+":"")+" "+"Case: "+caseStatus+(chargeCase?"+":"")+" "+"Pro: "+pro);
-                    if(pro){
-                        notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_podpro : R.drawable.left_podpro_disconnected);
-                        notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_podpro : R.drawable.right_podpro_disconnected);
-                        notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
-                        notificationSmall.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_podpro : R.drawable.left_podpro_disconnected);
-                        notificationSmall.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_podpro : R.drawable.right_podpro_disconnected);
-                        notificationSmall.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
-                    }else {
+                    if(ENABLE_LOGGING) Log.d(TAG,"Left: "+leftStatus+(chargeL?"+":"")+" "+"Right: "+rightStatus+(chargeR?"+":"")+" "+"Case: "+caseStatus+(chargeCase?"+":"")+" "+"Model: "+model);
+                    if(model.equals(MODEL_AIRPODS_NORMAL)){
                         notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_pod : R.drawable.left_pod_disconnected);
                         notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_pod : R.drawable.right_pod_disconnected);
                         notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
                         notificationSmall.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_pod : R.drawable.left_pod_disconnected);
                         notificationSmall.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_pod : R.drawable.right_pod_disconnected);
                         notificationSmall.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
+                    }else if(model.equals(MODEL_AIRPODS_PRO)){
+                        notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_podpro : R.drawable.left_podpro_disconnected);
+                        notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_podpro : R.drawable.right_podpro_disconnected);
+                        notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
+                        notificationSmall.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_podpro : R.drawable.left_podpro_disconnected);
+                        notificationSmall.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_podpro : R.drawable.right_podpro_disconnected);
+                        notificationSmall.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
                     }
                     if(System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED) {
                         notificationBig.setViewVisibility(R.id.leftPodText, View.VISIBLE);
