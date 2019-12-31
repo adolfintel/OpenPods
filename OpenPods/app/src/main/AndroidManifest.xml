@@ -18,9 +18,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AboutActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".SettingsActivity"/>
+        <activity
+            android:name=".AboutActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SettingsActivity" />
         <activity
             android:name=".NoBTActivity"
             android:label="@string/app_name" />

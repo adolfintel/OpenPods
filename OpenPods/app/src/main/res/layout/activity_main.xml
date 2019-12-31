@@ -3,56 +3,50 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    >
+    android:padding="@dimen/layout_padding">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_height"
+        android:src="@drawable/tick"
+        android:layout_alignParentTop="true"
+        android:id="@+id/tick"
+        android:layout_marginBottom="@dimen/item_margin"
+        android:contentDescription="@string/content_tick"/>
+
+    <TextView
+        android:id="@+id/main1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:gravity="center"
-        >
+        android:layout_marginBottom="@dimen/item_margin"
+        android:text="@string/main1"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:layout_below="@id/tick" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:src="@drawable/tick"
-            android:layout_alignParentTop="true"
-            android:id="@+id/tick"
-            android:layout_marginBottom="24dp"
-            />
-        <TextView
-            android:id="@+id/main1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="@string/main1"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-            android:layout_below="@id/tick"
-            />
-        <TextView
-            android:id="@+id/supportedDevices"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
-            android:layout_below="@id/main1"
-            android:text="@string/supportedDevices" />
-        <TextView
-            android:id="@+id/main2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_below="@id/supportedDevices"
-            android:text="@string/main2" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/settings"
-            android:layout_below="@id/main2"
-            android:id="@+id/settings"
-            android:layout_alignParentEnd="true"
-            />
+    <TextView
+        android:id="@+id/supportedDevices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_margin"
+        android:layout_below="@id/main1"
+        android:text="@string/supportedDevices" />
 
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/main2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/item_margin"
+        android:layout_below="@id/supportedDevices"
+        android:text="@string/main2" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="@string/settings"
+        android:layout_below="@id/main2"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/settings"
+        android:backgroundTint="@color/colorAccent" />
 </RelativeLayout>
 

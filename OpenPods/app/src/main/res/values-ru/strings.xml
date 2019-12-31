@@ -8,7 +8,7 @@
 
     <string name="noBtText">Похоже, что Bluetooth LE не поддерживается на Вашем устройстве</string>
     <string name="locationDisabledText">Вам нужно включить местоположение, чтобы разрешить OpenPods читать статус</string>
-    <string name="supportedDevices">Поддерживаемые устройства:\n&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevices">Поддерживаемые устройства:\n\n&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
 
     <string name="hide">Скрыть приложение</string>
     <string name="hideClicked">Иконка скоро исчезнет</string>

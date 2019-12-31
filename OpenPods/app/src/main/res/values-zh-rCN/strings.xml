@@ -9,7 +9,7 @@
 
     <string name="noBtText">看起来您的设备并不支持蓝牙</string>
     <string name="locationDisabledText">您需要开启定位来让 OpenPods 读取状态</string>
-    <string name="supportedDevices">支持的设备:\n&#8226; Apple AirPods 一代\n&#8226; Apple AirPods 二代\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevices">支持的设备:\n\n&#8226; Apple AirPods 一代\n&#8226; Apple AirPods 二代\n&#8226; Apple AirPods Pro</string>
 
     <string name="hide">隐藏</string>
     <string name="hideClicked">桌面图标很快就会被隐藏掉</string>
