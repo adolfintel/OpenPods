@@ -3,17 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:padding="12dp"
-    android:gravity="center"
-    >
-
+    android:gravity="center">
 
     <RelativeLayout
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:id="@+id/leftPod"
-        >
+        android:id="@+id/leftPod">
 
         <ImageView
             android:layout_width="40dp"
@@ -22,8 +19,7 @@
             android:id="@+id/leftPodImg"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="6dp"
-            android:contentDescription="@string/content_leftPod"
-            />
+            android:contentDescription="@string/content_leftPod" />
 
         <TextView
             android:layout_width="match_parent"
@@ -32,8 +28,7 @@
             android:gravity="center"
             android:text="100%+"
             android:id="@+id/leftPodText"
-            android:textColor="@color/black"
-            />
+            android:textColor="?android:attr/textColorPrimary" />
 
         <ProgressBar
             android:id="@+id/leftPodUpdating"
@@ -42,9 +37,7 @@
             android:layout_height="18dp"
             android:layout_below="@id/leftPodImg"
             android:gravity="center"
-            android:indeterminate="true"
-             />
-
+            android:indeterminate="true" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -61,8 +54,7 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/right_pod"
             android:layout_marginBottom="6dp"
-            android:contentDescription="@string/content_rightPod"
-            />
+            android:contentDescription="@string/content_rightPod" />
 
         <TextView
             android:layout_width="match_parent"
@@ -71,8 +63,7 @@
             android:gravity="center"
             android:text="100%+"
             android:id="@+id/rightPodText"
-            android:textColor="@color/black"
-            />
+            android:textColor="?android:attr/textColorPrimary" />
 
         <ProgressBar
             android:id="@+id/rightPodUpdating"
@@ -81,9 +72,7 @@
             android:layout_height="18dp"
             android:layout_below="@id/rightPodImg"
             android:gravity="center"
-            android:indeterminate="true"
-            />
-
+            android:indeterminate="true" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -99,8 +88,7 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/pod_case"
             android:layout_marginBottom="6dp"
-            android:contentDescription="@string/content_podCase"
-            />
+            android:contentDescription="@string/content_podCase" />
 
         <TextView
             android:layout_width="match_parent"
@@ -109,8 +97,7 @@
             android:gravity="center"
             android:text="100%+"
             android:id="@+id/podCaseText"
-            android:textColor="@color/black"
-            />
+            android:textColor="?android:attr/textColorPrimary" />
 
         <ProgressBar
             android:id="@+id/podCaseUpdating"
@@ -119,9 +106,6 @@
             android:layout_height="18dp"
             android:layout_below="@id/podCaseImg"
             android:gravity="center"
-            android:indeterminate="true"
-            />
-
+            android:indeterminate="true" />
     </RelativeLayout>
-
 </RelativeLayout>
