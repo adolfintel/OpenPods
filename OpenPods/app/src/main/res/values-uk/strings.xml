@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">OpenPods</string>
     <string name="intro1">Цей додаток дозволяє Вам перевірити статус ваших AirPods на будь-якому Android-пристрої</string>
     <string name="intro2">Для роботи ми використовуємо Bluetooth LE (місцезнаходження) та дозвіл на роботу додатку в фоновому режимі</string>
     <string name="introAllow">Дозволити</string>

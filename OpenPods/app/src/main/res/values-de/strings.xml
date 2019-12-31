@@ -21,4 +21,12 @@
     <string name="website">Webseite</string>
     <string name="github">Github</string>
     <string name="donate">Spenden</string>
+
+    <string name="content_logo">Ein Bild des Logos der App</string>
+    <string name="content_introImg1">Ein Bild des linken AirPods</string>
+    <string name="content_tick">Ein Bild eines Häkchen</string>
+    <string name="content_x">Ein Bild des Buchstaben X</string>
+    <string name="content_leftPod">Ein Bild des linken AirPods</string>
+    <string name="content_rightPod">Ein Bild des rechten AirPods</string>
+    <string name="content_podCase">Ein Bild des AirPods-Gehäuses</string>
 </resources>
