@@ -21,4 +21,6 @@
     <string name="website">网站</string>
     <string name="github">Github</string>
     <string name="donate">捐赠</string>
+
+    <string name="action_bar_up_description">转到上一层级</string>
 </resources>

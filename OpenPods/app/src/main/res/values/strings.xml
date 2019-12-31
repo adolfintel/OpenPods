@@ -29,4 +29,6 @@
     <string name="content_leftPod">A picture of the left AirPod</string>
     <string name="content_rightPod">A picture of the right AirPod</string>
     <string name="content_podCase">A picture of the AirPods case</string>
+
+    <string name="action_bar_up_description">Navigate up</string>
 </resources>

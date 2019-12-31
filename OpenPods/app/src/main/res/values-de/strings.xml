@@ -29,4 +29,6 @@
     <string name="content_leftPod">Ein Bild des linken AirPods</string>
     <string name="content_rightPod">Ein Bild des rechten AirPods</string>
     <string name="content_podCase">Ein Bild des AirPods-Gehäuses</string>
+
+    <string name="action_bar_up_description">Nach oben</string>
 </resources>
