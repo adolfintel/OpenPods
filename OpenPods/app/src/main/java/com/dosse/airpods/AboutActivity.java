@@ -41,7 +41,7 @@ public class AboutActivity extends AppCompatActivity {
         ((Button)(findViewById(R.id.website))).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://fdossena.com/?p=openPods/i.frag")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://fdossena.com/?p=openPods/index.frag")));
             }
         });
         ((Button)(findViewById(R.id.donate))).setOnClickListener(new View.OnClickListener() {
