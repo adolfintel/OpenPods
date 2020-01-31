@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name" translatable="false">OpenPods</string>
+    <string name="intro1">Met deze app kun je de status van je AirPods bekijken op elk Android-apparaat</string>
+    <string name="intro2">De app heeft toegang nodig tot Bluetooth LE (locatie), en moet op de achtergrond worden uitgevoerd</string>
+    <string name="introAllow">Toestaan</string>
+    <string name="main1">De app toont een melding zodra je je AirPods verbindt</string>
+    <string name="main2">Als je wilt, kun je deze app verbergen</string>
+    <string name="settings">Instellingen</string>
+
+    <string name="noBtText">Het lijkt erop dat dit apparaat niet beschikt over Bluetooth LE</string>
+    <string name="locationDisabledText">Schakel je locatie in zodat OpenPods de status kan uitlezen</string>
+    <string name="supportedDevices">Ondersteunde apparaten:\n&#8226; Apple AirPods 1e gen.\n&#8226; Apple AirPods 2e gen.\n&#8226; Apple AirPods Pro</string>
+
+    <string name="hide">App verbergen</string>
+    <string name="hideClicked">Het pictogram verdwijnt spoedig</string>
+    <string name="batterySaver">Accu-optimalisatie (niet aanbevolen)</string>
+    <string name="batterySaver_desc">Schakel dit in als je merkt dat het accuverbruik hoger is door Bluetooth</string>
+    <string name="about">Over</string>
+
+    <string name="about1">Gemaakt door Federico Dossena</string>
+    <string name="website">Website</string>
+    <string name="github">GitHub</string>
+    <string name="donate">Doneren</string>
+
+</resources>
