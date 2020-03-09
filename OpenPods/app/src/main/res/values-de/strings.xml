@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="intro1">Diese App erlaubt es dir, den Status deiner AirPods auf einem beliebigen Android-Gerät zu überprüfen</string>
-    <string name="intro2">Um zu funktionieren, benötigen wir die Berechtigungen um Bluetooth LE (Standort) zu benutzen und im Hintergrund zu laufen</string>
+    <string name="intro2">Für den Dienst benötigen wir die Berechtigung zur Verwendung von Bluetooth LE (Standort) und die Berechtigung zum Betrieb im Hintergrund</string>
     <string name="introAllow">Erlauben</string>
-    <string name="main1">Die App zeigt eine Benachrichtigung wenn deine AirPods verbunden sind</string>
-    <string name="main2">Du kannst die App jetzt verstecken wenn du möchtest</string>
+    <string name="main1">Die App zeigt eine Benachrichtigung, wenn deine AirPods verbunden sind</string>
+    <string name="main2">Du kannst die App jetzt verstecken, wenn du möchtest</string>
     <string name="settings">Einstellungen</string>
 
-    <string name="noBtText">Es sieht so aus als hätte dieses Gerät kein Bluetooth LE</string>
+    <string name="noBtText">Es sieht so aus, als hätte dieses Gerät kein Bluetooth LE</string>
     <string name="locationDisabledText">Du musst Standortinformationen aktivieren, damit OpenPods den Status deiner AirPods auslesen kann</string>
-    <string name="supportedDevices">Unterstützte Geräte:\n&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevices">Unterstützte Geräte:\n&#8226; Apple AirPods 1\n&#8226; Apple AirPods 2\n&#8226; Apple AirPods Pro</string>
 
     <string name="hide">App verstecken</string>
     <string name="hideClicked">Das Icon wird bald verschwinden</string>
     <string name="batterySaver">Stromsparmodus (nicht empfohlen)</string>
-    <string name="batterySaver_desc">Aktiviere diesen Modus wenn Bluetooth zu viel Batterieleistung erfordert</string>
+    <string name="batterySaver_desc">Aktiviere diesen Modus, wenn Bluetooth zu viel Batterieleistung erfordert</string>
     <string name="about">Über</string>
 
     <string name="about1">Entwickelt von Federico Dossena</string>
