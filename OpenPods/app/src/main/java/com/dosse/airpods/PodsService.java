@@ -272,7 +272,7 @@ public class PodsService extends Service {
                     }
                     mNotifyManager.cancel(1);
                 }
-                if(isLocationEnabled()) {
+                if(isLocationEnabled()||Build.VERSION.SDK_INT>=29) { //apparently this restriction was removed in android Q
                     mBuilder.setCustomContentView(notificationSmall);
                     mBuilder.setCustomBigContentView(notificationBig);
                 }else{

@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //check if Bluetooth LE is available on this device. If not, show an error
         BluetoothAdapter btAdapter=((BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE)).getAdapter();
-        if(btAdapter==null||(btAdapter.isEnabled()&&btAdapter.getBluetoothLeScanner()==null)){
+        if(btAdapter==null||(btAdapter.isEnabled()&&btAdapter.getBluetoothLeScanner()==null)||(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE))){
             Intent i=new Intent(this,NoBTActivity.class);
             startActivity(i);
             finish();
