@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/leftPodImg"
             android:gravity="center"
-            android:text="100%+"
             android:textColor="@color/black" />
 
         <ProgressBar
@@ -64,7 +63,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/rightPodImg"
             android:gravity="center"
-            android:text="100%+"
             android:textColor="@color/black" />
 
         <ProgressBar
@@ -99,7 +97,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/podCaseImg"
             android:gravity="center"
-            android:text="100%+"
             android:textColor="@color/black" />
 
         <ProgressBar

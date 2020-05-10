@@ -25,10 +25,8 @@
             android:id="@+id/leftPodText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
             android:layout_toRightOf="@id/leftPodImg"
             android:gravity="center_vertical"
-            android:text="100%+"
             android:textColor="@color/black" />
 
         <ProgressBar
@@ -58,10 +56,8 @@
             android:id="@+id/rightPodText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
             android:layout_toRightOf="@id/rightPodImg"
             android:gravity="center_vertical"
-            android:text="100%+"
             android:textColor="@color/black" />
 
         <ProgressBar
@@ -91,10 +87,8 @@
             android:id="@+id/podCaseText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
             android:layout_toRightOf="@id/podCaseImg"
             android:gravity="center_vertical"
-            android:text="100%+"
             android:textColor="@color/black" />
 
         <ProgressBar

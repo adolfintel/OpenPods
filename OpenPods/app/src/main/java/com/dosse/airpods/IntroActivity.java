@@ -1,14 +1,12 @@
 package com.dosse.airpods;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.provider.Settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -34,7 +32,8 @@ public class IntroActivity extends AppCompatActivity {
                 if (!Objects.requireNonNull(getSystemService(PowerManager.class)).isIgnoringBatteryOptimizations(getPackageName())) {
                     Intent intent = new Intent();
                     getSystemService(Context.POWER_SERVICE);
-                    intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                    /* This should not be used as it violates the Play Store Content Policy (https://developer.android.com/training/monitoring-device-state/doze-standby.html) */
+                    // intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
                     intent.setData(Uri.parse("package:" + getPackageName()));
                     startActivity(intent);
                 }
