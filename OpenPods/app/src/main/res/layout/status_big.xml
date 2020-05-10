@@ -1,39 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
-    android:gravity="center"
     android:background="@color/white"
-    >
-
+    android:gravity="center"
+    android:padding="12dp"
+    tools:ignore="RtlHardcoded,ContentDescription">
 
     <RelativeLayout
+        android:id="@+id/leftPod"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:id="@+id/leftPod"
-        >
+        android:layout_alignParentTop="true">
 
         <ImageView
+            android:id="@+id/leftPodImg"
             android:layout_width="40dp"
             android:layout_height="90dp"
-            android:src="@drawable/left_pod"
-            android:id="@+id/leftPodImg"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="6dp"
-            />
+            android:src="@drawable/left_pod" />
 
         <TextView
+            android:id="@+id/leftPodText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/leftPodImg"
             android:gravity="center"
             android:text="100%+"
-            android:id="@+id/leftPodText"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black" />
 
         <ProgressBar
             android:id="@+id/leftPodUpdating"
@@ -42,8 +39,7 @@
             android:layout_height="18dp"
             android:layout_below="@id/leftPodImg"
             android:gravity="center"
-            android:indeterminate="true"
-             />
+            android:indeterminate="true" />
 
     </RelativeLayout>
 
@@ -59,19 +55,17 @@
             android:layout_width="40dp"
             android:layout_height="90dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/right_pod"
             android:layout_marginBottom="6dp"
-            />
+            android:src="@drawable/right_pod" />
 
         <TextView
+            android:id="@+id/rightPodText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rightPodImg"
             android:gravity="center"
             android:text="100%+"
-            android:id="@+id/rightPodText"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black" />
 
         <ProgressBar
             android:id="@+id/rightPodUpdating"
@@ -80,8 +74,7 @@
             android:layout_height="18dp"
             android:layout_below="@id/rightPodImg"
             android:gravity="center"
-            android:indeterminate="true"
-            />
+            android:indeterminate="true" />
 
     </RelativeLayout>
 
@@ -97,19 +90,17 @@
             android:layout_width="80dp"
             android:layout_height="90dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/pod_case"
             android:layout_marginBottom="6dp"
-            />
+            android:src="@drawable/pod_case" />
 
         <TextView
+            android:id="@+id/podCaseText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/podCaseImg"
             android:gravity="center"
             android:text="100%+"
-            android:id="@+id/podCaseText"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black" />
 
         <ProgressBar
             android:id="@+id/podCaseUpdating"
@@ -118,8 +109,7 @@
             android:layout_height="18dp"
             android:layout_below="@id/podCaseImg"
             android:gravity="center"
-            android:indeterminate="true"
-            />
+            android:indeterminate="true" />
 
     </RelativeLayout>
 

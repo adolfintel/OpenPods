@@ -3,17 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutActivity"
-    android:padding="12dp"
     android:background="#FFFFFF"
-    >
+    android:padding="12dp"
+    tools:context=".AboutActivity"
+    tools:ignore="ContentDescription,ButtonStyle">
 
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:src="@drawable/logo"
-        android:id="@+id/logo"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/logo" />
 
     <!-- LEGAL DANGER ZONE
         The following actions are a violation of the GNU GPLv3 License:
@@ -29,48 +29,50 @@
     -->
 
     <TextView
+        android:id="@+id/about1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/about1"
         android:layout_below="@id/logo"
-        android:id="@+id/about1"
-        android:gravity="center"
         android:layout_marginBottom="16dp"
-        android:textColor="#404040"
-        />
+        android:gravity="center"
+        android:text="@string/about1"
+        android:textColor="#404040" />
 
     <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/about1"
-        android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"
-        android:id="@+id/buttons">
+        android:gravity="center">
+
         <Button
+            android:id="@+id/website"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/website"
-            android:id="@+id/website"/>
+            android:text="@string/website" />
+
         <Button
+            android:id="@+id/github"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/github"
-            android:id="@+id/github"/>
+            android:text="@string/github" />
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/donate"
             android:id="@+id/donate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:backgroundTint="#EABF80"
-            />
+            android:text="@string/donate" />
+
     </LinearLayout>
 
     <WebView
+        android:id="@+id/license"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/buttons"
-        android:id="@+id/license"></WebView>
+        android:layout_below="@id/buttons" />
 
     <!-- END OF LEGAL DANGER ZONE -->
 

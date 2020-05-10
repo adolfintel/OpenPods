@@ -1,69 +1,78 @@
 package com.dosse.airpods;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class IntroActivity extends AppCompatActivity {
 
-    private Timer t;
+    private Timer timer;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        ((Button)findViewById(R.id.allowBtn)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { //allow button clicked, ask for permissions
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1); //location (for BLE)
-                try { //run in background
-                    if(!getSystemService(PowerManager.class).isIgnoringBatteryOptimizations(getPackageName())) {
-                        Intent intent = new Intent();
-                        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-                        intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                        intent.setData(Uri.parse("package:" + getPackageName()));
-                        startActivity(intent);
-                    }
-                } catch (Throwable t) {
+
+        // Allow button clicked, ask for permissions
+        findViewById(R.id.allowBtn).setOnClickListener(view -> {
+            requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION}, 1); // Location (for BLE)
+            // Run in background
+            try {
+                if (!Objects.requireNonNull(getSystemService(PowerManager.class)).isIgnoringBatteryOptimizations(getPackageName())) {
+                    Intent intent = new Intent();
+                    getSystemService(Context.POWER_SERVICE);
+                    intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                    intent.setData(Uri.parse("package:" + getPackageName()));
+                    startActivity(intent);
                 }
-            }
+            } catch (Throwable ignored) { }
         });
-        //wait for permissions to be granted. When they are granted, go to MainActivity
-        t= new Timer();
-        t.scheduleAtFixedRate(new TimerTask() {
+
+        // Wait for permissions to be granted.
+        // When they are granted, go to MainActivity.
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void run() {
-                boolean ok=true;
+            public void run () {
+                boolean ok = true;
+
                 try {
-                    if (!getSystemService(PowerManager.class).isIgnoringBatteryOptimizations(getPackageName())) ok = false;
-                }catch(Throwable t){}
-                if (ContextCompat.checkSelfPermission(IntroActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) ok=false;
-                if(ok){
-                    t.cancel();
-                    Intent i=new Intent(IntroActivity.this,MainActivity.class);
-                    startActivity(i);
+                    if (!Objects.requireNonNull(getSystemService(PowerManager.class)).isIgnoringBatteryOptimizations(getPackageName()))
+                        ok = false;
+                } catch (Throwable ignored) { }
+
+                if (ContextCompat.checkSelfPermission(IntroActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                    ok = false;
+
+                if (ok) {
+                    timer.cancel();
+                    startActivity(new Intent(IntroActivity.this, MainActivity.class));
                     finish();
                 }
             }
-        },0,100);
+        }, 0, 100);
 
     }
 
+    // Activity destroyed (or screen rotated). destroy the timer too
     @Override
-    protected void onDestroy() { //activity destroyed (or screen rotated). destroy the timer too
+    protected void onDestroy () {
         super.onDestroy();
-        if(t!=null) t.cancel();
+        if (timer != null)
+            timer.cancel();
     }
+
 }
