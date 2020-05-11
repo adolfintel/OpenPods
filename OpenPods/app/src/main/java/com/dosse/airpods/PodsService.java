@@ -61,7 +61,8 @@ public class PodsService extends Service {
      * - Decode the beacon to get the status
      * <p>
      * On a normal OS, we would use the bluetooth address of the device to filter out beacons from other devices.
-     * UNFORTUNATELY, someone at google was so concerned about privacy (yea, as if they give a shit) that he decided it was a good idea to not allow access to the bluetooth address of incoming BLE beacons. As a result, we have no reliable way to make sure that the beacon comes from YOUR airpods and not the guy sitting next to you on the bus.
+     * UNFORTUNATELY, someone at google was so concerned about privacy (yea, as if they give a shit) that he decided it was a good idea to not allow access to the bluetooth address of incoming BLE beacons.
+     * As a result, we have no reliable way to make sure that the beacon comes from YOUR airpods and not the guy sitting next to you on the bus.
      * What we did to workaround this issue is this:
      * - When a beacon arrives that looks like a pair of AirPods, look at the other beacons received in the last 10 seconds and get the strongest one
      * - If the strongest beacon's fake address is the same as this, use this beacon; otherwise use the strongest beacon

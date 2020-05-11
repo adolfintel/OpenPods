@@ -11,15 +11,16 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AboutActivity extends AppCompatActivity {
 
     final String githubURL = "https://github.com/adolfintel/OpenPods";
-    final String websiteURL = "https://fdossena.com/?p=openPods/i.frag";
+    final String websiteURL = "https://fdossena.com/?p=openPods/index.frag";
     final String donateURL = "https://paypal.me/sineisochronic";
 
+    @SuppressWarnings("DanglingJavadoc")
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        /*
+        /**
          * LEGAL DANGER ZONE!
          *
          * The following actions are a violation of the GNU GPLv3 License:
