@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro1">אפליקציה זו מאפשרת לך לבדוק את המצב של האיירפודס שלך מכל מכשיר אנדרואיד</string>
+    <string name="intro2">כדי שאפליקציה זו תוכל לדפקד, הינך צריך לאפשר גישה ל-Bluetooth LE (מיקום) ולריצה בקרע</string>
+    <string name="introAllow">אפשר</string>
+    <string name="main_description">האפליקציה תשלח התראה כאשר האיירפודס מחוברות</string>
+    <string name="hide_message">אתה יכול להסתיר אפליקציה זו</string>
+    <string name="settings">הגדרות</string>
+
+    <string name="noBtText">נראה כי מכשיר זה אינו תומך ב-Bluetooth LE</string>
+    <string name="locationDisabledText">אתה צריך להפעיל שיתוף מקום בכדי לאפשר ל-OpenPods לקרוא את סטטוס האוזניות</string>
+    <string name="supportedDevicesTitle"><u>מכשירים נתמכים</u></string>
+    <string name="supportedDevicesItems">&#8226; אפל איירפודס דור ראשון \n&#8226; אפל איירפודס דור שני \n&#8226; אפל איירפודס פרו </string>
+
+    <string name="hide">הסתר אפליקציה</string>
+    <string name="hideClicked">האייקון יעלם בקרוב</string>
+    <string name="batterySaver">חיסכון בסוללה (לא מומלץ)</string>
+    <string name="batterySaver_desc">הפעל זאת אם Bluetooth משתמש בהרבה סוללה</string>
+    <string name="about">אודות</string>
+
+    <string name="about1">פותח על ידי פדריקו דוסנה</string>
+    <string name="website">אתר המפתח</string>
+    <string name="github">Github</string>
+    <string name="donate">תרומהS</string>
+</resources>
