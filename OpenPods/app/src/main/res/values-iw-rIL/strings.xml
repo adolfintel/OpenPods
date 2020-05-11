@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="intro1">אפליקציה זו מאפשרת לך לבדוק את המצב של האיירפודס שלך מכל מכשיר אנדרואיד</string>
-    <string name="intro2">כדי שאפליקציה זו תוכל לדפקד, הינך צריך לאפשר גישה ל-Bluetooth LE (מיקום) ולריצה בקרע</string>
+    <string name="intro2">כדי שאפליקציה זו תוכל לדפקד, הינך צריך לאפשר גישה ל-Bluetooth LE (מיקום) ולריצה ברקע</string>
     <string name="introAllow">אפשר</string>
     <string name="main_description">האפליקציה תשלח התראה כאשר האיירפודס מחוברות</string>
     <string name="hide_message">אתה יכול להסתיר אפליקציה זו</string>
