@@ -280,6 +280,10 @@ public class PodsService extends Service {
 
     private class NotificationThread extends Thread {
 
+        private boolean getRunningLoop (int test) {
+            return getApplicationContext().getApplicationInfo().targetSdkVersion == test;
+        }
+
         private boolean isLocationEnabled () {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 getApplicationContext();
@@ -313,6 +317,7 @@ public class PodsService extends Service {
 
         public void run () {
             boolean notificationShowing = false;
+            boolean loopRunning = getRunningLoop(29);
 
             RemoteViews notificationBig = new RemoteViews(getPackageName(), R.layout.status_big);
             RemoteViews notificationSmall = new RemoteViews(getPackageName(), R.layout.status_small);
@@ -324,14 +329,7 @@ public class PodsService extends Service {
             mBuilder.setOngoing(true);
             mBuilder.setSmallIcon(R.mipmap.notification_icon);
 
-            /*
-            // Adding a pending intent that would open the app if the user clicks on the notification.
-            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
-            mBuilder.setContentIntent(pendingIntent);
-             */
-
-            //noinspection InfiniteLoopStatement
-            for (; ; ) {
+            while (loopRunning) {
                 /*&&System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED*/
                 if (maybeConnected && !(leftStatus == 15 && rightStatus == 15 && caseStatus == 15)) {
                     if (!notificationShowing) {
@@ -364,35 +362,35 @@ public class PodsService extends Service {
                         Log.d(TAG, "Left: " + leftStatus + (chargeL ? "+" : "") + " Right: " + rightStatus + (chargeR ? "+" : "") + " Case: " + caseStatus + (chargeCase ? "+" : "") + " Model: " + model);
 
                     if (model.equals(MODEL_AIRPODS_NORMAL)) {
-                        notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_pod : R.drawable.left_pod_disconnected);
-                        notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_pod : R.drawable.right_pod_disconnected);
-                        notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
-                        notificationSmall.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_pod : R.drawable.left_pod_disconnected);
-                        notificationSmall.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_pod : R.drawable.right_pod_disconnected);
-                        notificationSmall.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
-                    } else if (model.equals(MODEL_AIRPODS_PRO)) {
                         notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_podpro : R.drawable.left_podpro_disconnected);
                         notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_podpro : R.drawable.right_podpro_disconnected);
                         notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
                         notificationSmall.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_podpro : R.drawable.left_podpro_disconnected);
                         notificationSmall.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_podpro : R.drawable.right_podpro_disconnected);
                         notificationSmall.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
+                    } else if (model.equals(MODEL_AIRPODS_PRO)) {
+                        notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_pod : R.drawable.left_pod_disconnected);
+                        notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_pod : R.drawable.right_pod_disconnected);
+                        notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
+                        notificationSmall.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.left_pod : R.drawable.left_pod_disconnected);
+                        notificationSmall.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.right_pod : R.drawable.right_pod_disconnected);
+                        notificationSmall.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
                     }
 
                     if (System.currentTimeMillis() - lastSeenConnected < TIMEOUT_CONNECTED) {
                         notificationBig.setViewVisibility(R.id.leftPodText, View.VISIBLE);
                         notificationBig.setViewVisibility(R.id.rightPodText, View.VISIBLE);
                         notificationBig.setViewVisibility(R.id.podCaseText, View.VISIBLE);
-                        notificationBig.setViewVisibility(R.id.leftPodUpdating, View.INVISIBLE);
-                        notificationBig.setViewVisibility(R.id.rightPodUpdating, View.INVISIBLE);
-                        notificationBig.setViewVisibility(R.id.podCaseUpdating, View.INVISIBLE);
+                        notificationBig.setViewVisibility(R.id.leftPodUpdating, View.GONE);
+                        notificationBig.setViewVisibility(R.id.rightPodUpdating, View.GONE);
+                        notificationBig.setViewVisibility(R.id.podCaseUpdating, View.GONE);
 
                         notificationSmall.setViewVisibility(R.id.leftPodText, View.VISIBLE);
                         notificationSmall.setViewVisibility(R.id.rightPodText, View.VISIBLE);
                         notificationSmall.setViewVisibility(R.id.podCaseText, View.VISIBLE);
-                        notificationSmall.setViewVisibility(R.id.leftPodUpdating, View.INVISIBLE);
-                        notificationSmall.setViewVisibility(R.id.rightPodUpdating, View.INVISIBLE);
-                        notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.INVISIBLE);
+                        notificationSmall.setViewVisibility(R.id.leftPodUpdating, View.GONE);
+                        notificationSmall.setViewVisibility(R.id.rightPodUpdating, View.GONE);
+                        notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.GONE);
 
                         String podText_Left = (leftStatus == 10) ? "100%" : ((leftStatus < 10) ? ((leftStatus * 10 + 5) + "%") : "");
                         String podText_Right = (rightStatus == 10) ? "100%" : ((rightStatus < 10) ? ((rightStatus * 10 + 5) + "%") : "");
@@ -405,14 +403,6 @@ public class PodsService extends Service {
                         notificationSmall.setTextViewText(R.id.leftPodText, podText_Left);
                         notificationSmall.setTextViewText(R.id.rightPodText, podText_Right);
                         notificationSmall.setTextViewText(R.id.podCaseText, podText_Case);
-
-                        notificationBig.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-                        notificationBig.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-                        notificationBig.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-
-                        notificationSmall.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-                        notificationSmall.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-                        notificationSmall.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
 
                         notificationBig.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
                         notificationBig.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
