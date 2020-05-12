@@ -37,7 +37,7 @@
         android:layout_below="@id/logo"
         android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:text="@string/about1"
+        android:text="@string/about_dev"
         android:textColor="#404040" />
 
     <LinearLayout

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">OpenPods</string>
+
     <string name="intro1">This app lets you check the status of your AirPods on any Android device</string>
     <string name="intro2">To operate, we need permission to use Bluetooth LE (Location) and permission to run in background</string>
     <string name="introAllow">Allow</string>
@@ -13,13 +14,15 @@
     <string name="supportedDevicesTitle"><u>Supported devices:</u></string>
     <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
 
-    <string name="hide">Hide app</string>
-    <string name="hideClicked">The icon will disappear soon</string>
+    <string name="flipPods">Flip Airpods</string>
+    <string name="flipPods_desc">Enable this if your Airpods are reversed</string>
     <string name="batterySaver">Battery saver (Not recommended)</string>
     <string name="batterySaver_desc">Enable this if Bluetooth uses a lot of battery</string>
+    <string name="hide">Hide app</string>
+    <string name="hideClicked">The icon will disappear soon</string>
     <string name="about">About</string>
 
-    <string name="about1">Developed by Federico Dossena</string>
+    <string name="about_dev">Developed by Federico Dossena</string>
     <string name="website">Website</string>
     <string name="github">Github</string>
     <string name="donate">Donate</string>

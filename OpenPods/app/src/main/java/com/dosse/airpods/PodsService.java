@@ -31,6 +31,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import androidx.core.app.NotificationCompat;
+import androidx.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -87,7 +88,7 @@ public class PodsService extends Service {
             if (ENABLE_LOGGING)
                 Log.d(TAG, "START SCANNER");
 
-            SharedPreferences prefs = getSharedPreferences("openpods", MODE_PRIVATE);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             BluetoothManager btManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
             assert btManager != null;
             BluetoothAdapter btAdapter = btManager.getAdapter();
@@ -160,11 +161,17 @@ public class PodsService extends Service {
                                     return;
 
                                 String a = decodeHex(Objects.requireNonNull(Objects.requireNonNull(result.getScanRecord()).getManufacturerSpecificData(76)));
+                                boolean flip = isFlipped(a);
+
+                                Log.i(TAG, String.valueOf(prefs.getBoolean("flipPods", false)));
+
+                                if (prefs.getBoolean("flipPods", false))
+                                    flip = !flip;
 
                                 String leftAirpodStr; // Left airpod (0-10 batt; 15=disconnected)
                                 String rightAirpodStr; // Right airpod (0-10 batt; 15=disconnected)
 
-                                if (isFlipped(a)) {
+                                if (flip) {
                                     leftAirpodStr = "" + a.charAt(12);
                                     rightAirpodStr = "" + a.charAt(13);
                                 } else {
@@ -181,8 +188,14 @@ public class PodsService extends Service {
 
                                 int chargeStatus = Integer.parseInt(chargeStatusStr, 16);
 
-                                chargeL = (chargeStatus & 0b00000001) != 0;
-                                chargeR = (chargeStatus & 0b00000010) != 0;
+                                if (flip) {
+                                    chargeL = (chargeStatus & 0b00000010) != 0;
+                                    chargeR = (chargeStatus & 0b00000001) != 0;
+                                } else {
+                                    chargeL = (chargeStatus & 0b00000001) != 0;
+                                    chargeR = (chargeStatus & 0b00000010) != 0;
+                                }
+
                                 chargeCase = (chargeStatus & 0b00000100) != 0;
 
                                 if (a.charAt(7) == 'E')
@@ -288,6 +301,7 @@ public class PodsService extends Service {
 
         private NotificationManager mNotifyManager;
 
+        @SuppressWarnings("WeakerAccess")
         public NotificationThread () {
             mNotifyManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             // On Oreo (API27) and newer, create a notification channel.
@@ -574,7 +588,7 @@ public class PodsService extends Service {
         } catch (Throwable ignored) {
         }
 
-        SharedPreferences prefs = getSharedPreferences("openpods", MODE_PRIVATE);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         if (prefs.getBoolean("batterySaver", false)) {
             IntentFilter screenIntentFilter = new IntentFilter();

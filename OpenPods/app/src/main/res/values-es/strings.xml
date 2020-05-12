@@ -12,13 +12,15 @@
     <string name="supportedDevicesTitle"><u>Dispositivos compatibles:</u></string>
     <string name="supportedDevicesItems">&#8226; Apple AirPods 1ª generación\n&#8226; Apple AirPods 2ª generación\n&#8226; Apple AirPods Pro</string>
 
-    <string name="hide">Ocultar app</string>
-    <string name="hideClicked">El icono desaparecerá pronto</string>
+    <string name="flipPods">Airpods reverso</string>
+    <string name="flipPods_desc">Activa ésta opción si sus Airpods están invertidos</string>
     <string name="batterySaver">Ahorro de energía (no recomendado)</string>
     <string name="batterySaver_desc">Activa ésta opción si el Bluetooth consume mucha batería.</string>
+    <string name="hide">Ocultar app</string>
+    <string name="hideClicked">El icono desaparecerá pronto</string>
     <string name="about">Acerca de</string>
 
-    <string name="about1">Desarrollado por Federico Dossena</string>
+    <string name="about_dev">Desarrollado por Federico Dossena</string>
     <string name="website">Página web</string>
     <string name="github">Github</string>
     <string name="donate">Donar</string>

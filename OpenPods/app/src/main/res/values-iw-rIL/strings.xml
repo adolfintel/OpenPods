@@ -12,13 +12,15 @@
     <string name="supportedDevicesTitle"><u>מכשירים נתמכים</u></string>
     <string name="supportedDevicesItems">&#8226; אפל איירפודס דור ראשון \n&#8226; אפל איירפודס דור שני \n&#8226; אפל איירפודס פרו </string>
 
+    <string name="flipPods">הפוך איירפודס</string>
+    <string name="flipPods_desc">הפעל אם האיירפודס שלך הפוכים</string>
+    <string name="batterySaver">חיסכון בסוללה (לא מומלץ)</string>
+    <string name="batterySaver_desc">הפעל אם Bluetooth משתמש בהרבה סוללה</string>
     <string name="hide">הסתר אפליקציה</string>
     <string name="hideClicked">האפליקציה תוסתר בקרוב</string>
-    <string name="batterySaver">חיסכון בסוללה (לא מומלץ)</string>
-    <string name="batterySaver_desc">הפעל זאת אם Bluetooth משתמש בהרבה סוללה</string>
     <string name="about">אודות</string>
 
-    <string name="about1">פותח על ידי פדריקו דוסנה</string>
+    <string name="about_dev">פותח על ידי פדריקו דוסנה</string>
     <string name="website">אתר המפתח</string>
     <string name="github">Github</string>
     <string name="donate">תרומה</string>

@@ -12,13 +12,15 @@
     <string name="supportedDevicesTitle"><u>Ondersteunde apparaten:</u></string>
     <string name="supportedDevicesItems">&#8226; Apple AirPods 1e gen\n&#8226; Apple AirPods 2e gen\n&#8226; Apple AirPods Pro</string>
 
-    <string name="hide">App verbergen</string>
-    <string name="hideClicked">Het pictogram verdwijnt spoedig</string>
+    <string name="flipPods">Flip Airpods</string>
+    <string name="flipPods_desc">Schakel dit in als uw Airpods zijn omgekeerd</string>
     <string name="batterySaver">Accu-optimalisatie (niet aanbevolen)</string>
     <string name="batterySaver_desc">Schakel dit in als je merkt dat het accuverbruik hoger is door Bluetooth</string>
+    <string name="hide">App verbergen</string>
+    <string name="hideClicked">Het pictogram verdwijnt spoedig</string>
     <string name="about">Over</string>
 
-    <string name="about1">Gemaakt door Federico Dossena</string>
+    <string name="about_dev">Gemaakt door Federico Dossena</string>
     <string name="website">Website</string>
     <string name="github">GitHub</string>
     <string name="donate">Doneren</string>

@@ -17,7 +17,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Context context;
 
     @SuppressWarnings("FieldCanBeLocal")
-    private Preference mAboutPreference, mHideAppPrefernce;
+    private Preference mAboutPreference, mHideAppPreference;
 
     @Override
     public void onCreatePreferences (Bundle savedInstanceState, String rootKey) {
@@ -30,8 +30,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             return true;
         });
 
-        mHideAppPrefernce = getPreferenceManager().findPreference("hideApp");
-        Objects.requireNonNull(mHideAppPrefernce).setOnPreferenceClickListener(preference -> {
+        mHideAppPreference = getPreferenceManager().findPreference("hideApp");
+        Objects.requireNonNull(mHideAppPreference).setOnPreferenceClickListener(preference -> {
             PackageManager p = requireContext().getPackageManager();
             p.setComponentEnabledSetting(new ComponentName(context, MainActivity.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
             Toast.makeText(context, getString(R.string.hideClicked), Toast.LENGTH_LONG).show();
@@ -52,7 +52,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private void enableDisableOptions () {
         try {
             context.openFileInput("hidden").close();
-            mHideAppPrefernce.setEnabled(false);
+            mHideAppPreference.setEnabled(false);
         } catch (Throwable ignored) {
         }
     }

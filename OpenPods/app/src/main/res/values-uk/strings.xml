@@ -12,13 +12,15 @@
     <string name="supportedDevicesTitle"><u>Supported devices:</u></string>
     <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
 
-    <string name="hide">Сховати додаток</string>
-    <string name="hideClicked">Іконка скоро зникне</string>
+    <string name="flipPods">зворотні Airpods</string>
+    <string name="flipPods_desc">Увімкніть, якщо ваші Airpods помінялися місцями</string>
     <string name="batterySaver">Режим збереження енергії (Не рекомендовано)</string>
     <string name="batterySaver_desc">Увімкніть, якщо Bluetooth використовує багато ресурсів</string>
+    <string name="hide">Сховати додаток</string>
+    <string name="hideClicked">Іконка скоро зникне</string>
     <string name="about">Про програму</string>
 
-    <string name="about1">Розроблено Federico Dossena</string>
+    <string name="about_dev">Розроблено Federico Dossena</string>
     <string name="website">Сайт</string>
     <string name="github">Github</string>
     <string name="donate">Підтримати</string>
