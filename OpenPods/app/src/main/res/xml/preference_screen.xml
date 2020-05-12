@@ -3,12 +3,6 @@
 
     <CheckBoxPreference
         android:defaultValue="false"
-        android:key="flipPods"
-        android:summary="@string/flipPods_desc"
-        android:title="@string/flipPods" />
-
-    <CheckBoxPreference
-        android:defaultValue="false"
         android:key="batterySaver"
         android:summary="@string/batterySaver_desc"
         android:title="@string/batterySaver" />

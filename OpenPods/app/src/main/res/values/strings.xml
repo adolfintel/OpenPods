@@ -14,8 +14,6 @@
     <string name="supportedDevicesTitle"><u>Supported devices:</u></string>
     <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
 
-    <string name="flipPods">Flip Airpods</string>
-    <string name="flipPods_desc">Enable this if your Airpods are reversed</string>
     <string name="batterySaver">Battery saver (Not recommended)</string>
     <string name="batterySaver_desc">Enable this if Bluetooth uses a lot of battery</string>
     <string name="hide">Hide app</string>

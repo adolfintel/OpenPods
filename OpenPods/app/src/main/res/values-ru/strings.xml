@@ -12,8 +12,6 @@
     <string name="supportedDevicesTitle"><u>Поддерживаемые устройства:</u></string>
     <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
 
-    <string name="flipPods">обратные Airpods</string>
-    <string name="flipPods_desc">Включите, если ваши Airpods меняются местами</string>
     <string name="batterySaver">Режим энергосбережения (Не рекомендуется)</string>
     <string name="batterySaver_desc">Включите, если Bluetooth использует слишком много ресурсов</string>
     <string name="hide">Скрыть приложение</string>

@@ -28,7 +28,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
 
     @Override
     public void onSharedPreferenceChanged (SharedPreferences sharedPreferences, String key) {
-        if (key.equalsIgnoreCase("batterySaver") || key.equalsIgnoreCase("flipPods"))
+        if (key.equalsIgnoreCase("batterySaver"))
             Starter.restartPodsService(getApplicationContext());
     }
 

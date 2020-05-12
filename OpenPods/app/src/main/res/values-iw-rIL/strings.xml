@@ -12,8 +12,6 @@
     <string name="supportedDevicesTitle"><u>מכשירים נתמכים</u></string>
     <string name="supportedDevicesItems">&#8226; אפל איירפודס דור ראשון \n&#8226; אפל איירפודס דור שני \n&#8226; אפל איירפודס פרו </string>
 
-    <string name="flipPods">הפוך איירפודס</string>
-    <string name="flipPods_desc">הפעל אם האיירפודס שלך הפוכים</string>
     <string name="batterySaver">חיסכון בסוללה (לא מומלץ)</string>
     <string name="batterySaver_desc">הפעל אם Bluetooth משתמש בהרבה סוללה</string>
     <string name="hide">הסתר אפליקציה</string>

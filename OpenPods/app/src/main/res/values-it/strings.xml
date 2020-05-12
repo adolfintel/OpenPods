@@ -12,8 +12,6 @@
     <string name="supportedDevicesTitle"><u>Dispositivi supportati:</u></string>
     <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
 
-    <string name="flipPods">Flip Airpods</string>
-    <string name="flipPods_desc">Attiva se il tuoi Airpods sono invertiti</string>
     <string name="batterySaver">Risparmio batteria (sconsigliato)</string>
     <string name="batterySaver_desc">Attiva se il Bluetooth usa molta batteria</string>
     <string name="hide">Nascondi app</string>

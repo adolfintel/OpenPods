@@ -163,9 +163,6 @@ public class PodsService extends Service {
                                 String a = decodeHex(Objects.requireNonNull(Objects.requireNonNull(result.getScanRecord()).getManufacturerSpecificData(76)));
                                 boolean flip = isFlipped(a);
 
-                                if (prefs.getBoolean("flipPods", false))
-                                    flip = !flip;
-
                                 String leftAirpodStr; // Left airpod (0-10 batt; 15=disconnected)
                                 String rightAirpodStr; // Right airpod (0-10 batt; 15=disconnected)
 

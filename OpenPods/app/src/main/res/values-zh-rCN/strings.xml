@@ -12,8 +12,6 @@
     <string name="supportedDevicesTitle"><u>支持的设备:</u></string>
     <string name="supportedDevicesItems">&#8226; Apple AirPods 一代\n&#8226; Apple AirPods 二代\n&#8226; Apple AirPods Pro</string>
 
-    <string name="flipPods">反向 Airpods</string>
-    <string name="flipPods_desc">如果您的 Airpods 倒转，请启用此功能</string>
     <string name="batterySaver">省电模式 (不推荐)</string>
     <string name="batterySaver_desc">可在蓝牙消耗过多电量时开启</string>
     <string name="hide">隐藏</string>
