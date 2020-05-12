@@ -3,7 +3,6 @@ package com.dosse.airpods;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -272,6 +271,7 @@ public class PodsService extends Service {
     private static boolean maybeConnected = false;
 
     private class NotificationThread extends Thread {
+
         private boolean isLocationEnabled () {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 getApplicationContext();
@@ -288,7 +288,6 @@ public class PodsService extends Service {
 
         private NotificationManager mNotifyManager;
 
-        @SuppressWarnings("WeakerAccess")
         public NotificationThread () {
             mNotifyManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
             // On Oreo (API27) and newer, create a notification channel.
@@ -386,9 +385,9 @@ public class PodsService extends Service {
                         notificationSmall.setViewVisibility(R.id.rightPodUpdating, View.INVISIBLE);
                         notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.INVISIBLE);
 
-                        String podText_Left = (leftStatus == 10) ? "100%" : ((leftStatus < 10) ? (((leftStatus) * 10 + 5) + "%") : "");
-                        String podText_Right = (rightStatus == 10) ? "100%" : ((rightStatus < 10) ? (((rightStatus) * 10 + 5) + "%") : "");
-                        String podText_Case = (caseStatus == 10) ? "100%" : ((caseStatus < 10) ? (((caseStatus) * 10 + 5) + "%") : "");
+                        String podText_Left = (leftStatus == 10) ? "100%" : ((leftStatus < 10) ? ((leftStatus * 10 + 5) + "%") : "");
+                        String podText_Right = (rightStatus == 10) ? "100%" : ((rightStatus < 10) ? ((rightStatus * 10 + 5) + "%") : "");
+                        String podText_Case = (caseStatus == 10) ? "100%" : ((caseStatus < 10) ? ((caseStatus * 10 + 5) + "%") : "");
 
                         notificationBig.setTextViewText(R.id.leftPodText, podText_Left);
                         notificationBig.setTextViewText(R.id.rightPodText, podText_Right);
@@ -398,13 +397,21 @@ public class PodsService extends Service {
                         notificationSmall.setTextViewText(R.id.rightPodText, podText_Right);
                         notificationSmall.setTextViewText(R.id.podCaseText, podText_Case);
 
-                        notificationBig.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus < 10) ? View.VISIBLE : View.GONE));
-                        notificationBig.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus < 10) ? View.VISIBLE : View.GONE));
-                        notificationBig.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus < 10) ? View.VISIBLE : View.GONE));
+                        notificationBig.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+                        notificationBig.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+                        notificationBig.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
 
-                        notificationSmall.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus < 10) ? View.VISIBLE : View.GONE));
-                        notificationSmall.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus < 10) ? View.VISIBLE : View.GONE));
-                        notificationSmall.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus < 10) ? View.VISIBLE : View.GONE));
+                        notificationSmall.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+                        notificationSmall.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+                        notificationSmall.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+
+                        notificationBig.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
+                        notificationBig.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
+                        notificationBig.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));
+
+                        notificationSmall.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
+                        notificationSmall.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
+                        notificationSmall.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));
                     } else {
                         notificationBig.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
                         notificationBig.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
