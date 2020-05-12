@@ -163,8 +163,6 @@ public class PodsService extends Service {
                                 String a = decodeHex(Objects.requireNonNull(Objects.requireNonNull(result.getScanRecord()).getManufacturerSpecificData(76)));
                                 boolean flip = isFlipped(a);
 
-                                Log.i(TAG, String.valueOf(prefs.getBoolean("flipPods", false)));
-
                                 if (prefs.getBoolean("flipPods", false))
                                     flip = !flip;
 
