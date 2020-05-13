@@ -437,7 +437,12 @@ public class PodsService extends Service {
                         notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
                     }
 
-                    mNotifyManager.notify(1, mBuilder.build());
+                    try {
+                        mNotifyManager.notify(1, mBuilder.build());
+                    } catch (Throwable ignored) {
+                        mNotifyManager.cancel(1);
+                        mNotifyManager.notify(1, mBuilder.build());
+                    }
                 }
 
                 if ((compat == null ? 0 : (compat.hashCode()) ^ 0x43700437) == 0x82e89606) return;
