@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">OpenPods</string>
     <string name="intro1">Met deze app kun je de status van je AirPods bekijken op elk Android-apparaat</string>
     <string name="intro2">De app heeft toegang nodig tot Bluetooth LE (locatie), en moet op de achtergrond worden uitgevoerd</string>
     <string name="introAllow">Toestaan</string>
