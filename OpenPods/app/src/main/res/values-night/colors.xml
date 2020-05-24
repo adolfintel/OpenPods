@@ -3,7 +3,9 @@
     <color name="colorPrimary"     >#448AFF</color>
     <color name="colorPrimaryDark" >#0D47A1</color>
     <color name="colorAccent"      >#448AFF</color>
-    <color name="textColorPrimary" >#FFFFFF</color>
+
+    <color name="textColorPrimary" >#FFF</color>
+    <color name="bgColorPrimary"   >#000</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
