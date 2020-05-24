@@ -1,22 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="intro1">Esta aplicación te permite ver el estado de tus AirPods en cualquier dispositivo Android.</string>
     <string name="intro2">Para operar necesitamos permiso para usar Bluetooth LE (Localización) y permiso para ejecutar la app en segundo plano.</string>
     <string name="introAllow">Permitir</string>
-    <string name="main1">Esta aplicación mostrará una notificación cuando tus AirPods estén conectados.</string>
-    <string name="main2">Puedes ocultar la app si lo prefieres.</string>
+    <string name="main_description">Esta aplicación mostrará una notificación cuando tus AirPods estén conectados.</string>
+    <string name="hide_message">Puedes ocultar la app si lo prefieres.</string>
     <string name="settings">Ajustes</string>
 
     <string name="noBtText">Parece que éste dispositivo no tiene Bluetooth LE.</string>
     <string name="locationDisabledText">Necesitas activar la Localización para permitir que OpenPods lea el estado.</string>
-    <string name="supportedDevices">Dispositivos compatibles:\n&#8226; Apple AirPods 1ª generación\n&#8226; Apple AirPods 2ª generación\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevicesTitle"><u>Dispositivos compatibles:</u></string>
+    <string name="supportedDevicesItems">&#8226; Apple AirPods 1ª generación\n&#8226; Apple AirPods 2ª generación\n&#8226; Apple AirPods Pro</string>
 
-    <string name="hide">Ocultar app</string>
-    <string name="hideClicked">El icono desaparecerá pronto</string>
     <string name="batterySaver">Ahorro de energía (no recomendado)</string>
     <string name="batterySaver_desc">Activa ésta opción si el Bluetooth consume mucha batería.</string>
+    <string name="hide">Ocultar app</string>
+    <string name="hideClicked">El icono desaparecerá pronto</string>
     <string name="about">Acerca de</string>
 
-    <string name="about1">Desarrollado por Federico Dossena</string>
+    <string name="about_dev">Desarrollado por Federico Dossena</string>
     <string name="website">Página web</string>
     <string name="github">Github</string>
     <string name="donate">Donar</string>

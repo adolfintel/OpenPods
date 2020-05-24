@@ -1,59 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    >
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:gravity="center"
-        >
+        android:orientation="vertical"
+        android:padding="12dp">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:src="@drawable/left_pod"
-            android:layout_alignParentTop="true"
             android:id="@+id/introImg1"
+            android:layout_width="match_parent"
+            android:layout_height="144dp"
             android:layout_marginBottom="24dp"
-            />
+            android:src="@drawable/icon"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/intro1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/introImg1"
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:text="@string/intro1"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
         <TextView
+            android:id="@+id/intro2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/intro2"
-            android:id="@+id/intro2"
-            android:layout_below="@id/intro1"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            />
+            android:text="@string/intro2" />
 
         <Button
             android:id="@+id/allowBtn"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/intro2"
-            android:layout_centerHorizontal="true"
-            android:text="@string/introAllow"
             android:backgroundTint="@color/colorAccent"
-            />
+            android:text="@string/introAllow" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -12,9 +12,10 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="240dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="36dp"
         android:src="@drawable/logo" />
 
     <!-- LEGAL DANGER ZONE
@@ -34,8 +35,8 @@
         android:id="@+id/about1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logo"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_toStartOf="@id/logo"
         android:gravity="center"
         android:text="@string/about_dev"
         android:textColor="#404040" />
@@ -44,9 +45,9 @@
         android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/about1"
+        android:layout_alignBottom="@id/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp"
+        android:layout_toStartOf="@id/logo"
         android:gravity="center">
 
         <Button
@@ -59,6 +60,8 @@
             android:id="@+id/github"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:text="@string/github" />
 
         <Button
@@ -74,7 +77,8 @@
         android:id="@+id/license"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/buttons" />
+        android:layout_below="@id/buttons"
+        android:layout_marginTop="16dp" />
 
     <!-- END OF LEGAL DANGER ZONE -->
 

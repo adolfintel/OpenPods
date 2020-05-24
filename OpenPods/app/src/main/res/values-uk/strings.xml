@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">OpenPods</string>
     <string name="intro1">Цей додаток дозволяє Вам перевірити статус ваших AirPods на будь-якому Android-пристрої</string>
     <string name="intro2">Для роботи ми використовуємо Bluetooth LE (місцезнаходження) та дозвіл на роботу додатку в фоновому режимі</string>
     <string name="introAllow">Дозволити</string>
-    <string name="main1">Цей додаток покаже сповіщення, коли Ваші AirPods будуть підключені</string>
-    <string name="main2">Ви можете сховати цей додаток, якщо бажаєте</string>
+    <string name="main_description">Цей додаток покаже сповіщення, коли Ваші AirPods будуть підключені</string>
+    <string name="hide_message">Ви можете сховати цей додаток, якщо бажаєте</string>
     <string name="settings">Налаштування</string>
 
     <string name="noBtText">Схоже, що цей пристрій не підтримує Bluetooth LE</string>
     <string name="locationDisabledText">Вам потрібно ввімкнути місцезнаходження, для того, щоб дозволити OpenPods читати статус</string>
-    <string name="supportedDevices">Supported devices:\n&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevicesTitle"><u>Supported devices:</u></string>
+    <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
 
-    <string name="hide">Сховати додаток</string>
-    <string name="hideClicked">Іконка скоро зникне</string>
     <string name="batterySaver">Режим збереження енергії (Не рекомендовано)</string>
     <string name="batterySaver_desc">Увімкніть, якщо Bluetooth використовує багато ресурсів</string>
+    <string name="hide">Сховати додаток</string>
+    <string name="hideClicked">Іконка скоро зникне</string>
     <string name="about">Про програму</string>
 
-    <string name="about1">Розроблено Federico Dossena</string>
+    <string name="about_dev">Розроблено Federico Dossena</string>
     <string name="website">Сайт</string>
     <string name="github">Github</string>
     <string name="donate">Підтримати</string>
-
 </resources>

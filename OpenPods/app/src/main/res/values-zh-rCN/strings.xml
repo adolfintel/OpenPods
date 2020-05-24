@@ -3,21 +3,22 @@
     <string name="intro1">此应用可以让您在任何安卓设备上查看 AirPods 的状态</string>
     <string name="intro2">我们需要蓝牙、定位以及在后台运行的权限来正常运作</string>
     <string name="introAllow">允许</string>
-    <string name="main1">当您的 AirPods 接入时，我们会在通知栏显示通知</string>
-    <string name="main2">您可以隐藏此应用</string>
+    <string name="main_description">当您的 AirPods 接入时，我们会在通知栏显示通知</string>
+    <string name="hide_message">您可以隐藏此应用</string>
     <string name="settings">Settings</string>
 
     <string name="noBtText">看起来您的设备并不支持蓝牙</string>
     <string name="locationDisabledText">您需要开启定位来让 OpenPods 读取状态</string>
-    <string name="supportedDevices">支持的设备:\n&#8226; Apple AirPods 一代\n&#8226; Apple AirPods 二代\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevicesTitle"><u>支持的设备:</u></string>
+    <string name="supportedDevicesItems">&#8226; Apple AirPods 一代\n&#8226; Apple AirPods 二代\n&#8226; Apple AirPods Pro</string>
 
-    <string name="hide">隐藏</string>
-    <string name="hideClicked">桌面图标很快就会被隐藏掉</string>
     <string name="batterySaver">省电模式 (不推荐)</string>
     <string name="batterySaver_desc">可在蓝牙消耗过多电量时开启</string>
+    <string name="hide">隐藏</string>
+    <string name="hideClicked">桌面图标很快就会被隐藏掉</string>
     <string name="about">关于</string>
 
-    <string name="about1">由 Federico Dossena 开发</string>
+    <string name="about_dev">由 Federico Dossena 开发</string>
     <string name="website">网站</string>
     <string name="github">Github</string>
     <string name="donate">捐赠</string>

@@ -2,17 +2,21 @@ package com.dosse.airpods;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AboutActivity extends AppCompatActivity {
 
+    final String githubURL = "https://github.com/adolfintel/OpenPods";
+    final String websiteURL = "https://fdossena.com/?p=openPods/index.frag";
+    final String donateURL = "https://paypal.me/sineisochronic";
+
+    @SuppressWarnings("DanglingJavadoc")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
@@ -32,26 +36,14 @@ public class AboutActivity extends AppCompatActivity {
 
         ((WebView)(findViewById(R.id.license))).loadUrl("file:///android_asset/license.html");
 
-        ((Button)(findViewById(R.id.github))).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/adolfintel/OpenPods")));
-            }
-        });
-        ((Button)(findViewById(R.id.website))).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://fdossena.com/?p=openPods/i.frag")));
-            }
-        });
-        ((Button)(findViewById(R.id.donate))).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://paypal.me/sineisochronic")));
-                Toast.makeText(AboutActivity.this, "❤️", Toast.LENGTH_SHORT).show();
-            }
+        findViewById(R.id.github).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(githubURL))));
+        findViewById(R.id.website).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(websiteURL))));
+        findViewById(R.id.donate).setOnClickListener(v -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(donateURL)));
+            Toast.makeText(AboutActivity.this, "❤️", Toast.LENGTH_SHORT).show();
         });
 
         //END OF LEGAL DANGER ZONE
     }
+
 }
