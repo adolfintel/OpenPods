@@ -1,18 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="batterySaver"
-        android:summary="@string/batterySaver_desc"
-        android:title="@string/batterySaver" />
+    <PreferenceCategory
+        android:title="@string/app_name"
+        app:iconSpaceReserved="false">
 
-    <Preference
-        android:key="hideApp"
-        android:title="@string/hide" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="batterySaver"
+            android:summary="@string/batterySaver_desc"
+            android:title="@string/batterySaver"
+            app:iconSpaceReserved="false" />
 
-    <Preference
-        android:key="about"
-        android:title="@string/about" />
+        <Preference
+            android:key="hideApp"
+            android:summary="@string/hide_desc"
+            android:title="@string/hide"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/about"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="about"
+            android:summary="@string/app_name"
+            android:title="@string/about"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="fdroid"
+            android:title="@string/fdroid"
+            app:iconSpaceReserved="false" />
+        <Preference
+            android:key="website"
+            android:title="@string/website"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="github"
+            android:title="@string/github"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:key="donate"
+            android:title="@string/donate"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -15,6 +15,7 @@
     <string name="batterySaver">Stromsparmodus (nicht empfohlen)</string>
     <string name="batterySaver_desc">Aktiviere diesen Modus, wenn Bluetooth zu viel Batterieleistung erfordert</string>
     <string name="hide">App verstecken</string>
+    <string name="hide_desc">Verstecke diese App vor dem Launcher</string>
     <string name="hideClicked">Das Icon wird bald verschwinden</string>
     <string name="about">Über</string>
 

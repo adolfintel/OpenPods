@@ -15,6 +15,7 @@
     <string name="batterySaver">Ahorro de energía (no recomendado)</string>
     <string name="batterySaver_desc">Activa ésta opción si el Bluetooth consume mucha batería.</string>
     <string name="hide">Ocultar app</string>
+    <string name="hide_desc">Ocultar esta aplicación de la launcher</string>
     <string name="hideClicked">El icono desaparecerá pronto</string>
     <string name="about">Acerca de</string>
 

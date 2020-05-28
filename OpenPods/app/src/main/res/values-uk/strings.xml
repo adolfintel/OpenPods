@@ -15,6 +15,7 @@
     <string name="batterySaver">Режим збереження енергії (Не рекомендовано)</string>
     <string name="batterySaver_desc">Увімкніть, якщо Bluetooth використовує багато ресурсів</string>
     <string name="hide">Сховати додаток</string>
+    <string name="hide_desc">Приховати це додаток з домашньої сторінки</string>
     <string name="hideClicked">Іконка скоро зникне</string>
     <string name="about">Про програму</string>
 

@@ -5,20 +5,20 @@
     android:layout_height="wrap_content"
     android:background="@color/bgColorPrimary"
     android:gravity="center"
-    android:padding="12dp"
+    android:padding="@dimen/padding_default"
     tools:ignore="RtlHardcoded,ContentDescription">
 
     <RelativeLayout
         android:id="@+id/leftPod"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/noti_status_small_item_width"
+        android:layout_height="@dimen/noti_status_small_item_height"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true">
 
         <ImageView
             android:id="@+id/leftPodImg"
-            android:layout_width="18dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/noti_status_small_pod_width"
+            android:layout_height="@dimen/noti_status_small_item_height"
             android:src="@drawable/left_pod" />
 
         <TextView
@@ -31,8 +31,8 @@
 
         <ImageView
             android:id="@+id/leftBatImg"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="@dimen/noti_status_bat_size"
+            android:layout_height="@dimen/noti_status_bat_size"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/leftPodText"
             android:src="@drawable/ic_battery_charging_full_green_24dp" />
@@ -40,8 +40,8 @@
         <ProgressBar
             android:id="@+id/leftPodUpdating"
             style="?android:attr/progressBarStyle"
-            android:layout_width="18dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/noti_status_small_pod_width"
+            android:layout_height="@dimen/noti_status_small_item_height"
             android:layout_toRightOf="@id/leftPodImg"
             android:indeterminate="true" />
 
@@ -49,15 +49,15 @@
 
     <RelativeLayout
         android:id="@+id/rightPod"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/noti_status_small_item_width"
+        android:layout_height="@dimen/noti_status_small_item_height"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/leftPod">
 
         <ImageView
             android:id="@+id/rightPodImg"
-            android:layout_width="18dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/noti_status_small_pod_width"
+            android:layout_height="@dimen/noti_status_small_item_height"
             android:src="@drawable/right_pod" />
 
         <TextView
@@ -70,8 +70,8 @@
 
         <ImageView
             android:id="@+id/rightBatImg"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="@dimen/noti_status_bat_size"
+            android:layout_height="@dimen/noti_status_bat_size"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/rightPodText"
             android:src="@drawable/ic_battery_charging_full_green_24dp" />
@@ -79,8 +79,8 @@
         <ProgressBar
             android:id="@+id/rightPodUpdating"
             style="?android:attr/progressBarStyle"
-            android:layout_width="18dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/noti_status_small_pod_width"
+            android:layout_height="@dimen/noti_status_small_item_height"
             android:layout_toRightOf="@id/rightPodImg"
             android:indeterminate="true" />
 
@@ -88,15 +88,15 @@
 
     <RelativeLayout
         android:id="@+id/podCase"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/noti_status_small_item_width"
+        android:layout_height="@dimen/noti_status_small_item_height"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/rightPod">
 
         <ImageView
             android:id="@+id/podCaseImg"
-            android:layout_width="25dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/noti_status_small_case_width"
+            android:layout_height="@dimen/noti_status_small_item_height"
             android:src="@drawable/pod_case" />
 
         <TextView
@@ -109,8 +109,8 @@
 
         <ImageView
             android:id="@+id/caseBatImg"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="@dimen/noti_status_bat_size"
+            android:layout_height="@dimen/noti_status_bat_size"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/podCaseText"
             android:src="@drawable/ic_battery_charging_full_green_24dp" />
@@ -118,8 +118,8 @@
         <ProgressBar
             android:id="@+id/podCaseUpdating"
             style="?android:attr/progressBarStyle"
-            android:layout_width="18dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/noti_status_small_pod_width"
+            android:layout_height="@dimen/noti_status_small_item_height"
             android:layout_toRightOf="@id/podCaseImg"
             android:indeterminate="true" />
 

@@ -5,20 +5,20 @@
     android:layout_height="wrap_content"
     android:background="@color/bgColorPrimary"
     android:gravity="center"
-    android:padding="12dp"
+    android:padding="@dimen/padding_default"
     tools:ignore="RtlHardcoded,ContentDescription">
 
     <RelativeLayout
         android:id="@+id/leftPod"
-        android:layout_width="60dp"
+        android:layout_width="@dimen/noti_status_big_pod_container"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true">
 
         <ImageView
             android:id="@+id/leftPodImg"
-            android:layout_width="40dp"
-            android:layout_height="90dp"
+            android:layout_width="@dimen/noti_status_big_pod_width"
+            android:layout_height="@dimen/noti_status_big_item_height"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="6dp"
             android:src="@drawable/left_pod" />
@@ -34,8 +34,8 @@
 
         <ImageView
             android:id="@+id/leftBatImg"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="@dimen/noti_status_bat_size"
+            android:layout_height="@dimen/noti_status_bat_size"
             android:layout_below="@id/leftPodImg"
             android:layout_toRightOf="@id/leftPodText"
             android:src="@drawable/ic_battery_charging_full_green_24dp" />
@@ -44,7 +44,7 @@
             android:id="@+id/leftPodUpdating"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
+            android:layout_height="@dimen/noti_status_big_progressbar"
             android:layout_below="@id/leftPodImg"
             android:gravity="center"
             android:indeterminate="true" />
@@ -53,15 +53,15 @@
 
     <RelativeLayout
         android:id="@+id/rightPod"
-        android:layout_width="60dp"
+        android:layout_width="@dimen/noti_status_big_pod_container"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/leftPod">
 
         <ImageView
             android:id="@+id/rightPodImg"
-            android:layout_width="40dp"
-            android:layout_height="90dp"
+            android:layout_width="@dimen/noti_status_big_pod_width"
+            android:layout_height="@dimen/noti_status_big_item_height"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="6dp"
             android:src="@drawable/right_pod" />
@@ -77,8 +77,8 @@
 
         <ImageView
             android:id="@+id/rightBatImg"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="@dimen/noti_status_bat_size"
+            android:layout_height="@dimen/noti_status_bat_size"
             android:layout_below="@id/rightPodImg"
             android:layout_toRightOf="@id/rightPodText"
             android:src="@drawable/ic_battery_charging_full_green_24dp" />
@@ -87,7 +87,7 @@
             android:id="@+id/rightPodUpdating"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
+            android:layout_height="@dimen/noti_status_big_progressbar"
             android:layout_below="@id/rightPodImg"
             android:gravity="center"
             android:indeterminate="true" />
@@ -96,15 +96,15 @@
 
     <RelativeLayout
         android:id="@+id/podCase"
-        android:layout_width="120dp"
+        android:layout_width="@dimen/noti_status_big_case_container"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/rightPod">
 
         <ImageView
             android:id="@+id/podCaseImg"
-            android:layout_width="80dp"
-            android:layout_height="90dp"
+            android:layout_width="@dimen/noti_status_big_case_width"
+            android:layout_height="@dimen/noti_status_big_item_height"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="6dp"
             android:src="@drawable/pod_case" />
@@ -120,8 +120,8 @@
 
         <ImageView
             android:id="@+id/caseBatImg"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="@dimen/noti_status_bat_size"
+            android:layout_height="@dimen/noti_status_bat_size"
             android:layout_below="@id/podCaseImg"
             android:layout_toRightOf="@id/podCaseText"
             android:src="@drawable/ic_battery_charging_full_green_24dp" />
@@ -130,7 +130,7 @@
             android:id="@+id/podCaseUpdating"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
+            android:layout_height="@dimen/noti_status_big_progressbar"
             android:layout_below="@id/podCaseImg"
             android:gravity="center"
             android:indeterminate="true" />
