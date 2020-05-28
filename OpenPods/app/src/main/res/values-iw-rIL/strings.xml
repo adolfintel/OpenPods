@@ -15,11 +15,12 @@
     <string name="batterySaver">חיסכון בסוללה (לא מומלץ)</string>
     <string name="batterySaver_desc">הפעל אם Bluetooth משתמש בהרבה סוללה</string>
     <string name="hide">הסתר אפליקציה</string>
+    <string name="hide_desc">הסתר את האפליקציה ממסך הבית</string>
     <string name="hideClicked">האפליקציה תוסתר בקרוב</string>
     <string name="about">אודות</string>
 
     <string name="about_dev">פותח על ידי פדריקו דוסנה</string>
     <string name="website">אתר המפתח</string>
-    <string name="github">Github</string>
+    <string name="github">קוד מקור</string>
     <string name="donate">תרומה</string>
 </resources>

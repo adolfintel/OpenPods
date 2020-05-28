@@ -15,6 +15,7 @@
     <string name="batterySaver">省电模式 (不推荐)</string>
     <string name="batterySaver_desc">可在蓝牙消耗过多电量时开启</string>
     <string name="hide">隐藏</string>
+    <string name="hide_desc">从您的首页隐藏此应用</string>
     <string name="hideClicked">桌面图标很快就会被隐藏掉</string>
     <string name="about">关于</string>
 

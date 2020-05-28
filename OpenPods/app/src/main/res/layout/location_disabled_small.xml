@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="@dimen/noti_location_small_height"
     android:background="@color/bgColorPrimary"
     android:gravity="center"
-    android:padding="12dp">
+    android:padding="@dimen/padding_default">
 
     <TextView
         android:layout_width="match_parent"

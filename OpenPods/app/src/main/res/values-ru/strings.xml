@@ -15,6 +15,7 @@
     <string name="batterySaver">Режим энергосбережения (Не рекомендуется)</string>
     <string name="batterySaver_desc">Включите, если Bluetooth использует слишком много ресурсов</string>
     <string name="hide">Скрыть приложение</string>
+    <string name="hide_desc">Скрыть это приложение с домашней страницы</string>
     <string name="hideClicked">Иконка скоро исчезнет</string>
     <string name="about">О приложении</string>
 

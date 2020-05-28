@@ -15,6 +15,7 @@
     <string name="batterySaver">Accu-optimalisatie (niet aanbevolen)</string>
     <string name="batterySaver_desc">Schakel dit in als je merkt dat het accuverbruik hoger is door Bluetooth</string>
     <string name="hide">App verbergen</string>
+    <string name="hide_desc">Verberg deze app vanaf de launcher</string>
     <string name="hideClicked">Het pictogram verdwijnt spoedig</string>
     <string name="about">Over</string>
 

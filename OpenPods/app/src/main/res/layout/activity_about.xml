@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:paddingLeft="12dp"
-    android:paddingTop="12dp"
-    android:paddingRight="12dp"
+    android:paddingLeft="@dimen/padding_default"
+    android:paddingTop="@dimen/padding_default"
+    android:paddingRight="@dimen/padding_default"
     tools:context=".AboutActivity"
     tools:ignore="ContentDescription,ButtonStyle">
 
@@ -23,11 +23,11 @@
          - Removing or changing the link to the original source code or the code that displays it
          - Removing or changing the donation link of the original project or the code that displays it
 
-         If you're forking the application, it MUST be made clear that your version is a fork, who the original author is, and all references to the original project and license must not be removed.
+         If you're forking the application, it MUST be made clear that your version is a fork,
+         who the original author is, and all references to the original project and license must not be removed.
          You are free to add links to your project, donations, whatever to this activity.
 
          I am constantly monitoring all major Android app stores for violations. You have been warned.
-
     -->
 
     <TextView

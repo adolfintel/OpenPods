@@ -15,6 +15,7 @@
     <string name="batterySaver">Risparmio batteria (sconsigliato)</string>
     <string name="batterySaver_desc">Attiva se il Bluetooth usa molta batteria</string>
     <string name="hide">Nascondi app</string>
+    <string name="hide_desc">Nascondi questa app dal programma di avvio</string>
     <string name="hideClicked">L\'icona sarà rimossa presto</string>
     <string name="about">Informazioni su</string>
 
