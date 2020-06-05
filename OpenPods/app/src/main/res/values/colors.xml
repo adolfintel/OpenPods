@@ -4,10 +4,8 @@
     <color name="colorPrimaryDark" >#0D47A1</color>
     <color name="colorAccent"      >#448AFF</color>
 
-    <color name="textColorPrimary" >#000</color>
+    <color name="textColorPrimary" >@android:color/primary_text_light</color>
     <color name="bgColorPrimary"   >#FFF</color>
 
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
     <color name="dgrey">#737373</color>
 </resources>
