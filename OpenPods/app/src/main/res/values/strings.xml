@@ -18,6 +18,9 @@
     <string name="batterySaver_desc">Enable this if Bluetooth uses a lot of battery</string>
     <string name="hide">Hide app</string>
     <string name="hide_desc">Hide this app from the launcher</string>
+    <string name="hide_dialog">Are you sure?</string>
+    <string name="hide_dialog_desc">Are you sure that you want to hide the App? This can only be undone by reinstalling it.</string>
+    <string name="hide_dialog_button">Hide</string>
     <string name="hideClicked">The icon will disappear soon</string>
     <string name="about">About</string>
 
