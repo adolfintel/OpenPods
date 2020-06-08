@@ -80,7 +80,7 @@ public class PodsService extends Service {
      * <p>
      * After decoding a beacon, the status is written to leftStatus, rightStatus, caseStatus, chargeL, chargeR, chargeCase so that the NotificationThread can use the information
      */
-    private static final ArrayList<ScanResult> recentBeacons = new ArrayList<>();
+    private static ArrayList<ScanResult> recentBeacons = new ArrayList<>();
     private static final long RECENT_BEACONS_MAX_T_NS = 10000000000L; //10s
 
     private void startAirPodsScanner () {
@@ -294,7 +294,7 @@ public class PodsService extends Service {
             }
         }
 
-        private final NotificationManager mNotifyManager;
+        private NotificationManager mNotifyManager;
 
         @SuppressWarnings("WeakerAccess")
         public NotificationThread () {
