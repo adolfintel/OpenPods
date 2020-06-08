@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">OpenPods</string>
 
     <string name="intro1">This app lets you check the status of your AirPods on any Android device</string>
@@ -18,9 +18,9 @@
     <string name="batterySaver_desc">Enable this if Bluetooth uses a lot of battery</string>
     <string name="hide">Hide app</string>
     <string name="hide_desc">Hide this app from the launcher</string>
-    <string name="hide_dialog">Are you sure?</string>
-    <string name="hide_dialog_desc">Are you sure that you want to hide the App? This can only be undone by reinstalling it.</string>
-    <string name="hide_dialog_button">Hide</string>
+    <string name="hide_dialog" tools:ignore="MissingTranslation">Are you sure?</string>
+    <string name="hide_dialog_desc" tools:ignore="MissingTranslation">Are you sure that you want to hide the App? This can only be undone by reinstalling it.</string>
+    <string name="hide_dialog_button" tools:ignore="MissingTranslation">Hide</string>
     <string name="hideClicked">The icon will disappear soon</string>
     <string name="about">About</string>
 
