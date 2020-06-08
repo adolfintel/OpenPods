@@ -2,12 +2,14 @@ package com.dosse.airpods;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -31,17 +33,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mHideAppPreference = getPreferenceManager().findPreference("hideApp");
         assert mHideAppPreference != null;
         mHideAppPreference.setOnPreferenceClickListener(preference -> {
-            PackageManager p = requireContext().getPackageManager();
-            p.setComponentEnabledSetting(new ComponentName(context, MainActivity.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-            Toast.makeText(context, getString(R.string.hideClicked), Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle(R.string.hide_dialog);
+            builder.setMessage(R.string.hide_dialog_desc);
+            builder.setPositiveButton(R.string.hide_dialog_button, (dialogInterface, i) -> {
+                PackageManager p = requireContext().getPackageManager();
+                p.setComponentEnabledSetting(new ComponentName(context, MainActivity.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+                Toast.makeText(context, getString(R.string.hideClicked), Toast.LENGTH_LONG).show();
 
-            try {
-                context.openFileOutput("hidden", Context.MODE_PRIVATE).close();
-            } catch (Throwable ignored) {
-            }
+                try {
+                    context.openFileOutput("hidden", Context.MODE_PRIVATE).close();
+                } catch (Throwable ignored) { }
 
-            enableDisableOptions();
-            requireActivity().finish();
+                enableDisableOptions();
+                requireActivity().finish();
+            });
+            builder.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> { });
+            builder.show();
             return true;
         });
 
