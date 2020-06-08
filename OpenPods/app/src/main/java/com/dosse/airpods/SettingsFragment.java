@@ -2,6 +2,7 @@ package com.dosse.airpods;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -35,19 +36,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             builder.setTitle(R.string.hide_dialog);
             builder.setMessage(R.string.hide_dialog_desc);
-            builder.setPositiveButton(R.string.hide_dialog_button, (dialogInterface, i) -> {
+            builder.setPositiveButton(R.string.hide_dialog_button, (dialog, which) -> {
                 PackageManager p = requireContext().getPackageManager();
                 p.setComponentEnabledSetting(new ComponentName(context, MainActivity.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
                 Toast.makeText(context, getString(R.string.hideClicked), Toast.LENGTH_LONG).show();
 
                 try {
                     context.openFileOutput("hidden", Context.MODE_PRIVATE).close();
-                } catch (Throwable ignored) { }
+                } catch (Throwable ignored) {
+                }
 
                 enableDisableOptions();
                 requireActivity().finish();
             });
-            builder.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> { });
+            builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.dismiss());
             builder.show();
             return true;
         });
