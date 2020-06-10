@@ -324,6 +324,7 @@ public class PodsService extends Service {
             mBuilder.setShowWhen(false);
             mBuilder.setOngoing(true);
             mBuilder.setSmallIcon(R.mipmap.notification_icon);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
             for (; ; ) {
                 /*&&System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED*/
