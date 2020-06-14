@@ -3,7 +3,6 @@ package com.dosse.airpods;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     try{
                         getApplicationContext().openFileInput("miuiwarn").close();
                     }catch (Throwable ignored){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setTitle(R.string.miui_warning);
                         builder.setMessage(R.string.miui_warning_desc);
                         builder.setNeutralButton(R.string.miui_warning_continue, (dialog, which) -> {
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                         });
                         builder.show();
                     }
-
                 }
             }catch(Throwable ignored){}
         } else {
