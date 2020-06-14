@@ -6,6 +6,9 @@
     <string name="main_description">האפליקציה תשלח התראה כאשר האיירפודס מחוברות</string>
     <string name="hide_message">אתה יכול להסתיר אפליקציה זו</string>
     <string name="settings">הגדרות</string>
+    <string name="miui_warning">MIUI detected</string>
+    <string name="miui_warning_desc">The ROM running on this device has known compatibility issues. You can continue but OpenPods may not work properly.</string>
+    <string name="miui_warning_continue">Continue</string>
 
     <string name="noBtText">נראה כי מכשיר זה אינו תומך ב-Bluetooth LE</string>
     <string name="locationDisabledText">אתה צריך להפעיל שיתוף מיקום בכדי לאפשר ל-OpenPods לקרוא את סטטוס האוזניות</string>

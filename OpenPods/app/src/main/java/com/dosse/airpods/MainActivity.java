@@ -3,6 +3,7 @@ package com.dosse.airpods;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,9 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import java.lang.reflect.Method;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +49,27 @@ public class MainActivity extends AppCompatActivity {
 
         if (ok) {
             Starter.startPodsService(getApplicationContext());
+            //Warn MIUI users that their rom has known issues
+            try{
+                Class<?> c = Class.forName("android.os.SystemProperties");
+                String miuiVersion = (String) c.getMethod("get", String.class).invoke(c, "ro.miui.ui.version.code");
+                if(miuiVersion!=null&&!miuiVersion.isEmpty()){
+                    try{
+                        getApplicationContext().openFileInput("miuiwarn").close();
+                    }catch (Throwable ignored){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                        builder.setTitle(R.string.miui_warning);
+                        builder.setMessage(R.string.miui_warning_desc);
+                        builder.setNeutralButton(R.string.miui_warning_continue, (dialog, which) -> {
+                            try {
+                                getApplicationContext().openFileOutput("miuiwarn", Context.MODE_PRIVATE).close();
+                            } catch (Throwable t) {}
+                        });
+                        builder.show();
+                    }
+
+                }
+            }catch(Throwable ignored){}
         } else {
             startActivity(new Intent(MainActivity.this, IntroActivity.class));
             finish();

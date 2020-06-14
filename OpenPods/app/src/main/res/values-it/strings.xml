@@ -6,6 +6,9 @@
     <string name="main_description">L\'app mostrerà una notifica quando le tue AirPods sono connesse</string>
     <string name="hide_message">Puoi nascondere l\'app se vuoi</string>
     <string name="settings">Impostazioni</string>
+    <string name="miui_warning">MIUI rilevata</string>
+    <string name="miui_warning_desc">La ROM di questo dispositivo ha dei problemi di compatibilità noti. Puoi continuare ma OpenPods potrebbe non funzionare correttamente.</string>
+    <string name="miui_warning_continue">Continua</string>
 
     <string name="noBtText">Questo dispositivo non supporta Bluetooth LE</string>
     <string name="locationDisabledText">Attiva la posizione per permttere a OpenPods di leggere lo stato</string>

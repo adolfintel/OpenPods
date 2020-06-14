@@ -6,6 +6,9 @@
     <string name="main_description">Приложение покажет уведомление, когда будет установлено соединение с AirPods</string>
     <string name="hide_message">Вы можете скрыть это приложение, если хотите</string>
     <string name="settings">Настройки</string>
+    <string name="miui_warning">MIUI detected</string>
+    <string name="miui_warning_desc">The ROM running on this device has known compatibility issues. You can continue but OpenPods may not work properly.</string>
+    <string name="miui_warning_continue">Continue</string>
 
     <string name="noBtText">Похоже, что Bluetooth LE не поддерживается на Вашем устройстве</string>
     <string name="locationDisabledText">Вам нужно включить местоположение, чтобы разрешить OpenPods читать статус</string>
