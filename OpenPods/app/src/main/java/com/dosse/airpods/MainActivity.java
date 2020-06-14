@@ -1,6 +1,7 @@
 package com.dosse.airpods;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
@@ -16,7 +17,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import java.lang.reflect.Method;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,25 +49,28 @@ public class MainActivity extends AppCompatActivity {
         if (ok) {
             Starter.startPodsService(getApplicationContext());
             //Warn MIUI users that their rom has known issues
-            try{
-                Class<?> c = Class.forName("android.os.SystemProperties");
-                String miuiVersion = (String) c.getMethod("get", String.class).invoke(c, "ro.miui.ui.version.code");
-                if(miuiVersion!=null&&!miuiVersion.isEmpty()){
-                    try{
+            try {
+                @SuppressLint("PrivateApi") Class<?> c = Class.forName("android.os.SystemProperties");
+                String miuiVersion = (String)c.getMethod("get", String.class).invoke(c, "ro.miui.ui.version.code");
+                if (miuiVersion != null && !miuiVersion.isEmpty()) {
+                    try {
                         getApplicationContext().openFileInput("miuiwarn").close();
-                    }catch (Throwable ignored){
+                    } catch (Throwable ignored) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setTitle(R.string.miui_warning);
                         builder.setMessage(R.string.miui_warning_desc);
-                        builder.setNeutralButton(R.string.miui_warning_continue, (dialog, which) -> {
+                        builder.setNeutralButton(R.string.miui_warning_continue, (dialog, which) -> dialog.dismiss());
+                        builder.setOnDismissListener(dialog -> {
                             try {
                                 getApplicationContext().openFileOutput("miuiwarn", Context.MODE_PRIVATE).close();
-                            } catch (Throwable t) {}
+                            } catch (Throwable ignored2) {
+                            }
                         });
                         builder.show();
                     }
                 }
-            }catch(Throwable ignored){}
+            } catch (Throwable ignored) {
+            }
         } else {
             startActivity(new Intent(MainActivity.this, IntroActivity.class));
             finish();
