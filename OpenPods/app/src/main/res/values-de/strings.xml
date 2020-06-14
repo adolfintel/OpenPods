@@ -19,6 +19,9 @@
     <string name="batterySaver_desc">Aktiviere diesen Modus, wenn Bluetooth zu viel Batterieleistung erfordert</string>
     <string name="hide">App verstecken</string>
     <string name="hide_desc">Verstecke diese App vor dem Launcher</string>
+    <string name="hide_dialog">Sind Sie sich sicher?</string>
+    <string name="hide_dialog_desc">Sind Sie sich sicher, dass Sie diese App verstecken möchten? Es kann nur durch erneutes Installieren der App wieder rückgängig gemacht werden.</string>
+    <string name="hide_dialog_button">Verstecken</string>
     <string name="hideClicked">Das Icon wird bald verschwinden</string>
     <string name="about">Über</string>
 

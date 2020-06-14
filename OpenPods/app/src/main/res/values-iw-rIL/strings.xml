@@ -19,6 +19,9 @@
     <string name="batterySaver_desc">הפעל אם Bluetooth משתמש בהרבה סוללה</string>
     <string name="hide">הסתר אפליקציה</string>
     <string name="hide_desc">הסתר את האפליקציה ממסך הבית</string>
+    <string name="hide_dialog">האם אתה בטוח?</string>
+    <string name="hide_dialog_desc">האם אתה בטוח שאתה רוצה להסתיר את האפליקציה? ניתן לבטל זאת רק על ידי התקנה מחדש</string>
+    <string name="hide_dialog_button">הסתר</string>
     <string name="hideClicked">האפליקציה תוסתר בקרוב</string>
     <string name="about">אודות</string>
 
