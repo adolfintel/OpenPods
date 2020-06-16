@@ -3,9 +3,6 @@
     <dimen name="padding_default" >12dp</dimen>
     <dimen name="padding_main"    >16dp</dimen>
 
-    <dimen name="noti_location_big_height"   >120dp</dimen>
-    <dimen name="noti_location_small_height" >70dp</dimen>
-
     <dimen name="noti_status_bat_size" >18dp</dimen>
 
     <dimen name="noti_status_small_item_width"  >80dp</dimen>
