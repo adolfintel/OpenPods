@@ -54,7 +54,7 @@ public class PodsService extends Service {
     private static String model = MODEL_AIRPODS_NORMAL;
 
     /**
-     * The following method (startAirPodsScanner) creates a bluetoth LE scanner.
+     * The following method (startAirPodsScanner) creates a bluetooth LE scanner.
      * This scanner receives all beacons from nearby BLE devices (not just your devices!) so we need to do 3 things:
      * - Check that the beacon comes from something that looks like a pair of AirPods
      * - Make sure that it is YOUR pair of AirPods
