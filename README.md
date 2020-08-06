@@ -28,7 +28,7 @@ I had to do this because several people were redistributing modified proprietary
 [Donate with PayPal](https://www.paypal.me/sineisochronic)
 
 ## Screenshots
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png" width="420"> &nbsp; <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png" width="420"> &nbsp; <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png" width="420"> &nbsp; <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png" width="420">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png" width="400"> &nbsp; <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png" width="400"> &nbsp; <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png" width="400"> &nbsp; <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png" width="400">
 
 ## License
 Copyright (C) 2019 Federico Dossena
