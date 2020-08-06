@@ -8,8 +8,8 @@ android {
         applicationId "com.dosse.airpods"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 141
-        versionName '1.4.1'
+        versionCode 15
+        versionName '1.5'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
