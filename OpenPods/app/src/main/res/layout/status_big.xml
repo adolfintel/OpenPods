@@ -21,7 +21,7 @@
             android:layout_height="@dimen/noti_status_big_item_height"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="6dp"
-            android:src="@drawable/left_pod" />
+            android:src="@drawable/pod" />
 
         <TextView
             android:id="@+id/leftPodText"
@@ -64,7 +64,8 @@
             android:layout_height="@dimen/noti_status_big_item_height"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="6dp"
-            android:src="@drawable/right_pod" />
+            android:scaleX="-1"
+            android:src="@drawable/pod" />
 
         <TextView
             android:id="@+id/rightPodText"

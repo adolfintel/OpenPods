@@ -19,7 +19,7 @@
             android:id="@+id/leftPodImg"
             android:layout_width="@dimen/noti_status_small_pod_width"
             android:layout_height="@dimen/noti_status_small_item_height"
-            android:src="@drawable/left_pod" />
+            android:src="@drawable/pod" />
 
         <TextView
             android:id="@+id/leftPodText"
@@ -58,7 +58,8 @@
             android:id="@+id/rightPodImg"
             android:layout_width="@dimen/noti_status_small_pod_width"
             android:layout_height="@dimen/noti_status_small_item_height"
-            android:src="@drawable/right_pod" />
+            android:scaleX="-1"
+            android:src="@drawable/pod" />
 
         <TextView
             android:id="@+id/rightPodText"

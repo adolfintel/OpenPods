@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    buildToolsVersion '30.0.0'
 
     defaultConfig {
         applicationId "com.dosse.airpods"
@@ -16,15 +16,16 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
-    }
+
     lintOptions {
         abortOnError false
     }
+
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
