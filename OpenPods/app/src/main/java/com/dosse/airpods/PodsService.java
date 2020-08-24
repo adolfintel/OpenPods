@@ -163,40 +163,17 @@ public class PodsService extends Service {
                                 String a = decodeHex(Objects.requireNonNull(Objects.requireNonNull(result.getScanRecord()).getManufacturerSpecificData(76)));
                                 boolean flip = isFlipped(a);
 
-                                String leftAirpodStr; // Left airpod (0-10 batt; 15=disconnected)
-                                String rightAirpodStr; // Right airpod (0-10 batt; 15=disconnected)
+                                leftStatus = Integer.parseInt("" + a.charAt(flip ? 12 : 13), 16); // Left airpod (0-10 batt; 15=disconnected)
+                                rightStatus = Integer.parseInt("" + a.charAt(flip ? 13 : 12), 16); // Right airpod (0-10 batt; 15=disconnected)
+                                caseStatus = Integer.parseInt("" + a.charAt(15), 16); // Case (0-10 batt; 15=disconnected)
 
-                                if (flip) {
-                                    leftAirpodStr = "" + a.charAt(12);
-                                    rightAirpodStr = "" + a.charAt(13);
-                                } else {
-                                    leftAirpodStr = "" + a.charAt(13);
-                                    rightAirpodStr = "" + a.charAt(12);
-                                }
+                                int chargeStatus = Integer.parseInt("" + a.charAt(14), 16); // Charge status (bit 0=left; bit 1=right; bit 2=case)
 
-                                String caseStr = "" + a.charAt(15); // Case (0-10 batt; 15=disconnected)
-                                String chargeStatusStr = "" + a.charAt(14); // Charge status (bit 0=left; bit 1=right; bit 2=case)
-
-                                leftStatus = Integer.parseInt(leftAirpodStr, 16);
-                                rightStatus = Integer.parseInt(rightAirpodStr, 16);
-                                caseStatus = Integer.parseInt(caseStr, 16);
-
-                                int chargeStatus = Integer.parseInt(chargeStatusStr, 16);
-
-                                if (flip) {
-                                    chargeL = (chargeStatus & 0b00000010) != 0;
-                                    chargeR = (chargeStatus & 0b00000001) != 0;
-                                } else {
-                                    chargeL = (chargeStatus & 0b00000001) != 0;
-                                    chargeR = (chargeStatus & 0b00000010) != 0;
-                                }
-
+                                chargeL = (chargeStatus & (flip ? 0b00000010 : 0b00000001)) != 0;
+                                chargeR = (chargeStatus & (flip ? 0b00000001 : 0b00000010)) != 0;
                                 chargeCase = (chargeStatus & 0b00000100) != 0;
 
-                                if (a.charAt(7) == 'E')
-                                    model = MODEL_AIRPODS_PRO;
-                                else
-                                    model = MODEL_AIRPODS_NORMAL; // Detect if these are AirPods pro or regular ones
+                                model = (a.charAt(7) == 'E') ? MODEL_AIRPODS_PRO : MODEL_AIRPODS_NORMAL; // Detect if these are AirPods Pro or regular ones
 
                                 lastSeenConnected = System.currentTimeMillis();
                             } catch (Throwable t) {
@@ -246,22 +223,17 @@ public class PodsService extends Service {
         }
     }
 
-    private final char[] hexCharset = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
     private String decodeHex (byte[] bArr) {
-        char[] ret = new char[bArr.length * 2];
+        StringBuilder ret = new StringBuilder();
 
-        for (int i = 0; i < bArr.length; i++) {
-            int b = bArr[i] & 0xFF;
-            ret[i * 2] = hexCharset[b >>> 4];
-            ret[i * 2 + 1] = hexCharset[b & 0x0F];
-        }
+        for (byte b : bArr)
+            ret.append(String.format("%02X", b));
 
-        return new String(ret);
+        return ret.toString();
     }
 
     private boolean isFlipped (String str) {
-        return (Integer.toString(Integer.parseInt("" + str.charAt(10), 16) + 0x10, 2)).charAt(3) == '0';
+        return ((Integer.parseInt("" + str.charAt(10), 16) / 2 ) % 2) == 0;
     }
 
     /**
