@@ -233,7 +233,7 @@ public class PodsService extends Service {
     }
 
     private boolean isFlipped (String str) {
-        return ((Integer.parseInt("" + str.charAt(10), 16) / 2 ) % 2) == 0;
+        return (Integer.parseInt("" + str.charAt(10), 16)  &  0x02) == 0;
     }
 
     /**
