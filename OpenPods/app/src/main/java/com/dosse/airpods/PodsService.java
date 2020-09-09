@@ -221,6 +221,7 @@ public class PodsService extends Service {
             leftStatus = 15;
             rightStatus = 15;
             caseStatus = 15;
+            updateWidget();
         } catch (Throwable ignored) {
         }
     }
@@ -412,14 +413,8 @@ public class PodsService extends Service {
                         notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
                     }
 
+                    updateWidget();
                     try {
-                        // Update widget
-                        Intent intent = new Intent(getApplication(), PodsWidget.class);
-                        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-                        int[] ids = AppWidgetManager.getInstance(getApplication())
-                                .getAppWidgetIds(new ComponentName(getApplication(), PodsWidget.class));
-                        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-                        sendBroadcast(intent);
                         // Update notification
                         mNotifyManager.notify(1, mBuilder.build());
                     } catch (Throwable ignored) {
@@ -627,6 +622,15 @@ public class PodsService extends Service {
             n.start();
         }
         return START_STICKY;
+    }
+
+    private void updateWidget() {
+        Intent intent = new Intent(getApplication(), PodsWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] ids = AppWidgetManager.getInstance(getApplication())
+                .getAppWidgetIds(new ComponentName(getApplication(), PodsWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
     }
 
 }
