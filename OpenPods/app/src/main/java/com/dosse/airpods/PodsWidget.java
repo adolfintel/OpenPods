@@ -47,6 +47,16 @@ public class PodsWidget extends AppWidgetProvider {
         views.setViewVisibility(R.id.rightPodBat, chargeR ? View.VISIBLE : View.GONE);
         views.setViewVisibility(R.id.caseBat, chargeCase ? View.VISIBLE : View.GONE);
 
+        if (PodsService.model.equals(PodsService.MODEL_AIRPODS_NORMAL)) {
+            views.setImageViewResource(R.id.leftPodImg, R.drawable.pod);
+            views.setImageViewResource(R.id.rightPodImg, R.drawable.pod);
+            views.setImageViewResource(R.id.caseImg, R.drawable.pod_case);
+        } else if (PodsService.model.equals(PodsService.MODEL_AIRPODS_PRO)) {
+            views.setImageViewResource(R.id.leftPodImg, R.drawable.podpro);
+            views.setImageViewResource(R.id.rightPodImg, R.drawable.podpro);
+            views.setImageViewResource(R.id.caseImg, R.drawable.podpro_case);
+        }
+
         if (rightStatus != 15) {
             views.setProgressBar(R.id.rightPodProgress, 100, rightStatus * 10, false);
             String podText_Right = (rightStatus == 10) ? "100%" : ((rightStatus < 10) ? ((rightStatus * 10 + 5) + "%") : "");

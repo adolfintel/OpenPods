@@ -52,8 +52,8 @@ public class PodsService extends Service {
     private static BluetoothLeScanner btScanner;
     static int leftStatus = 15, rightStatus = 15, caseStatus = 15;
     static boolean chargeL = false, chargeR = false, chargeCase = false;
-    private static final String MODEL_AIRPODS_NORMAL = "airpods12", MODEL_AIRPODS_PRO = "airpodspro";
-    private static String model = MODEL_AIRPODS_NORMAL;
+    static final String MODEL_AIRPODS_NORMAL = "airpods12", MODEL_AIRPODS_PRO = "airpodspro";
+    static String model = MODEL_AIRPODS_NORMAL;
 
     /**
      * The following method (startAirPodsScanner) creates a bluetooth LE scanner.
