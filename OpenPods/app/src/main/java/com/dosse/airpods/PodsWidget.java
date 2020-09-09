@@ -3,13 +3,18 @@ package com.dosse.airpods;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.RemoteViews;
+
+import androidx.preference.PreferenceManager;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class PodsWidget extends AppWidgetProvider {
+
+    static boolean showBackground;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -17,6 +22,12 @@ public class PodsWidget extends AppWidgetProvider {
         int leftStatus = PodsService.leftStatus, rightStatus = PodsService.rightStatus, caseStatus = PodsService.caseStatus;
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.pods_widget);
+
+        if (showBackground) {
+            views.setViewVisibility(R.id.background, View.VISIBLE);
+        } else {
+            views.setViewVisibility(R.id.background, View.GONE);
+        }
 
         if (leftStatus != 15) {
             views.setProgressBar(R.id.leftPodProgress, 100, leftStatus * 10, false);
@@ -57,7 +68,9 @@ public class PodsWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        showBackground = prefs.getBoolean("widgetBackground", false);
+        
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
@@ -65,12 +78,10 @@ public class PodsWidget extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
     }
 
     @Override
     public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
     }
 }
 

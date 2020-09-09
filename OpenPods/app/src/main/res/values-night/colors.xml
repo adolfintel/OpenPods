@@ -8,4 +8,5 @@
     <color name="bgColorPrimary"   >#000</color>
 
     <color name="dgrey"            >@android:color/darker_gray</color>
+    <color name="bgColorWidget">#000</color>
 </resources>
