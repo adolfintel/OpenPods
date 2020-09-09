@@ -1,14 +1,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/widget_margin"
-    android:gravity="center">
+    android:gravity="center"
+    tools:ignore="RtlHardcoded,ContentDescription">
 
     <ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background_widget"/>
+        android:src="@drawable/background_widget" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,7 +51,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                tools:ignore="UseCompoundDrawables">
                 <TextView
                     android:id="@+id/leftPodText"
                     android:layout_width="wrap_content"
@@ -99,7 +102,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                tools:ignore="UseCompoundDrawables">
                 <TextView
                     android:id="@+id/caseText"
                     android:layout_width="wrap_content"
@@ -150,7 +154,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                tools:ignore="UseCompoundDrawables">
                 <TextView
                     android:id="@+id/rightPodText"
                     android:layout_width="wrap_content"
