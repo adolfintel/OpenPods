@@ -32,6 +32,7 @@
                     android:progress="10"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:rotation="-90"
                     style="?android:progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_circular_determinate"/>
 
@@ -44,12 +45,23 @@
 
             </FrameLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_marginTop="8dp"
-                android:id="@+id/leftPodText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/textColorPrimary" />
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/leftPodText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorPrimary" />
+
+                <ImageView
+                    android:id="@+id/leftPodBat"
+                    android:layout_width="@dimen/noti_status_bat_size"
+                    android:layout_height="@dimen/noti_status_bat_size"
+                    android:src="@drawable/ic_battery_charging_full_green_24dp" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -70,6 +82,7 @@
                     android:progress="10"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:rotation="-90"
                     style="?android:progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_circular_determinate"/>
 
@@ -82,12 +95,23 @@
 
             </FrameLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_marginTop="8dp"
-                android:id="@+id/caseText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/textColorPrimary" />
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/caseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorPrimary" />
+
+                <ImageView
+                    android:id="@+id/caseBat"
+                    android:layout_width="@dimen/noti_status_bat_size"
+                    android:layout_height="@dimen/noti_status_bat_size"
+                    android:src="@drawable/ic_battery_charging_full_green_24dp" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -108,6 +132,7 @@
                     android:progress="10"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:rotation="-90"
                     style="?android:progressBarStyleHorizontal"
                     android:progressDrawable="@drawable/progressbar_circular_determinate"/>
 
@@ -121,12 +146,23 @@
 
             </FrameLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_marginTop="8dp"
-                android:id="@+id/rightPodText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/textColorPrimary" />
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/rightPodText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorPrimary" />
+
+                <ImageView
+                    android:id="@+id/rightPodBat"
+                    android:layout_width="@dimen/noti_status_bat_size"
+                    android:layout_height="@dimen/noti_status_bat_size"
+                    android:src="@drawable/ic_battery_charging_full_green_24dp" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView

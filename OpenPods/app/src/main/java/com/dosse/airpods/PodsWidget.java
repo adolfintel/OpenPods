@@ -20,6 +20,7 @@ public class PodsWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         int leftStatus = PodsService.leftStatus, rightStatus = PodsService.rightStatus, caseStatus = PodsService.caseStatus;
+        boolean chargeL = PodsService.chargeL, chargeR = PodsService.chargeR, chargeCase = PodsService.chargeCase;
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.pods_widget);
 
@@ -37,6 +38,14 @@ public class PodsWidget extends AppWidgetProvider {
         } else {
             views.setViewVisibility(R.id.left, View.GONE);
         }
+
+        views.setImageViewResource(R.id.leftPodBat, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+        views.setImageViewResource(R.id.rightPodBat, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+        views.setImageViewResource(R.id.caseBat, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+
+        views.setViewVisibility(R.id.leftPodBat, chargeL ? View.VISIBLE : View.GONE);
+        views.setViewVisibility(R.id.rightPodBat, chargeR ? View.VISIBLE : View.GONE);
+        views.setViewVisibility(R.id.caseBat, chargeCase ? View.VISIBLE : View.GONE);
 
         if (rightStatus != 15) {
             views.setProgressBar(R.id.rightPodProgress, 100, rightStatus * 10, false);
@@ -62,7 +71,6 @@ public class PodsWidget extends AppWidgetProvider {
             views.setViewVisibility(R.id.title, View.GONE);
         }
 
-        // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
@@ -70,7 +78,7 @@ public class PodsWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         showBackground = prefs.getBoolean("widgetBackground", false);
-        
+
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
