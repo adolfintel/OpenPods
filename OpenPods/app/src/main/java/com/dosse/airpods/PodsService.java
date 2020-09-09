@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
@@ -16,6 +17,7 @@ import android.bluetooth.le.ScanFilter.Builder;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -48,7 +50,7 @@ public class PodsService extends Service {
     private static final boolean ENABLE_LOGGING = BuildConfig.DEBUG; // Log is only displayed if this is a debug build, not release
 
     private static BluetoothLeScanner btScanner;
-    private static int leftStatus = 15, rightStatus = 15, caseStatus = 15;
+    static int leftStatus = 15, rightStatus = 15, caseStatus = 15;
     private static boolean chargeL = false, chargeR = false, chargeCase = false;
     private static final String MODEL_AIRPODS_NORMAL = "airpods12", MODEL_AIRPODS_PRO = "airpodspro";
     private static String model = MODEL_AIRPODS_NORMAL;
@@ -411,6 +413,14 @@ public class PodsService extends Service {
                     }
 
                     try {
+                        // Update widget
+                        Intent intent = new Intent(getApplication(), PodsWidget.class);
+                        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                        int[] ids = AppWidgetManager.getInstance(getApplication())
+                                .getAppWidgetIds(new ComponentName(getApplication(), PodsWidget.class));
+                        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+                        sendBroadcast(intent);
+                        // Update notification
                         mNotifyManager.notify(1, mBuilder.build());
                     } catch (Throwable ignored) {
                         mNotifyManager.cancel(1);

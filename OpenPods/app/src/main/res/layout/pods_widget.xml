@@ -1,0 +1,135 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColorPrimary"
+    android:padding="@dimen/widget_margin"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/left"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+
+            <ProgressBar
+                android:layout_gravity="center"
+                android:id="@+id/leftPodProgress"
+                android:indeterminate="false"
+                android:progress="10"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                style="?android:progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progressbar_circular_determinate"/>
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/leftPodImg"
+                android:layout_width="@dimen/noti_status_small_pod_width"
+                android:layout_height="@dimen/noti_status_small_item_height"
+                android:src="@drawable/pod" />
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:id="@+id/leftPodText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/casePods"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+
+            <ProgressBar
+                android:layout_gravity="center"
+                android:id="@+id/caseProgress"
+                android:indeterminate="false"
+                android:progress="10"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                style="?android:progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progressbar_circular_determinate"/>
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/caseImg"
+                android:layout_width="@dimen/noti_status_small_pod_width"
+                android:layout_height="@dimen/noti_status_small_item_height"
+                android:src="@drawable/pod_case" />
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:id="@+id/caseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/right"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+
+            <ProgressBar
+                android:layout_gravity="center"
+                android:id="@+id/rightPodProgress"
+                android:indeterminate="false"
+                android:progress="10"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                style="?android:progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progressbar_circular_determinate"/>
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/rightPodImg"
+                android:layout_width="@dimen/noti_status_small_pod_width"
+                android:layout_height="@dimen/noti_status_small_item_height"
+                android:src="@drawable/pod"
+                android:scaleX="-1" />
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:id="@+id/rightPodText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorPrimary" />
+    </LinearLayout>
+
+    <!--LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/textColorPrimary"/>
+    </LinearLayout-->
+
+</LinearLayout>

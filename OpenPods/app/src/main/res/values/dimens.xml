@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="padding_default" >12dp</dimen>
-    <dimen name="padding_main"    >16dp</dimen>
+    <dimen name="padding_default">12dp</dimen>
+    <dimen name="padding_main">16dp</dimen>
 
-    <dimen name="noti_status_bat_size" >18dp</dimen>
+    <dimen name="noti_status_bat_size">18dp</dimen>
 
-    <dimen name="noti_status_small_item_width"  >80dp</dimen>
-    <dimen name="noti_status_small_item_height" >30dp</dimen>
-    <dimen name="noti_status_small_pod_width"   >18dp</dimen>
-    <dimen name="noti_status_small_case_width"  >25dp</dimen>
+    <dimen name="noti_status_small_item_width">80dp</dimen>
+    <dimen name="noti_status_small_item_height">30dp</dimen>
+    <dimen name="noti_status_small_pod_width">18dp</dimen>
+    <dimen name="noti_status_small_case_width">25dp</dimen>
 
-    <dimen name="noti_status_big_pod_container"  >70dp</dimen>
-    <dimen name="noti_status_big_case_container" >120dp</dimen>
-    <dimen name="noti_status_big_item_height"    >90dp</dimen>
-    <dimen name="noti_status_big_pod_width"      >40dp</dimen>
-    <dimen name="noti_status_big_case_width"     >80dp</dimen>
-    <dimen name="noti_status_big_progressbar"    >18dp</dimen>
+    <dimen name="noti_status_big_pod_container">70dp</dimen>
+    <dimen name="noti_status_big_case_container">120dp</dimen>
+    <dimen name="noti_status_big_item_height">90dp</dimen>
+    <dimen name="noti_status_big_pod_width">40dp</dimen>
+    <dimen name="noti_status_big_case_width">80dp</dimen>
+    <dimen name="noti_status_big_progressbar">18dp</dimen>
+
+    <dimen name="widget_margin">16dp</dimen>
 </resources>
