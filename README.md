@@ -1,9 +1,3 @@
-## Changes
-
-- WIP home screen widget
-
-## Original README.md
-
 ![OpenPods Logo](fastlane/metadata/android/en-US/images/featureGraphic.png)
 
 # OpenPods
