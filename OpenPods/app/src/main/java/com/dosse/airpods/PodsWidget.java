@@ -39,13 +39,13 @@ public class PodsWidget extends AppWidgetProvider {
             views.setViewVisibility(R.id.left, View.GONE);
         }
 
-        views.setImageViewResource(R.id.leftPodBat, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-        views.setImageViewResource(R.id.rightPodBat, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-        views.setImageViewResource(R.id.caseBat, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+        views.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+        views.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+        views.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
 
-        views.setViewVisibility(R.id.leftPodBat, chargeL ? View.VISIBLE : View.GONE);
-        views.setViewVisibility(R.id.rightPodBat, chargeR ? View.VISIBLE : View.GONE);
-        views.setViewVisibility(R.id.caseBat, chargeCase ? View.VISIBLE : View.GONE);
+        views.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
+        views.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
+        views.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));
 
         if (PodsService.model.equals(PodsService.MODEL_AIRPODS_NORMAL)) {
             views.setImageViewResource(R.id.leftPodImg, R.drawable.pod);
