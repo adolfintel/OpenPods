@@ -15,6 +15,7 @@ import androidx.preference.PreferenceManager;
 public class PodsWidget extends AppWidgetProvider {
 
     static boolean showBackground;
+    static boolean isWidgetActive = false;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -86,9 +87,6 @@ public class PodsWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        showBackground = prefs.getBoolean("widgetBackground", false);
-
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
@@ -96,10 +94,14 @@ public class PodsWidget extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        showBackground = prefs.getBoolean("widgetBackground", false);
+        isWidgetActive = true;
     }
 
     @Override
     public void onDisabled(Context context) {
+        isWidgetActive = false;
     }
 }
 

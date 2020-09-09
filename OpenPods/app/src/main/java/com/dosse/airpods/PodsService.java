@@ -221,7 +221,7 @@ public class PodsService extends Service {
             leftStatus = 15;
             rightStatus = 15;
             caseStatus = 15;
-            updateWidget();
+            if (PodsWidget.isWidgetActive) updateWidget();
         } catch (Throwable ignored) {
         }
     }
@@ -413,7 +413,7 @@ public class PodsService extends Service {
                         notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
                     }
 
-                    updateWidget();
+                    if (PodsWidget.isWidgetActive) updateWidget();
                     try {
                         // Update notification
                         mNotifyManager.notify(1, mBuilder.build());
