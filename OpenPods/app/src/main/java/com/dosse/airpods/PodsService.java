@@ -55,6 +55,8 @@ public class PodsService extends Service {
     static final String MODEL_AIRPODS_NORMAL = "airpods12", MODEL_AIRPODS_PRO = "airpodspro";
     static String model = MODEL_AIRPODS_NORMAL;
 
+    static boolean isWidgetActive = false;
+
     /**
      * The following method (startAirPodsScanner) creates a bluetooth LE scanner.
      * This scanner receives all beacons from nearby BLE devices (not just your devices!) so we need to do 3 things:
@@ -221,7 +223,7 @@ public class PodsService extends Service {
             leftStatus = 15;
             rightStatus = 15;
             caseStatus = 15;
-            if (PodsWidget.isWidgetActive) updateWidget();
+            if (isWidgetActive) updateWidget();
         } catch (Throwable ignored) {
         }
     }
@@ -249,8 +251,8 @@ public class PodsService extends Service {
      */
     private static NotificationThread n = null;
     private static final String TAG = "AirPods";
-    private static long lastSeenConnected = 0;
-    private static final long TIMEOUT_CONNECTED = 30000;
+    static long lastSeenConnected = 0;
+    static final long TIMEOUT_CONNECTED = 30000;
     private static boolean maybeConnected = false;
 
     private class NotificationThread extends Thread {
@@ -413,7 +415,7 @@ public class PodsService extends Service {
                         notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
                     }
 
-                    if (PodsWidget.isWidgetActive) updateWidget();
+                    if (isWidgetActive) updateWidget();
                     try {
                         // Update notification
                         mNotifyManager.notify(1, mBuilder.build());

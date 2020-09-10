@@ -3,11 +3,8 @@ package com.dosse.airpods;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.RemoteViews;
-
-import androidx.preference.PreferenceManager;
 
 /**
  * Implementation of App Widget functionality.
@@ -15,7 +12,6 @@ import androidx.preference.PreferenceManager;
 public class PodsWidget extends AppWidgetProvider {
 
     static boolean showBackground;
-    static boolean isWidgetActive = false;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -23,66 +19,60 @@ public class PodsWidget extends AppWidgetProvider {
         int leftStatus = PodsService.leftStatus, rightStatus = PodsService.rightStatus, caseStatus = PodsService.caseStatus;
         boolean chargeL = PodsService.chargeL, chargeR = PodsService.chargeR, chargeCase = PodsService.chargeCase;
 
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.pods_widget);
+        RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.pods_widget);
 
         if (showBackground) {
-            views.setViewVisibility(R.id.background, View.VISIBLE);
+            widget.setViewVisibility(R.id.background, View.VISIBLE);
         } else {
-            views.setViewVisibility(R.id.background, View.GONE);
+            widget.setViewVisibility(R.id.background, View.GONE);
         }
-
-        if (leftStatus != 15) {
-            views.setProgressBar(R.id.leftPodProgress, 100, leftStatus * 10, false);
-            String podText_Left = (leftStatus == 10) ? "100%" : ((leftStatus < 10) ? ((leftStatus * 10 + 5) + "%") : "");
-            views.setTextViewText(R.id.leftPodText, podText_Left);
-            views.setViewVisibility(R.id.left, View.VISIBLE);
-        } else {
-            views.setViewVisibility(R.id.left, View.GONE);
-        }
-
-        views.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-        views.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-        views.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-
-        views.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
-        views.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
-        views.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));
 
         if (PodsService.model.equals(PodsService.MODEL_AIRPODS_NORMAL)) {
-            views.setImageViewResource(R.id.leftPodImg, R.drawable.pod);
-            views.setImageViewResource(R.id.rightPodImg, R.drawable.pod);
-            views.setImageViewResource(R.id.caseImg, R.drawable.pod_case);
+            widget.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
+            widget.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
+            widget.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
         } else if (PodsService.model.equals(PodsService.MODEL_AIRPODS_PRO)) {
-            views.setImageViewResource(R.id.leftPodImg, R.drawable.podpro);
-            views.setImageViewResource(R.id.rightPodImg, R.drawable.podpro);
-            views.setImageViewResource(R.id.caseImg, R.drawable.podpro_case);
+            widget.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
+            widget.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
+            widget.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
         }
 
-        if (rightStatus != 15) {
-            views.setProgressBar(R.id.rightPodProgress, 100, rightStatus * 10, false);
+        if (System.currentTimeMillis() - PodsService.lastSeenConnected < PodsService.TIMEOUT_CONNECTED) {
+            widget.setViewVisibility(R.id.leftPodText, View.VISIBLE);
+            widget.setViewVisibility(R.id.rightPodText, View.VISIBLE);
+            widget.setViewVisibility(R.id.podCaseText, View.VISIBLE);
+            widget.setViewVisibility(R.id.leftPodUpdating, View.INVISIBLE);
+            widget.setViewVisibility(R.id.rightPodUpdating, View.INVISIBLE);
+            widget.setViewVisibility(R.id.podCaseUpdating, View.INVISIBLE);
+
+            String podText_Left = (leftStatus == 10) ? "100%" : ((leftStatus < 10) ? ((leftStatus * 10 + 5) + "%") : "");
             String podText_Right = (rightStatus == 10) ? "100%" : ((rightStatus < 10) ? ((rightStatus * 10 + 5) + "%") : "");
-            views.setTextViewText(R.id.rightPodText, podText_Right);
-            views.setViewVisibility(R.id.right, View.VISIBLE);
-        } else {
-            views.setViewVisibility(R.id.right, View.GONE);
-        }
-
-        if (caseStatus != 15) {
-            views.setProgressBar(R.id.caseProgress, 100, caseStatus * 10, false);
             String podText_Case = (caseStatus == 10) ? "100%" : ((caseStatus < 10) ? ((caseStatus * 10 + 5) + "%") : "");
-            views.setTextViewText(R.id.caseText, podText_Case);
-            views.setViewVisibility(R.id.casePods, View.VISIBLE);
+
+            widget.setTextViewText(R.id.leftPodText, podText_Left);
+            widget.setTextViewText(R.id.rightPodText, podText_Right);
+            widget.setTextViewText(R.id.podCaseText, podText_Case);
+
+            widget.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+            widget.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+            widget.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+
+            widget.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
+            widget.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
+            widget.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));
         } else {
-            views.setViewVisibility(R.id.casePods, View.GONE);
+            widget.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
+            widget.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
+            widget.setViewVisibility(R.id.podCaseText, View.INVISIBLE);
+            widget.setViewVisibility(R.id.leftBatImg, View.GONE);
+            widget.setViewVisibility(R.id.rightBatImg, View.GONE);
+            widget.setViewVisibility(R.id.caseBatImg, View.GONE);
+            widget.setViewVisibility(R.id.leftPodUpdating, View.VISIBLE);
+            widget.setViewVisibility(R.id.rightPodUpdating, View.VISIBLE);
+            widget.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
         }
 
-        if (leftStatus == 15 && rightStatus == 15 && caseStatus == 15) {
-            views.setViewVisibility(R.id.title, View.VISIBLE);
-        } else {
-            views.setViewVisibility(R.id.title, View.GONE);
-        }
-
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+        appWidgetManager.updateAppWidget(appWidgetId, widget);
     }
 
     @Override
@@ -94,14 +84,12 @@ public class PodsWidget extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        showBackground = prefs.getBoolean("widgetBackground", false);
-        isWidgetActive = true;
+        PodsService.isWidgetActive = true;
     }
 
     @Override
     public void onDisabled(Context context) {
-        isWidgetActive = false;
+        PodsService.isWidgetActive = false;
     }
 }
 
