@@ -93,6 +93,7 @@ public class PodsService extends Service {
                 Log.d(TAG, "START SCANNER");
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            isWidgetActive = prefs.getBoolean("isWidgetActive", false); // Check if the widget is active in case the app is stopped
             BluetoothManager btManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
             assert btManager != null;
             BluetoothAdapter btAdapter = btManager.getAdapter();
@@ -223,9 +224,9 @@ public class PodsService extends Service {
             leftStatus = 15;
             rightStatus = 15;
             caseStatus = 15;
-            if (isWidgetActive) updateWidget();
         } catch (Throwable ignored) {
         }
+        if (isWidgetActive) updateWidget();
     }
 
     private String decodeHex (byte[] bArr) {

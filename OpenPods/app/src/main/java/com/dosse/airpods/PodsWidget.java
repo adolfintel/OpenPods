@@ -3,8 +3,11 @@ package com.dosse.airpods;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.RemoteViews;
+
+import androidx.preference.PreferenceManager;
 
 /**
  * Implementation of App Widget functionality.
@@ -85,11 +88,21 @@ public class PodsWidget extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         PodsService.isWidgetActive = true;
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        prefs.edit()
+               .putBoolean("isWidgetActive", true)
+               .apply();
     }
 
     @Override
     public void onDisabled(Context context) {
         PodsService.isWidgetActive = false;
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        prefs.edit()
+                .putBoolean("isWidgetActive", false)
+                .apply();
     }
 }
 
