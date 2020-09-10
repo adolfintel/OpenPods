@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -44,6 +45,7 @@ public class PodsWidget extends AppWidgetProvider {
         views.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
         views.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
 
+        Log.d("AirPods", String.valueOf(chargeL));
         views.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
         views.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
         views.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));

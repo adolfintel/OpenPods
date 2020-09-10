@@ -60,7 +60,7 @@
                     android:textColor="@color/textColorPrimary" />
 
                 <ImageView
-                    android:id="@+id/leftPodBat"
+                    android:id="@+id/leftBatImg"
                     android:layout_width="@dimen/noti_status_bat_size"
                     android:layout_height="@dimen/noti_status_bat_size"
                     android:src="@drawable/ic_battery_charging_full_green_24dp" />
@@ -111,7 +111,7 @@
                     android:textColor="@color/textColorPrimary" />
 
                 <ImageView
-                    android:id="@+id/caseBat"
+                    android:id="@+id/caseBatImg"
                     android:layout_width="@dimen/noti_status_bat_size"
                     android:layout_height="@dimen/noti_status_bat_size"
                     android:src="@drawable/ic_battery_charging_full_green_24dp" />
@@ -163,7 +163,7 @@
                     android:textColor="@color/textColorPrimary" />
 
                 <ImageView
-                    android:id="@+id/rightPodBat"
+                    android:id="@+id/rightBatImg"
                     android:layout_width="@dimen/noti_status_bat_size"
                     android:layout_height="@dimen/noti_status_bat_size"
                     android:src="@drawable/ic_battery_charging_full_green_24dp" />
