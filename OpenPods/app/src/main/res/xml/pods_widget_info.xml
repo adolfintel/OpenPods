@@ -4,6 +4,6 @@
     android:initialLayout="@layout/pods_widget"
     android:minWidth="180dp"
     android:minHeight="40dp"
-    android:resizeMode="horizontal|vertical"
+    android:resizeMode="horizontal"
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen" />
