@@ -11,8 +11,8 @@
     <string name="miui_warning_continue">Continue</string>
 
     <string name="noBtText">Il semble que cet appareil ne dispose pas de Bluetooth LE.</string>
-    <string name="locationDisabledText">Vous devez activer la localisation pour permettre aux OpenPod de lire l\'état de vous AirPods.</string>
-    <string name="supportedDevicesTitle"><u>Appareils pris en charge:</u></string>
+    <string name="locationDisabledText">Vous devez activer la localisation pour permettre aux OpenPod de lire l\'état de vos AirPods.</string>
+    <string name="supportedDevicesTitle"><u>Appareils pris en charge :</u></string>
     <string name="supportedDevicesItems">&#8226; Apple AirPods 1re génération\n&#8226; Apple AirPods 2e génération\n&#8226; Apple AirPods Pro</string>
 
     <string name="batterySaver">Économiseur de batterie (non recommandé)</string>
@@ -22,7 +22,7 @@
     <string name="hideClicked">L\'icône disparaîtra bientôt.</string>
     <string name="about">À propos</string>
 
-    <string name="about_dev">Developpé par Federico Dossena</string>
+    <string name="about_dev">Développé par Federico Dossena</string>
     <string name="website">Site web</string>
     <string name="github">Github</string>
     <string name="donate">Faire un don</string>
