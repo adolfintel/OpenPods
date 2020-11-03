@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion '30.0.2'
 
     defaultConfig {
-        applicationId "com.dosse.airpods"
+        applicationId 'com.dosse.airpodsr'
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 15
         versionName '1.5'
 
