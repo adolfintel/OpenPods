@@ -284,6 +284,7 @@ public class PodsService extends Service {
             String compat = getPackageManager().getInstallerPackageName(getPackageName());
 
             RemoteViews[] notificationArr = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.status_big), new RemoteViews(getPackageName(), R.layout.status_small)};
+            RemoteViews[] notificationLocation = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.location_disabled_big), new RemoteViews(getPackageName(), R.layout.location_disabled_small)};
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(PodsService.this, TAG);
             mBuilder.setShowWhen(false);
@@ -313,8 +314,8 @@ public class PodsService extends Service {
                     mBuilder.setCustomContentView(notificationArr[1]);
                     mBuilder.setCustomBigContentView(notificationArr[0]);
                 } else {
-                    mBuilder.setCustomContentView(new RemoteViews(getPackageName(), R.layout.location_disabled_small));
-                    mBuilder.setCustomBigContentView(new RemoteViews(getPackageName(), R.layout.location_disabled_big));
+                    mBuilder.setCustomContentView(notificationLocation[1]);
+                    mBuilder.setCustomBigContentView(notificationLocation[0]);
                 }
 
                 if (notificationShowing) {
