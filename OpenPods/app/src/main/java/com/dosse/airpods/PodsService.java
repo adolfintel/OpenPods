@@ -45,7 +45,9 @@ import java.util.Objects;
  * - Display the notification with the status
  */
 public class PodsService extends Service {
-    private static final boolean ENABLE_LOGGING = BuildConfig.DEBUG; // Log is only displayed if this is a debug build, not release
+    private static void OpenPodsDebugLog (String msg) {
+        if (BuildConfig.DEBUG) Log.d(TAG, msg); // Log is only displayed if this is a debug build, not release
+    }
 
     private static BluetoothLeScanner btScanner;
     private static int leftStatus = 15, rightStatus = 15, caseStatus = 15;
@@ -85,8 +87,7 @@ public class PodsService extends Service {
 
     private void startAirPodsScanner () {
         try {
-            if (ENABLE_LOGGING)
-                Log.d(TAG, "START SCANNER");
+            OpenPodsDebugLog("START SCANNER");
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             BluetoothManager btManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
@@ -137,10 +138,8 @@ public class PodsService extends Service {
 
                                 recentBeacons.add(result);
 
-                                if (ENABLE_LOGGING) {
-                                    Log.d(TAG, "" + result.getRssi() + "db");
-                                    Log.d(TAG, decodeHex(data));
-                                }
+                                OpenPodsDebugLog("" + result.getRssi() + "db");
+                                OpenPodsDebugLog(decodeHex(data));
 
                                 ScanResult strongestBeacon = null;
                                 for (int i = 0; i < recentBeacons.size(); i++) {
@@ -177,14 +176,12 @@ public class PodsService extends Service {
 
                                 lastSeenConnected = System.currentTimeMillis();
                             } catch (Throwable t) {
-                                if (ENABLE_LOGGING)
-                                    Log.d(TAG, "" + t);
+                                OpenPodsDebugLog("" + t);
                             }
                         }
                     });
         } catch (Throwable t) {
-            if (ENABLE_LOGGING)
-                Log.d(TAG, "" + t);
+            OpenPodsDebugLog("" + t);
         }
     }
 
@@ -207,8 +204,7 @@ public class PodsService extends Service {
     private void stopAirPodsScanner () {
         try {
             if (btScanner != null) {
-                if (ENABLE_LOGGING)
-                    Log.d(TAG, "STOP SCANNER");
+                OpenPodsDebugLog("STOP SCANNER");
 
                 btScanner.stopScan(new ScanCallback() {
                     @Override
@@ -233,7 +229,7 @@ public class PodsService extends Service {
     }
 
     private boolean isFlipped (String str) {
-        return (Integer.parseInt("" + str.charAt(10), 16)  &  0x02) == 0;
+        return (Integer.parseInt("" + str.charAt(10), 16) & 0x02) == 0;
     }
 
     /**
@@ -287,10 +283,7 @@ public class PodsService extends Service {
             boolean notificationShowing = false;
             String compat = getPackageManager().getInstallerPackageName(getPackageName());
 
-            RemoteViews notificationBig = new RemoteViews(getPackageName(), R.layout.status_big);
-            RemoteViews notificationSmall = new RemoteViews(getPackageName(), R.layout.status_small);
-            RemoteViews locationDisabledBig = new RemoteViews(getPackageName(), R.layout.location_disabled_big);
-            RemoteViews locationDisabledSmall = new RemoteViews(getPackageName(), R.layout.location_disabled_small);
+            RemoteViews[] notificationArr = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.status_big), new RemoteViews(getPackageName(), R.layout.status_small)};
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(PodsService.this, TAG);
             mBuilder.setShowWhen(false);
@@ -302,15 +295,13 @@ public class PodsService extends Service {
                 /*&&System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED*/
                 if (maybeConnected && !(leftStatus == 15 && rightStatus == 15 && caseStatus == 15)) {
                     if (!notificationShowing) {
-                        if (ENABLE_LOGGING)
-                            Log.d(TAG, "Creating notification");
+                        OpenPodsDebugLog("Creating notification");
                         notificationShowing = true;
                         mNotifyManager.notify(1, mBuilder.build());
                     }
                 } else {
                     if (notificationShowing) {
-                        if (ENABLE_LOGGING)
-                            Log.d(TAG, "Removing notification");
+                        OpenPodsDebugLog("Removing notification");
                         notificationShowing = false;
                         continue;
                     }
@@ -319,95 +310,61 @@ public class PodsService extends Service {
 
                 // Apparently this restriction was removed in android Q
                 if (isLocationEnabled() || Build.VERSION.SDK_INT >= 29) {
-                    mBuilder.setCustomContentView(notificationSmall);
-                    mBuilder.setCustomBigContentView(notificationBig);
+                    mBuilder.setCustomContentView(notificationArr[1]);
+                    mBuilder.setCustomBigContentView(notificationArr[0]);
                 } else {
-                    mBuilder.setCustomContentView(locationDisabledSmall);
-                    mBuilder.setCustomBigContentView(locationDisabledBig);
+                    mBuilder.setCustomContentView(new RemoteViews(getPackageName(), R.layout.location_disabled_small));
+                    mBuilder.setCustomBigContentView(new RemoteViews(getPackageName(), R.layout.location_disabled_big));
                 }
 
                 if (notificationShowing) {
-                    if (ENABLE_LOGGING)
-                        Log.d(TAG, "Left: " + leftStatus + (chargeL ? "+" : "") + " Right: " + rightStatus + (chargeR ? "+" : "") + " Case: " + caseStatus + (chargeCase ? "+" : "") + " Model: " + model);
+                    OpenPodsDebugLog("Left: " + leftStatus + (chargeL ? "+" : "") + " Right: " + rightStatus + (chargeR ? "+" : "") + " Case: " + caseStatus + (chargeCase ? "+" : "") + " Model: " + model);
 
-                    if (model.equals(MODEL_AIRPODS_NORMAL)) {
-                        notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
-                        notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
-                        notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
-                        notificationSmall.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
-                        notificationSmall.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
-                        notificationSmall.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
-                    } else if (model.equals(MODEL_AIRPODS_PRO)) {
-                        notificationBig.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
-                        notificationBig.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
-                        notificationBig.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
-                        notificationSmall.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
-                        notificationSmall.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
-                        notificationSmall.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
+                    if (model.equals(MODEL_AIRPODS_NORMAL)) for (RemoteViews notification : notificationArr) {
+                        notification.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
+                        notification.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
+                        notification.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
+                    }
+                    else if (model.equals(MODEL_AIRPODS_PRO)) for (RemoteViews notification : notificationArr) {
+                        notification.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
+                        notification.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
+                        notification.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
                     }
 
-                    if (System.currentTimeMillis() - lastSeenConnected < TIMEOUT_CONNECTED) {
-                        notificationBig.setViewVisibility(R.id.leftPodText, View.VISIBLE);
-                        notificationBig.setViewVisibility(R.id.rightPodText, View.VISIBLE);
-                        notificationBig.setViewVisibility(R.id.podCaseText, View.VISIBLE);
-                        notificationBig.setViewVisibility(R.id.leftPodUpdating, View.INVISIBLE);
-                        notificationBig.setViewVisibility(R.id.rightPodUpdating, View.INVISIBLE);
-                        notificationBig.setViewVisibility(R.id.podCaseUpdating, View.INVISIBLE);
-
-                        notificationSmall.setViewVisibility(R.id.leftPodText, View.VISIBLE);
-                        notificationSmall.setViewVisibility(R.id.rightPodText, View.VISIBLE);
-                        notificationSmall.setViewVisibility(R.id.podCaseText, View.VISIBLE);
-                        notificationSmall.setViewVisibility(R.id.leftPodUpdating, View.INVISIBLE);
-                        notificationSmall.setViewVisibility(R.id.rightPodUpdating, View.INVISIBLE);
-                        notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.INVISIBLE);
+                    if (System.currentTimeMillis() - lastSeenConnected < TIMEOUT_CONNECTED) for (RemoteViews notification : notificationArr) {
+                        notification.setViewVisibility(R.id.leftPodText, View.VISIBLE);
+                        notification.setViewVisibility(R.id.rightPodText, View.VISIBLE);
+                        notification.setViewVisibility(R.id.podCaseText, View.VISIBLE);
+                        notification.setViewVisibility(R.id.leftPodUpdating, View.INVISIBLE);
+                        notification.setViewVisibility(R.id.rightPodUpdating, View.INVISIBLE);
+                        notification.setViewVisibility(R.id.podCaseUpdating, View.INVISIBLE);
 
                         String podText_Left = (leftStatus == 10) ? "100%" : ((leftStatus < 10) ? ((leftStatus * 10 + 5) + "%") : "");
                         String podText_Right = (rightStatus == 10) ? "100%" : ((rightStatus < 10) ? ((rightStatus * 10 + 5) + "%") : "");
                         String podText_Case = (caseStatus == 10) ? "100%" : ((caseStatus < 10) ? ((caseStatus * 10 + 5) + "%") : "");
 
-                        notificationBig.setTextViewText(R.id.leftPodText, podText_Left);
-                        notificationBig.setTextViewText(R.id.rightPodText, podText_Right);
-                        notificationBig.setTextViewText(R.id.podCaseText, podText_Case);
+                        notification.setTextViewText(R.id.leftPodText, podText_Left);
+                        notification.setTextViewText(R.id.rightPodText, podText_Right);
+                        notification.setTextViewText(R.id.podCaseText, podText_Case);
 
-                        notificationSmall.setTextViewText(R.id.leftPodText, podText_Left);
-                        notificationSmall.setTextViewText(R.id.rightPodText, podText_Right);
-                        notificationSmall.setTextViewText(R.id.podCaseText, podText_Case);
+                        notification.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+                        notification.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+                        notification.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
 
-                        notificationBig.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-                        notificationBig.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-                        notificationBig.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-
-                        notificationSmall.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-                        notificationSmall.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-                        notificationSmall.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-
-                        notificationBig.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
-                        notificationBig.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
-                        notificationBig.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));
-
-                        notificationSmall.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
-                        notificationSmall.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
-                        notificationSmall.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));
-                    } else {
-                        notificationBig.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
-                        notificationBig.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
-                        notificationBig.setViewVisibility(R.id.podCaseText, View.INVISIBLE);
-                        notificationBig.setViewVisibility(R.id.leftBatImg, View.GONE);
-                        notificationBig.setViewVisibility(R.id.rightBatImg, View.GONE);
-                        notificationBig.setViewVisibility(R.id.caseBatImg, View.GONE);
-                        notificationBig.setViewVisibility(R.id.leftPodUpdating, View.VISIBLE);
-                        notificationBig.setViewVisibility(R.id.rightPodUpdating, View.VISIBLE);
-                        notificationBig.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
-
-                        notificationSmall.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
-                        notificationSmall.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
-                        notificationSmall.setViewVisibility(R.id.podCaseText, View.INVISIBLE);
-                        notificationSmall.setViewVisibility(R.id.leftBatImg, View.GONE);
-                        notificationSmall.setViewVisibility(R.id.rightBatImg, View.GONE);
-                        notificationSmall.setViewVisibility(R.id.caseBatImg, View.GONE);
-                        notificationSmall.setViewVisibility(R.id.leftPodUpdating, View.VISIBLE);
-                        notificationSmall.setViewVisibility(R.id.rightPodUpdating, View.VISIBLE);
-                        notificationSmall.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
+                        notification.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
+                        notification.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
+                        notification.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));
+                    }
+                    else for (RemoteViews notification : notificationArr) {
+                        notification.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
+                        notification.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
+                        notification.setViewVisibility(R.id.podCaseText, View.INVISIBLE);
+                        notification.setViewVisibility(R.id.leftBatImg, View.GONE);
+                        notification.setViewVisibility(R.id.rightBatImg, View.GONE);
+                        notification.setViewVisibility(R.id.caseBatImg, View.GONE);
+                        notification.setViewVisibility(R.id.leftPodUpdating, View.VISIBLE);
+                        notification.setViewVisibility(R.id.rightPodUpdating, View.VISIBLE);
+                        notification.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
                     }
 
                     try {
@@ -476,8 +433,7 @@ public class PodsService extends Service {
 
                     // Bluetooth turned off, stop scanner and remove notification.
                     if (state == BluetoothAdapter.STATE_OFF || state == BluetoothAdapter.STATE_TURNING_OFF) {
-                        if (ENABLE_LOGGING)
-                            Log.d(TAG, "BT OFF");
+                        OpenPodsDebugLog("BT OFF");
                         maybeConnected = false;
                         stopAirPodsScanner();
                         recentBeacons.clear();
@@ -485,8 +441,7 @@ public class PodsService extends Service {
 
                     // Bluetooth turned on, start/restart scanner.
                     if (state == BluetoothAdapter.STATE_ON) {
-                        if (ENABLE_LOGGING)
-                            Log.d(TAG, "BT ON");
+                        OpenPodsDebugLog("BT ON");
                         startAirPodsScanner();
                     }
                 }
@@ -495,15 +450,13 @@ public class PodsService extends Service {
                 if (bluetoothDevice != null && !action.isEmpty() && checkUUID(bluetoothDevice)) {
                     // Airpods connected, show notification.
                     if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
-                        if (ENABLE_LOGGING)
-                            Log.d(TAG, "ACL CONNECTED");
+                        OpenPodsDebugLog("ACL CONNECTED");
                         maybeConnected = true;
                     }
 
                     // Airpods disconnected, remove notification but leave the scanner going.
                     if (action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) || action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)) {
-                        if (ENABLE_LOGGING)
-                            Log.d(TAG, "ACL DISCONNECTED");
+                        OpenPodsDebugLog("ACL DISCONNECTED");
                         maybeConnected = false;
                         recentBeacons.clear();
                     }
@@ -523,15 +476,13 @@ public class PodsService extends Service {
             @Override
             public void onServiceConnected (int i, BluetoothProfile bluetoothProfile) {
                 if (i == BluetoothProfile.HEADSET) {
-                    if (ENABLE_LOGGING)
-                        Log.d(TAG, "BT PROXY SERVICE CONNECTED");
+                    OpenPodsDebugLog("BT PROXY SERVICE CONNECTED ");
 
                     BluetoothHeadset h = (BluetoothHeadset)bluetoothProfile;
 
                     for (BluetoothDevice d : h.getConnectedDevices())
                         if (checkUUID(d)) {
-                            if (ENABLE_LOGGING)
-                                Log.d(TAG, "BT PROXY: AIRPODS ALREADY CONNECTED");
+                            OpenPodsDebugLog("BT PROXY: AIRPODS ALREADY CONNECTED");
                             maybeConnected = true;
                             break;
                         }
@@ -541,8 +492,7 @@ public class PodsService extends Service {
             @Override
             public void onServiceDisconnected (int i) {
                 if (i == BluetoothProfile.HEADSET) {
-                    if (ENABLE_LOGGING)
-                        Log.d(TAG, "BT PROXY SERVICE DISCONNECTED ");
+                    OpenPodsDebugLog("BT PROXY SERVICE DISCONNECTED ");
                     maybeConnected = false;
                 }
             }
@@ -567,12 +517,10 @@ public class PodsService extends Service {
                 @Override
                 public void onReceive (Context context, Intent intent) {
                     if (Objects.equals(intent.getAction(), Intent.ACTION_SCREEN_OFF)) {
-                        if (ENABLE_LOGGING)
-                            Log.d(TAG, "SCREEN OFF");
+                        OpenPodsDebugLog("SCREEN OFF");
                         stopAirPodsScanner();
                     } else if (Objects.equals(intent.getAction(), Intent.ACTION_SCREEN_ON)) {
-                        if (ENABLE_LOGGING)
-                            Log.d(TAG, "SCREEN ON");
+                        OpenPodsDebugLog("SCREEN ON");
                         BluetoothAdapter ba = ((BluetoothManager)Objects.requireNonNull(getSystemService(Context.BLUETOOTH_SERVICE))).getAdapter();
                         if (ba.isEnabled())
                             startAirPodsScanner();
