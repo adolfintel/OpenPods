@@ -25,6 +25,8 @@
     <string name="hide_dialog_desc" tools:ignore="MissingTranslation">Are you sure that you want to hide the App? This can only be undone by reinstalling it.</string>
     <string name="hide_dialog_button" tools:ignore="MissingTranslation">Hide</string>
     <string name="hideClicked">The icon will disappear soon</string>
+    <string name="widget_background" tools:ignore="MissingTranslation">Widget background</string>
+    <string name="widget_background_desc" tools:ignore="MissingTranslation">Enable this to show a background in the widget.</string>
     <string name="about">About</string>
 
     <string name="about_dev">Developed by Federico Dossena</string>

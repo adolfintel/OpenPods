@@ -30,6 +30,8 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     public void onSharedPreferenceChanged (SharedPreferences sharedPreferences, String key) {
         if (key.equalsIgnoreCase("batterySaver"))
             Starter.restartPodsService(getApplicationContext());
+        else if (key.equalsIgnoreCase("widgetBackground"))
+            PodsWidget.showBackground = sharedPreferences.getBoolean(key, false);
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
@@ -16,6 +17,7 @@ import android.bluetooth.le.ScanFilter.Builder;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -50,10 +52,12 @@ public class PodsService extends Service {
     }
 
     private static BluetoothLeScanner btScanner;
-    private static int leftStatus = 15, rightStatus = 15, caseStatus = 15;
-    private static boolean chargeL = false, chargeR = false, chargeCase = false;
-    private static final String MODEL_AIRPODS_NORMAL = "airpods12", MODEL_AIRPODS_PRO = "airpodspro";
-    private static String model = MODEL_AIRPODS_NORMAL;
+    static int leftStatus = 15, rightStatus = 15, caseStatus = 15;
+    static boolean chargeL = false, chargeR = false, chargeCase = false;
+    static final String MODEL_AIRPODS_NORMAL = "airpods12", MODEL_AIRPODS_PRO = "airpodspro";
+    static String model = MODEL_AIRPODS_NORMAL;
+
+    static boolean isWidgetActive = false;
 
     /**
      * The following method (startAirPodsScanner) creates a bluetooth LE scanner.
@@ -90,6 +94,7 @@ public class PodsService extends Service {
             OpenPodsDebugLog("START SCANNER");
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            isWidgetActive = prefs.getBoolean("isWidgetActive", false); // Check if the widget is active in case the app is stopped
             BluetoothManager btManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
             assert btManager != null;
             BluetoothAdapter btAdapter = btManager.getAdapter();
@@ -217,6 +222,7 @@ public class PodsService extends Service {
             caseStatus = 15;
         } catch (Throwable ignored) {
         }
+        if (isWidgetActive) updateWidget();
     }
 
     private String decodeHex (byte[] bArr) {
@@ -242,8 +248,8 @@ public class PodsService extends Service {
      */
     private static NotificationThread n = null;
     private static final String TAG = "AirPods";
-    private static long lastSeenConnected = 0;
-    private static final long TIMEOUT_CONNECTED = 30000;
+    static long lastSeenConnected = 0;
+    static final long TIMEOUT_CONNECTED = 30000;
     private static boolean maybeConnected = false;
 
     private class NotificationThread extends Thread {
@@ -368,7 +374,9 @@ public class PodsService extends Service {
                         notification.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
                     }
 
+                    if (isWidgetActive) updateWidget();
                     try {
+                        // Update notification
                         mNotifyManager.notify(1, mBuilder.build());
                     } catch (Throwable ignored) {
                         mNotifyManager.cancel(1);
@@ -567,6 +575,15 @@ public class PodsService extends Service {
             n.start();
         }
         return START_STICKY;
+    }
+
+    private void updateWidget() {
+        Intent intent = new Intent(getApplication(), PodsWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] ids = AppWidgetManager.getInstance(getApplication())
+                .getAppWidgetIds(new ComponentName(getApplication(), PodsWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
     }
 
 }

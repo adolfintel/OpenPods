@@ -8,4 +8,6 @@
     <color name="bgColorPrimary"   >#FFF</color>
 
     <color name="dgrey"            >#737373</color>
+
+    <color name="bgColorWidget">#FFF</color>
 </resources>

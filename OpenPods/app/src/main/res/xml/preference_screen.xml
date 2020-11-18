@@ -19,6 +19,12 @@
             android:title="@string/hide"
             app:iconSpaceReserved="false" />
 
+        <CheckBoxPreference
+            android:key="widgetBackground"
+            android:summary="@string/widget_background_desc"
+            android:title="@string/widget_background"
+            app:iconSpaceReserved="false"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
