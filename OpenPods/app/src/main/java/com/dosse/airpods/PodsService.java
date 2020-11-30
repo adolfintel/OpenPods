@@ -122,74 +122,71 @@ public class PodsService extends Service {
             else
                 settings = new ScanSettings.Builder().setScanMode(2).setReportDelay(2).build();
 
-            btScanner.startScan(
-                    filters,
-                    settings,
-                    new ScanCallback() {
-                        @Override
-                        public void onBatchScanResults (List<ScanResult> scanResults) {
-                            for (ScanResult result : scanResults)
-                                onScanResult(-1, result);
-                            super.onBatchScanResults(scanResults);
-                        }
+            btScanner.startScan(filters, settings, new ScanCallback() {
+                @Override
+                public void onBatchScanResults (List<ScanResult> scanResults) {
+                    for (ScanResult result : scanResults)
+                        onScanResult(-1, result);
+                    super.onBatchScanResults(scanResults);
+                }
 
-                        @Override
-                        public void onScanResult (int callbackType, ScanResult result) {
-                            try {
-                                byte[] data = Objects.requireNonNull(result.getScanRecord()).getManufacturerSpecificData(76);
+                @Override
+                public void onScanResult (int callbackType, ScanResult result) {
+                    try {
+                        byte[] data = Objects.requireNonNull(result.getScanRecord()).getManufacturerSpecificData(76);
 
-                                if (data == null || data.length != 27)
-                                    return;
+                        if (data == null || data.length != 27)
+                            return;
 
-                                recentBeacons.add(result);
+                        recentBeacons.add(result);
 
-                                OpenPodsDebugLog("" + result.getRssi() + "db");
-                                OpenPodsDebugLog(decodeHex(data));
+                        OpenPodsDebugLog("" + result.getRssi() + "db");
+                        OpenPodsDebugLog(decodeHex(data));
 
-                                ScanResult strongestBeacon = null;
-                                for (int i = 0; i < recentBeacons.size(); i++) {
-                                    if (SystemClock.elapsedRealtimeNanos() - recentBeacons.get(i).getTimestampNanos() > RECENT_BEACONS_MAX_T_NS) {
-                                        recentBeacons.remove(i--);
-                                        continue;
-                                    }
-                                    if (strongestBeacon == null || strongestBeacon.getRssi() < recentBeacons.get(i).getRssi())
-                                        strongestBeacon = recentBeacons.get(i);
-                                }
-
-                                if (strongestBeacon != null && strongestBeacon.getDevice().getAddress().equals(result.getDevice().getAddress()))
-                                    strongestBeacon = result;
-
-                                result = strongestBeacon;
-                                assert result != null;
-                                if (result.getRssi() < -60)
-                                    return;
-
-                                String a = decodeHex(Objects.requireNonNull(Objects.requireNonNull(result.getScanRecord()).getManufacturerSpecificData(76)));
-                                boolean flip = isFlipped(a);
-
-                                leftStatus = Integer.parseInt("" + a.charAt(flip ? 12 : 13), 16); // Left airpod (0-10 batt; 15=disconnected)
-                                rightStatus = Integer.parseInt("" + a.charAt(flip ? 13 : 12), 16); // Right airpod (0-10 batt; 15=disconnected)
-                                caseStatus = Integer.parseInt("" + a.charAt(15), 16); // Case (0-10 batt; 15=disconnected)
-
-                                int chargeStatus = Integer.parseInt("" + a.charAt(14), 16); // Charge status (bit 0=left; bit 1=right; bit 2=case)
-
-                                chargeL = (chargeStatus & (flip ? 0b00000010 : 0b00000001)) != 0;
-                                chargeR = (chargeStatus & (flip ? 0b00000001 : 0b00000010)) != 0;
-                                chargeCase = (chargeStatus & 0b00000100) != 0;
-
-                                model = (a.charAt(7) == 'E') ? MODEL_AIRPODS_PRO : MODEL_AIRPODS_NORMAL; // Detect if these are AirPods Pro or regular ones
-
-                                int inEarStatus = Integer.parseInt("" + a.charAt(11), 16);
-
-                                inEarL = (inEarStatus & (flip ? 0b00001000 : 0b00000010)) != 0;
-                                inEarR = (inEarStatus & (flip ? 0b00000010 : 0b00001000)) != 0;
-
-                                lastSeenConnected = System.currentTimeMillis();
-                            } catch (Throwable t) {
-                                OpenPodsDebugLog("" + t);
+                        ScanResult strongestBeacon = null;
+                        for (int i = 0; i < recentBeacons.size(); i++) {
+                            if (SystemClock.elapsedRealtimeNanos() - recentBeacons.get(i).getTimestampNanos() > RECENT_BEACONS_MAX_T_NS) {
+                                recentBeacons.remove(i--);
+                                continue;
                             }
+                            if (strongestBeacon == null || strongestBeacon.getRssi() < recentBeacons.get(i).getRssi())
+                                strongestBeacon = recentBeacons.get(i);
                         }
-                    });
+
+                        if (strongestBeacon != null && strongestBeacon.getDevice().getAddress().equals(result.getDevice().getAddress()))
+                            strongestBeacon = result;
+
+                        result = strongestBeacon;
+                        assert result != null;
+                        if (result.getRssi() < -60)
+                            return;
+
+                        String a = decodeHex(Objects.requireNonNull(Objects.requireNonNull(result.getScanRecord()).getManufacturerSpecificData(76)));
+                        boolean flip = isFlipped(a);
+
+                        leftStatus = Integer.parseInt("" + a.charAt(flip ? 12 : 13), 16); // Left airpod (0-10 batt; 15=disconnected)
+                        rightStatus = Integer.parseInt("" + a.charAt(flip ? 13 : 12), 16); // Right airpod (0-10 batt; 15=disconnected)
+                        caseStatus = Integer.parseInt("" + a.charAt(15), 16); // Case (0-10 batt; 15=disconnected)
+
+                        int chargeStatus = Integer.parseInt("" + a.charAt(14), 16); // Charge status (bit 0=left; bit 1=right; bit 2=case)
+
+                        chargeL = (chargeStatus & (flip ? 0b00000010 : 0b00000001)) != 0;
+                        chargeR = (chargeStatus & (flip ? 0b00000001 : 0b00000010)) != 0;
+                        chargeCase = (chargeStatus & 0b00000100) != 0;
+
+                        model = (a.charAt(7) == 'E') ? MODEL_AIRPODS_PRO : MODEL_AIRPODS_NORMAL; // Detect if these are AirPods Pro or regular ones
+
+                        int inEarStatus = Integer.parseInt("" + a.charAt(11), 16);
+
+                        inEarL = (inEarStatus & (flip ? 0b00001000 : 0b00000010)) != 0;
+                        inEarR = (inEarStatus & (flip ? 0b00000010 : 0b00001000)) != 0;
+
+                        lastSeenConnected = System.currentTimeMillis();
+                    } catch (Throwable t) {
+                        OpenPodsDebugLog("" + t);
+                    }
+                }
+            });
         } catch (Throwable t) {
             OpenPodsDebugLog("" + t);
         }
