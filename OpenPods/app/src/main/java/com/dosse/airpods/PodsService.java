@@ -52,6 +52,7 @@ public class PodsService extends Service {
     private static BluetoothLeScanner btScanner;
     private static int leftStatus = 15, rightStatus = 15, caseStatus = 15;
     private static boolean chargeL = false, chargeR = false, chargeCase = false;
+    private static boolean inEarL = false, inEarR = false;
     private static final String MODEL_AIRPODS_NORMAL = "airpods12", MODEL_AIRPODS_PRO = "airpodspro";
     private static String model = MODEL_AIRPODS_NORMAL;
 
@@ -75,12 +76,16 @@ public class PodsService extends Service {
      * This was done through reverse engineering. Hopefully it's correct.
      * - The beacon coming from a pair of AirPods contains a manufacturer specific data field n°76 of 27 bytes
      * - We convert this data to a hexadecimal string
-     * - The 12th and 13th characters in the string represent the charge of the left and right pods. Under unknown circumstances, they are right and left instead (see isFlipped). Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
+     * - The 12th and 13th characters in the string represent the charge of the left and right pods. Under unknown circumstances[1], they are right and left instead (see isFlipped). Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
      * - The 15th character in the string represents the charge of the case. Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
      * - The 14th character in the string represents the "in charge" status. Bit 0 (LSB) is the left pod; Bit 1 is the right pod; Bit 2 is the case. Bit 3 might be case open/closed but I'm not sure and it's not used
      * - The 7th character in the string represents the AirPods model (E=AirPods pro)
+     * - The 11th character in the string represents the in-ear detection; TODO: finish documentation on in-ear detection
      * <p>
      * After decoding a beacon, the status is written to leftStatus, rightStatus, caseStatus, chargeL, chargeR, chargeCase so that the NotificationThread can use the information
+     * <p>
+     * Notes:
+     * 1) - isFlipped set by bit 1 of 10th character in the string; seems to be related to in-ear detection;
      */
     private static final ArrayList<ScanResult> recentBeacons = new ArrayList<>();
     private static final long RECENT_BEACONS_MAX_T_NS = 10000000000L; //10s
@@ -173,6 +178,11 @@ public class PodsService extends Service {
                                 chargeCase = (chargeStatus & 0b00000100) != 0;
 
                                 model = (a.charAt(7) == 'E') ? MODEL_AIRPODS_PRO : MODEL_AIRPODS_NORMAL; // Detect if these are AirPods Pro or regular ones
+
+                                int inEarStatus = Integer.parseInt("" + a.charAt(11), 16);
+
+                                inEarL = (inEarStatus & (flip ? 0b00001000 : 0b00000010)) != 0;
+                                inEarR = (inEarStatus & (flip ? 0b00000010 : 0b00001000)) != 0;
 
                                 lastSeenConnected = System.currentTimeMillis();
                             } catch (Throwable t) {
@@ -319,7 +329,7 @@ public class PodsService extends Service {
                 }
 
                 if (notificationShowing) {
-                    OpenPodsDebugLog("Left: " + leftStatus + (chargeL ? "+" : "") + " Right: " + rightStatus + (chargeR ? "+" : "") + " Case: " + caseStatus + (chargeCase ? "+" : "") + " Model: " + model);
+                    OpenPodsDebugLog("Left: " + leftStatus + (chargeL ? "+" : "") + (inEarL ? "$" : "") + " Right: " + rightStatus + (chargeR ? "+" : "") + (inEarR ? "$" : "") + " Case: " + caseStatus + (chargeCase ? "+" : "") + " Model: " + model);
 
                     if (model.equals(MODEL_AIRPODS_NORMAL)) for (RemoteViews notification : notificationArr) {
                         notification.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
@@ -355,6 +365,9 @@ public class PodsService extends Service {
                         notification.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
                         notification.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
                         notification.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));
+
+                        notification.setViewVisibility(R.id.leftInEarImg, inEarL ? View.VISIBLE : View.INVISIBLE);
+                        notification.setViewVisibility(R.id.rightInEarImg, inEarR ? View.VISIBLE : View.INVISIBLE);
                     }
                     else for (RemoteViews notification : notificationArr) {
                         notification.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
@@ -366,6 +379,8 @@ public class PodsService extends Service {
                         notification.setViewVisibility(R.id.leftPodUpdating, View.VISIBLE);
                         notification.setViewVisibility(R.id.rightPodUpdating, View.VISIBLE);
                         notification.setViewVisibility(R.id.podCaseUpdating, View.VISIBLE);
+                        notification.setViewVisibility(R.id.leftInEarImg, View.INVISIBLE);
+                        notification.setViewVisibility(R.id.rightInEarImg, View.INVISIBLE);
                     }
 
                     try {
