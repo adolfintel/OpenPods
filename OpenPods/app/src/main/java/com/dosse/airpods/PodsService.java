@@ -79,10 +79,10 @@ public class PodsService extends Service {
      * - The 12th and 13th characters in the string represent the charge of the left and right pods. Under unknown circumstances[1], they are right and left instead (see isFlipped). Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
      * - The 15th character in the string represents the charge of the case. Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
      * - The 14th character in the string represents the "in charge" status. Bit 0 (LSB) is the left pod; Bit 1 is the right pod; Bit 2 is the case. Bit 3 might be case open/closed but I'm not sure and it's not used
+     * - The 11th character in the string represents the in-ear detection status. Bit 1 is the left pod; Bit 3 is the right pod.
      * - The 7th character in the string represents the AirPods model (E=AirPods pro)
-     * - The 11th character in the string represents the in-ear detection; TODO: finish documentation on in-ear detection
      * <p>
-     * After decoding a beacon, the status is written to leftStatus, rightStatus, caseStatus, chargeL, chargeR, chargeCase so that the NotificationThread can use the information
+     * After decoding a beacon, the status is written to leftStatus, rightStatus, caseStatus, chargeL, chargeR, chargeCase, inEarL, inEarR so that the NotificationThread can use the information
      * <p>
      * Notes:
      * 1) - isFlipped set by bit 1 of 10th character in the string; seems to be related to in-ear detection;
@@ -174,12 +174,12 @@ public class PodsService extends Service {
                         chargeR = (chargeStatus & (flip ? 0b00000001 : 0b00000010)) != 0;
                         chargeCase = (chargeStatus & 0b00000100) != 0;
 
-                        model = (a.charAt(7) == 'E') ? MODEL_AIRPODS_PRO : MODEL_AIRPODS_NORMAL; // Detect if these are AirPods Pro or regular ones
-
-                        int inEarStatus = Integer.parseInt("" + a.charAt(11), 16);
+                        int inEarStatus = Integer.parseInt("" + a.charAt(11), 16); // InEar status (bit 1=left; bit 3=right)
 
                         inEarL = (inEarStatus & (flip ? 0b00001000 : 0b00000010)) != 0;
                         inEarR = (inEarStatus & (flip ? 0b00000010 : 0b00001000)) != 0;
+
+                        model = (a.charAt(7) == 'E') ? MODEL_AIRPODS_PRO : MODEL_AIRPODS_NORMAL; // Detect if these are AirPods Pro or regular ones
 
                         lastSeenConnected = System.currentTimeMillis();
                     } catch (Throwable t) {
