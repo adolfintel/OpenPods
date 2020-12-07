@@ -29,7 +29,7 @@ public class IntroActivity extends AppCompatActivity {
 
         // Allow button clicked, ask for permissions
         findViewById(R.id.allowBtn).setOnClickListener(view -> {
-            requestPermissions(new String[] {Manifest.permission.ACCESS_COARSE_LOCATION}, 1); // Location (for BLE)
+            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1); // Location (for BLE)
             // Run in background
             try {
                 if (!Objects.requireNonNull(getSystemService(PowerManager.class)).isIgnoringBatteryOptimizations(getPackageName())) {
@@ -57,7 +57,7 @@ public class IntroActivity extends AppCompatActivity {
                 } catch (Throwable ignored) {
                 }
 
-                if (ContextCompat.checkSelfPermission(IntroActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                if (ContextCompat.checkSelfPermission(IntroActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
                     ok = false;
 
                 if (ok) {
