@@ -290,7 +290,6 @@ public class PodsService extends Service {
             boolean notificationShowing = false;
             String compat = getPackageManager().getInstallerPackageName(getPackageName());
 
-            RemoteViews[] notificationArr = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.status_big), new RemoteViews(getPackageName(), R.layout.status_small)};
             RemoteViews[] notificationLocation = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.location_disabled_big), new RemoteViews(getPackageName(), R.layout.location_disabled_small)};
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(PodsService.this, TAG);
@@ -300,6 +299,8 @@ public class PodsService extends Service {
             mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
             for (; ; ) {
+                RemoteViews[] notificationArr = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.status_big), new RemoteViews(getPackageName(), R.layout.status_small)};
+
                 /*&&System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED*/
                 if (maybeConnected && !(leftStatus == 15 && rightStatus == 15 && caseStatus == 15)) {
                     if (!notificationShowing) {
