@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.preference.PreferenceManager;
 
@@ -417,6 +418,9 @@ public class PodsService extends Service {
     public void onCreate () {
         super.onCreate();
 
+        if (Build.VERSION.SDK_INT >= 30)
+            startForeground(101, createNotification());
+
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.bluetooth.device.action.ACL_CONNECTED");
         intentFilter.addAction("android.bluetooth.device.action.ACL_DISCONNECTED");
@@ -580,6 +584,23 @@ public class PodsService extends Service {
             n.start();
         }
         return START_STICKY;
+    }
+
+    // Only for API30+
+    // Strings are hardcodded for now because I'm too lazy
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private Notification createNotification () {
+
+        NotificationManager notManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationChannel notChannel = new NotificationChannel("API30", "Background Notification", NotificationManager.IMPORTANCE_MIN);
+
+        notManager.createNotificationChannel(notChannel);
+
+        Notification.Builder builder = new Notification.Builder(this, "API30")
+                .setSmallIcon(R.drawable.pod_case)
+                .setContentText("Running in the background");
+
+        return builder.build();
     }
 
 }

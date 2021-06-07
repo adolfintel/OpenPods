@@ -3,6 +3,7 @@ package com.dosse.airpods;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import java.util.Objects;
 
@@ -22,7 +23,10 @@ public class Starter extends BroadcastReceiver {
     }
 
     public static void startPodsService (Context context) {
-        context.startService(new Intent(context, PodsService.class));
+        if (Build.VERSION.SDK_INT >= 30)
+            context.startForegroundService(new Intent(context, PodsService.class));
+        else
+            context.startService(new Intent(context, PodsService.class));
     }
 
     public static void restartPodsService (Context context) {
@@ -31,7 +35,7 @@ public class Starter extends BroadcastReceiver {
             Thread.sleep(500);
         } catch (Throwable ignored) {
         }
-        context.startService(new Intent(context, PodsService.class));
+        startPodsService(context);
     }
 
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -62,7 +63,10 @@ public class IntroActivity extends AppCompatActivity {
 
                 if (ok) {
                     timer.cancel();
-                    startActivity(new Intent(IntroActivity.this, MainActivity.class));
+                    if (Build.VERSION.SDK_INT >= 30)
+                        startActivity(new Intent(IntroActivity.this, API30Activity.class));
+                    else
+                        startActivity(new Intent(IntroActivity.this, MainActivity.class));
                     finish();
                 }
             }
