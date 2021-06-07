@@ -22,7 +22,7 @@
     <string name="hideClicked">Иконка скоро исчезнет</string>
     <string name="about">О приложении</string>
 
-    <string name="about_dev">Разработано Federico Dossena</string>
+    <string name="about_dev">Разработано Federico Dossena и Itai Levin</string>
     <string name="website">Сайт</string>
     <string name="github">Github</string>
     <string name="donate">Поддержать</string>

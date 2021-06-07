@@ -27,7 +27,7 @@
     <string name="hideClicked">아이콘이 곧 사라집니다</string>
     <string name="about">정보</string>
 
-    <string name="about_dev">개발자 : Federico Dossena</string>
+    <string name="about_dev">개발자 : Federico Dossena, Itai Levin</string>
     <string name="website">웹사이트</string>
     <string name="github">Github</string>
     <string name="donate">후원하기</string>

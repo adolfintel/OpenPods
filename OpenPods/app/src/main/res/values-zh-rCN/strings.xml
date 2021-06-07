@@ -22,7 +22,7 @@
     <string name="hideClicked">桌面图标很快就会被隐藏掉</string>
     <string name="about">关于</string>
 
-    <string name="about_dev">由 Federico Dossena 开发</string>
+    <string name="about_dev">由 Federico Dossena 和 Itai Levin 开发</string>
     <string name="website">网站</string>
     <string name="github">Github</string>
     <string name="donate">捐赠</string>

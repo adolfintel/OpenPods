@@ -4,6 +4,7 @@
 
     <string name="intro1">This app lets you check the status of your AirPods on any Android device</string>
     <string name="intro2">To operate, we need permission to use Bluetooth LE (Location) and permission to run in background</string>
+    <string name="intro3" translatable="false">In Android 11 and above we need to change location permission to "Allow all the time"</string>
     <string name="introAllow">Allow</string>
     <string name="main_description">The app will show a notification when your AirPods are connected</string>
     <string name="hide_message">You can hide this app if you want</string>
@@ -27,7 +28,7 @@
     <string name="hideClicked">The icon will disappear soon</string>
     <string name="about">About</string>
 
-    <string name="about_dev">Developed by Federico Dossena</string>
+    <string name="about_dev">Developed by Federico Dossena and Itai Levin</string>
     <string name="website">Website</string>
     <string name="github">Github</string>
     <string name="donate">Donate</string>
