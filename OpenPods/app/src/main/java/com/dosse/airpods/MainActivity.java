@@ -1,22 +1,18 @@
 package com.dosse.airpods;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import java.util.Objects;
 
@@ -35,22 +31,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // Check if all permissions have been granted
-        boolean ok = true;
-
-        try {
-            if (!Objects.requireNonNull(getSystemService(PowerManager.class)).isIgnoringBatteryOptimizations(getPackageName()))
-                ok = false;
-        } catch (Throwable ignored) {
-        }
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
-            ok = false;
-
-        if (Build.VERSION.SDK_INT >= 30) if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_DENIED)
-            ok = false;
-
-        if (ok) {
+        if (PermissionUtils.checkAllPermissions(this)) {
             Starter.startPodsService(getApplicationContext());
             //Warn MIUI users that their rom has known issues
             try {

@@ -3,6 +3,7 @@ package com.dosse.airpods;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -418,7 +419,7 @@ public class PodsService extends Service {
     public void onCreate () {
         super.onCreate();
 
-        if (Build.VERSION.SDK_INT >= 30)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
             startForeground(101, createNotification());
 
         IntentFilter intentFilter = new IntentFilter();
@@ -587,18 +588,28 @@ public class PodsService extends Service {
     }
 
     // Only for API30+
-    // Strings are hardcodded for now because I'm too lazy
     @RequiresApi(api = Build.VERSION_CODES.O)
     private Notification createNotification () {
+        final String notChannelID = "FOREGROUND_ID";
 
         NotificationManager notManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationChannel notChannel = new NotificationChannel("API30", "Background Notification", NotificationManager.IMPORTANCE_MIN);
+        NotificationChannel notChannel = new NotificationChannel(notChannelID, "Background Notification", NotificationManager.IMPORTANCE_MIN);
 
         notManager.createNotificationChannel(notChannel);
 
-        Notification.Builder builder = new Notification.Builder(this, "API30")
+        Intent notIntent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName())
+                .putExtra(Settings.EXTRA_CHANNEL_ID, notChannelID);
+
+        PendingIntent notPendingIntent = PendingIntent.getActivity(this, 1110, notIntent,0);
+
+        Notification.Builder builder = new Notification.Builder(this, notChannelID)
                 .setSmallIcon(R.drawable.pod_case)
-                .setContentText("Running in the background");
+                .setContentTitle("Running in the background")
+                .setContentText("Click to open notification Settings")
+                .setContentIntent(notPendingIntent)
+                .setOngoing(true);
 
         return builder.build();
     }

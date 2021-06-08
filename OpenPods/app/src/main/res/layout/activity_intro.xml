@@ -13,7 +13,7 @@
         android:padding="@dimen/padding_default">
 
         <ImageView
-            android:id="@+id/introImg1"
+            android:id="@+id/introImg"
             android:layout_width="match_parent"
             android:layout_height="144dp"
             android:layout_marginBottom="24dp"
@@ -21,29 +21,36 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/intro1"
+            android:id="@+id/introTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:text="@string/intro1"
+            android:text="@string/intro_title"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
         <TextView
-            android:id="@+id/intro2"
+            android:id="@+id/introMsg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="6dp"
             android:gravity="center"
-            android:text="@string/intro2" />
+            android:text="@string/intro_message" />
+
+        <TextView
+            android:id="@+id/permsMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center" />
 
         <Button
-            android:id="@+id/allowBtn"
+            android:id="@+id/permsBtn"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorAccent"
-            android:text="@string/introAllow" />
+            android:text="@string/intro_allow" />
 
     </LinearLayout>
 

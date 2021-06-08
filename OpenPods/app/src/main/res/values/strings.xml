@@ -2,16 +2,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">OpenPods</string>
 
-    <string name="intro1">This app lets you check the status of your AirPods on any Android device</string>
-    <string name="intro2">To operate, we need permission to use Bluetooth LE (Location) and permission to run in background</string>
-    <string name="intro3" translatable="false">In Android 11 and above we need to change location permission to "Allow all the time"</string>
-    <string name="introAllow">Allow</string>
+    <string name="intro_title">This app lets you check the status of your AirPods on any Android device</string>
+    <string name="intro_message">To operate, we need permission to use Bluetooth LE (Location) and permission to run in background</string>
+    <string name="intro_allow">Allow</string>
+    <string name="intro_step" translatable="false">Step</string>
+    <string name="intro_bat_perm" translatable="false">Battery Optimization</string>
+    <string name="intro_loc1_perm" translatable="false">Location Permission</string>
+    <string name="intro_loc2_perm" translatable="false">Background Location Permission</string>
+
     <string name="main_description">The app will show a notification when your AirPods are connected</string>
     <string name="hide_message">You can hide this app if you want</string>
-    <string name="settings">Settings</string>
-    <string name="miui_warning">MIUI detected</string>
-    <string name="miui_warning_desc">The ROM running on this device has known compatibility issues. You can continue but OpenPods may not work properly.</string>
-    <string name="miui_warning_continue">Continue</string>
+    <string name="settings" tools:ignore="MissingTranslation">Settings</string>
+
+    <string name="miui_warning" tools:ignore="MissingTranslation">MIUI detected</string>
+    <string name="miui_warning_desc" tools:ignore="MissingTranslation">The ROM running on this device has known compatibility issues. You can continue but OpenPods may not work properly.</string>
+    <string name="miui_warning_continue" tools:ignore="MissingTranslation">Continue</string>
 
     <string name="noBtText">It looks like this device doesn\'t have Bluetooth LE</string>
     <string name="locationDisabledText">You need to turn on Location to allow OpenPods to read the status</string>
@@ -30,7 +35,7 @@
 
     <string name="about_dev">Developed by Federico Dossena and Itai Levin</string>
     <string name="website">Website</string>
-    <string name="github">Github</string>
+    <string name="github" translatable="false">Github</string>
     <string name="donate">Donate</string>
     <string name="fdroid" translatable="false">F-Droid</string>
 </resources>

@@ -52,11 +52,6 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity
-            android:name=".API30Activity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-
         <receiver
             android:name=".Starter"
             android:enabled="true"

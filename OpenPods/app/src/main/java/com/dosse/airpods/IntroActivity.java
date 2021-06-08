@@ -4,45 +4,32 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.provider.Settings;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import java.util.Objects;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class IntroActivity extends AppCompatActivity {
 
     private Timer timer;
+    private TextView msg;
+    private Button btn;
 
-    @SuppressLint("BatteryLife")
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        // Allow button clicked, ask for permissions
-        findViewById(R.id.allowBtn).setOnClickListener(view -> {
-            requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1); // Location (for BLE)
-            // Run in background
-            try {
-                if (!Objects.requireNonNull(getSystemService(PowerManager.class)).isIgnoringBatteryOptimizations(getPackageName())) {
-                    Intent intent = new Intent();
-                    getSystemService(Context.POWER_SERVICE);
-                    intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                    intent.setData(Uri.parse("package:" + getPackageName()));
-                    startActivity(intent);
-                }
-            } catch (Throwable ignored) {
-            }
-        });
+        msg = findViewById(R.id.permsMsg);
+        btn = findViewById(R.id.permsBtn);
 
         // Wait for permissions to be granted.
         // When they are granted, go to MainActivity.
@@ -50,23 +37,11 @@ public class IntroActivity extends AppCompatActivity {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run () {
-                boolean ok = true;
+                initScreen();
 
-                try {
-                    if (!Objects.requireNonNull(getSystemService(PowerManager.class)).isIgnoringBatteryOptimizations(getPackageName()))
-                        ok = false;
-                } catch (Throwable ignored) {
-                }
-
-                if (ContextCompat.checkSelfPermission(IntroActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
-                    ok = false;
-
-                if (ok) {
+                if (PermissionUtils.checkAllPermissions(IntroActivity.this)) {
                     timer.cancel();
-                    if (Build.VERSION.SDK_INT >= 30)
-                        startActivity(new Intent(IntroActivity.this, API30Activity.class));
-                    else
-                        startActivity(new Intent(IntroActivity.this, MainActivity.class));
+                    startActivity(new Intent(IntroActivity.this, MainActivity.class));
                     finish();
                 }
             }
@@ -80,6 +55,46 @@ public class IntroActivity extends AppCompatActivity {
         super.onDestroy();
         if (timer != null)
             timer.cancel();
+    }
+
+    private int getPermissionState () {
+        if (!PermissionUtils.getBatteryOptimizationsPermission(this))
+            return 1;
+        else if (!PermissionUtils.getFineLocationPermission(this))
+            return 2;
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) if (!PermissionUtils.getBackgroundLocationPermission(this))
+            return 3;
+
+        return 0;
+    }
+
+    @SuppressLint("BatteryLife")
+    private void initScreen () {
+        int step = getPermissionState();
+        int numOfSteps = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) ? 3 : 2;
+
+        switch (step) {
+            case 1:
+                msg.setText(String.format(Locale.getDefault(), "Step %d/%d: %s", step, numOfSteps, getString(R.string.intro_bat_perm)));
+                btn.setOnClickListener(view -> {
+                    Intent intent = new Intent();
+                    getSystemService(Context.POWER_SERVICE);
+                    intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                    intent.setData(Uri.parse("package:" + getPackageName()));
+                    startActivity(intent);
+                });
+                break;
+            case 2:
+                msg.setText(String.format(Locale.getDefault(), "Step %d/%d: %s", step, numOfSteps, getString(R.string.intro_loc1_perm)));
+                btn.setOnClickListener(view -> requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 101)); // Location (for BLE)
+                break;
+            case 3:
+                msg.setText(String.format(Locale.getDefault(), "Step %d/%d: %s", step, numOfSteps, getString(R.string.intro_loc2_perm)));
+                btn.setOnClickListener(view -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) requestPermissions(new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 102);
+                });
+                break;
+        }
     }
 
 }

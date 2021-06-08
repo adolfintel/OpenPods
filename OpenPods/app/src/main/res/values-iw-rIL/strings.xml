@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="intro1">אפליקציה זו מאפשרת לך לבדוק את המצב של האיירפודס שלך מכל מכשיר אנדרואיד</string>
-    <string name="intro2">כדי שאפליקציה זו תוכל לתפקד, הינך נדרש לאפשר גישה ל-Bluetooth LE (מיקום) ולריצה ברקע</string>
-    <string name="introAllow">אפשר</string>
+    <string name="intro_title">אפליקציה זו מאפשרת לך לבדוק את המצב של האיירפודס שלך מכל מכשיר אנדרואיד</string>
+    <string name="intro_message">כדי שאפליקציה זו תוכל לתפקד, הינך נדרש לאפשר גישה ל-Bluetooth LE (מיקום) ולריצה ברקע</string>
+    <string name="intro_allow">אפשר</string>
+
     <string name="main_description">האפליקציה תשלח התראה כאשר האיירפודס מחוברות</string>
     <string name="hide_message">אתה יכול להסתיר אפליקציה זו</string>
     <string name="settings">הגדרות</string>
+
     <string name="miui_warning">MIUI נמצא</string>
     <string name="miui_warning_desc">למערכת ההפעלה על מכשיר זה יש בעיות תאימות ידועות עם האפליקציה. אתה יכול להמשיך להשתמש ב-OpenPods אך לא בטוח שדברים יעבדו כמו שצריך.</string>
     <string name="miui_warning_continue">המשך</string>

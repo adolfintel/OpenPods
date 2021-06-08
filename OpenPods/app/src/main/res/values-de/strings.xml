@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="intro1">Diese App erlaubt es dir, den Status deiner AirPods auf einem beliebigen Android-Gerät zu überprüfen</string>
-    <string name="intro2">Für den Dienst benötigen wir die Berechtigung zur Verwendung von Bluetooth LE (Standort) und die Berechtigung zum Betrieb im Hintergrund</string>
-    <string name="introAllow">Erlauben</string>
+    <string name="intro_title">Diese App erlaubt es dir, den Status deiner AirPods auf einem beliebigen Android-Gerät zu überprüfen</string>
+    <string name="intro_message">Für den Dienst benötigen wir die Berechtigung zur Verwendung von Bluetooth LE (Standort) und die Berechtigung zum Betrieb im Hintergrund</string>
+    <string name="intro_allow">Erlauben</string>
+
     <string name="main_description">Die App zeigt eine Benachrichtigung, wenn deine AirPods verbunden sind</string>
     <string name="hide_message">Du kannst die App jetzt verstecken, wenn du möchtest</string>
     <string name="settings">Einstellungen</string>
-    <string name="miui_warning">MIUI detected</string>
-    <string name="miui_warning_desc">The ROM running on this device has known compatibility issues. You can continue but OpenPods may not work properly.</string>
-    <string name="miui_warning_continue">Continue</string>
+
+    <string name="miui_warning">MIUI erkannt</string>
+    <string name="miui_warning_continue">Fortsetzen</string>
 
     <string name="noBtText">Es sieht so aus, als hätte dieses Gerät kein Bluetooth LE</string>
     <string name="locationDisabledText">Du musst Standortinformationen aktivieren, damit OpenPods den Status deiner AirPods auslesen kann</string>
@@ -27,6 +28,5 @@
 
     <string name="about_dev">Entwickelt von Federico Dossena und Itai Levin</string>
     <string name="website">Webseite</string>
-    <string name="github">Github</string>
     <string name="donate">Spenden</string>
 </resources>

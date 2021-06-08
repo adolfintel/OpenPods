@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="intro1">Met deze app kun je de status van je AirPods bekijken op elk Android-apparaat</string>
-    <string name="intro2">De app heeft toegang nodig tot Bluetooth LE (locatie), en moet op de achtergrond worden uitgevoerd</string>
-    <string name="introAllow">Toestaan</string>
+    <string name="intro_title">Met deze app kun je de status van je AirPods bekijken op elk Android-apparaat</string>
+    <string name="intro_message">De app heeft toegang nodig tot Bluetooth LE (locatie), en moet op de achtergrond worden uitgevoerd</string>
+    <string name="intro_allow">Toestaan</string>
+
     <string name="main_description">De app toont een melding zodra je je AirPods verbindt</string>
     <string name="hide_message">Als je wilt, kun je deze app verbergen</string>
     <string name="settings">Instellingen</string>
-    <string name="miui_warning">MIUI detected</string>
-    <string name="miui_warning_desc">The ROM running on this device has known compatibility issues. You can continue but OpenPods may not work properly.</string>
-    <string name="miui_warning_continue">Continue</string>
+
+    <string name="miui_warning">MIUI gedetecteerd</string>
+    <string name="miui_warning_continue">Doorgaan met</string>
 
     <string name="noBtText">Het lijkt erop dat dit apparaat niet beschikt over Bluetooth LE</string>
     <string name="locationDisabledText">Schakel je locatie in zodat OpenPods de status kan uitlezen</string>
@@ -24,6 +25,5 @@
 
     <string name="about_dev">Gemaakt door Federico Dossena en Itai Levin</string>
     <string name="website">Website</string>
-    <string name="github">GitHub</string>
     <string name="donate">Doneren</string>
 </resources>

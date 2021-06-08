@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="intro1">Это приложение позволяет Вам проверить статус ваших AirPods на любом Android-устройстве</string>
-    <string name="intro2">Для работы нам нужно Bluetooth LE(местоположение) и разрешение на запуск в фоновом режиме</string>
-    <string name="introAllow">Разрешить</string>
+    <string name="intro_title">Это приложение позволяет Вам проверить статус ваших AirPods на любом Android-устройстве</string>
+    <string name="intro_message">Для работы нам нужно Bluetooth LE(местоположение) и разрешение на запуск в фоновом режиме</string>
+    <string name="intro_allow">Разрешить</string>
+
     <string name="main_description">Приложение покажет уведомление, когда будет установлено соединение с AirPods</string>
     <string name="hide_message">Вы можете скрыть это приложение, если хотите</string>
     <string name="settings">Настройки</string>
-    <string name="miui_warning">MIUI detected</string>
-    <string name="miui_warning_desc">The ROM running on this device has known compatibility issues. You can continue but OpenPods may not work properly.</string>
-    <string name="miui_warning_continue">Continue</string>
+
+    <string name="miui_warning">MIUI обнаружено</string>
+    <string name="miui_warning_continue">Продолжать</string>
 
     <string name="noBtText">Похоже, что Bluetooth LE не поддерживается на Вашем устройстве</string>
     <string name="locationDisabledText">Вам нужно включить местоположение, чтобы разрешить OpenPods читать статус</string>
@@ -24,6 +25,5 @@
 
     <string name="about_dev">Разработано Federico Dossena и Itai Levin</string>
     <string name="website">Сайт</string>
-    <string name="github">Github</string>
     <string name="donate">Поддержать</string>
 </resources>
