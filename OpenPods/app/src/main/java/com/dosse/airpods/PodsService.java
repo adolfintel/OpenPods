@@ -420,7 +420,7 @@ public class PodsService extends Service {
         super.onCreate();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-            startForeground(101, createNotification());
+            startForeground(101, createBackgroundNotification());
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.bluetooth.device.action.ACL_CONNECTED");
@@ -587,13 +587,14 @@ public class PodsService extends Service {
         return START_STICKY;
     }
 
-    // Only for API30+
+    // Foreground service background notification (confusing I know).
+    // Only enabled for API30+
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private Notification createNotification () {
+    private Notification createBackgroundNotification () {
         final String notChannelID = "FOREGROUND_ID";
 
         NotificationManager notManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationChannel notChannel = new NotificationChannel(notChannelID, "Background Notification", NotificationManager.IMPORTANCE_MIN);
+        NotificationChannel notChannel = new NotificationChannel(notChannelID, getString(R.string.bg_noti_channel), NotificationManager.IMPORTANCE_LOW);
 
         notManager.createNotificationChannel(notChannel);
 
@@ -602,12 +603,12 @@ public class PodsService extends Service {
                 .putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName())
                 .putExtra(Settings.EXTRA_CHANNEL_ID, notChannelID);
 
-        PendingIntent notPendingIntent = PendingIntent.getActivity(this, 1110, notIntent,0);
+        PendingIntent notPendingIntent = PendingIntent.getActivity(this, 1110, notIntent, 0);
 
         Notification.Builder builder = new Notification.Builder(this, notChannelID)
                 .setSmallIcon(R.drawable.pod_case)
-                .setContentTitle("Running in the background")
-                .setContentText("Click to open notification Settings")
+                .setContentTitle(getString(R.string.bg_noti_title))
+                .setContentText(getString(R.string.bg_noti_text))
                 .setContentIntent(notPendingIntent)
                 .setOngoing(true);
 

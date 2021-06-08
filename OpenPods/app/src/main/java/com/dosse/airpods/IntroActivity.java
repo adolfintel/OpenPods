@@ -75,7 +75,7 @@ public class IntroActivity extends AppCompatActivity {
 
         switch (step) {
             case 1:
-                msg.setText(String.format(Locale.getDefault(), "Step %d/%d: %s", step, numOfSteps, getString(R.string.intro_bat_perm)));
+                msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), step, numOfSteps, getString(R.string.intro_bat_perm)));
                 btn.setOnClickListener(view -> {
                     Intent intent = new Intent();
                     getSystemService(Context.POWER_SERVICE);
@@ -85,16 +85,18 @@ public class IntroActivity extends AppCompatActivity {
                 });
                 break;
             case 2:
-                msg.setText(String.format(Locale.getDefault(), "Step %d/%d: %s", step, numOfSteps, getString(R.string.intro_loc1_perm)));
+                msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), step, numOfSteps, getString(R.string.intro_loc1_perm)));
                 btn.setOnClickListener(view -> requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 101)); // Location (for BLE)
                 break;
             case 3:
-                msg.setText(String.format(Locale.getDefault(), "Step %d/%d: %s", step, numOfSteps, getString(R.string.intro_loc2_perm)));
+                msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), step, numOfSteps, getString(R.string.intro_loc2_perm)));
                 btn.setOnClickListener(view -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) requestPermissions(new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 102);
                 });
                 break;
         }
+
+        runOnUiThread(() -> btn.setText(String.format(Locale.getDefault(), "%s (%d/%d)", getString(R.string.intro_allow), step, numOfSteps)));
     }
 
 }

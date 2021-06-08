@@ -2,13 +2,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">OpenPods</string>
 
+    <string name="bg_noti_channel" translatable="false">Background Notification</string>
+    <string name="bg_noti_title" tools:ignore="MissingTranslation">Running in the background</string>
+    <string name="bg_noti_text" tools:ignore="MissingTranslation">Click to open notification settings</string>
+
     <string name="intro_title">This app lets you check the status of your AirPods on any Android device</string>
     <string name="intro_message">To operate, we need permission to use Bluetooth LE (Location) and permission to run in background</string>
     <string name="intro_allow">Allow</string>
-    <string name="intro_step" translatable="false">Step</string>
-    <string name="intro_bat_perm" translatable="false">Battery Optimization</string>
-    <string name="intro_loc1_perm" translatable="false">Location Permission</string>
-    <string name="intro_loc2_perm" translatable="false">Background Location Permission</string>
+    <string name="intro_step" tools:ignore="MissingTranslation">Step</string>
+    <string name="intro_bat_perm" tools:ignore="MissingTranslation">Battery Optimization</string>
+    <string name="intro_loc1_perm" tools:ignore="MissingTranslation">Location Permission</string>
+    <string name="intro_loc2_perm" tools:ignore="MissingTranslation">Background Location Permission</string>
 
     <string name="main_description">The app will show a notification when your AirPods are connected</string>
     <string name="hide_message">You can hide this app if you want</string>
@@ -35,7 +39,7 @@
 
     <string name="about_dev">Developed by Federico Dossena and Itai Levin</string>
     <string name="website">Website</string>
-    <string name="github" translatable="false">Github</string>
+    <string name="github" tools:ignore="MissingTranslation">Github</string>
     <string name="donate">Donate</string>
     <string name="fdroid" translatable="false">F-Droid</string>
 </resources>
