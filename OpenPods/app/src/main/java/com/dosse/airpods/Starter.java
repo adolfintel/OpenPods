@@ -23,7 +23,7 @@ public class Starter extends BroadcastReceiver {
     }
 
     public static void startPodsService (Context context) {
-        if (Build.VERSION.SDK_INT >= 30)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
             context.startForegroundService(new Intent(context, PodsService.class));
         else
             context.startService(new Intent(context, PodsService.class));
