@@ -21,6 +21,12 @@ public class PermissionUtils {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    public static boolean getBluetoothPermissions (Context context) {
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+    }
+
     public static boolean getFineLocationPermission (Context context) {
         return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }

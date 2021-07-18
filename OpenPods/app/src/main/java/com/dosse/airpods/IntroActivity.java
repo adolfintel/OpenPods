@@ -58,20 +58,22 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private int getPermissionState () {
-        if (!PermissionUtils.getBatteryOptimizationsPermission(this))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) if (!PermissionUtils.getBluetoothPermissions(this))
             return 1;
-        else if (!PermissionUtils.getFineLocationPermission(this))
+        if (!PermissionUtils.getBatteryOptimizationsPermission(this))
             return 2;
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) if (!PermissionUtils.getBackgroundLocationPermission(this))
+        if (!PermissionUtils.getFineLocationPermission(this))
             return 3;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) if (!PermissionUtils.getBackgroundLocationPermission(this))
+            return 4;
 
         return 0;
     }
 
     @SuppressLint("BatteryLife")
     private void initScreen () {
-        int step = getPermissionState();
-        int numOfSteps = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) ? 3 : 2;
+        int step = getPermissionState() - ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 0 : 1);
+        int numOfSteps = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) ? ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 4 : 3) : 2;
 
         switch (step) {
             case 1:
