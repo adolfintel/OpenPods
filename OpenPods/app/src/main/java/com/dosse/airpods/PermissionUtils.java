@@ -37,7 +37,9 @@ public class PermissionUtils {
     }
 
     public static boolean checkAllPermissions (Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            return getBatteryOptimizationsPermission(context) && getFineLocationPermission(context) && getBackgroundLocationPermission(context) && getBluetoothPermissions(context);
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
             return getBatteryOptimizationsPermission(context) && getFineLocationPermission(context) && getBackgroundLocationPermission(context);
         else
             return getBatteryOptimizationsPermission(context) && getFineLocationPermission(context);
