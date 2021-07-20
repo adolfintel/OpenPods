@@ -109,8 +109,7 @@ public class IntroActivity extends AppCompatActivity {
             case STEP_PERMISSION_BACKGROUND_LOCATION:
                 msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), currentStep, numOfSteps, getString(R.string.intro_loc2_perm)));
                 btn.setOnClickListener(view -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-                        requestPermissions(new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 104);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) requestPermissions(new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 104);
                 });
                 break;
         }
