@@ -10,6 +10,8 @@
     <string name="intro_message">To operate, we need permission to use Bluetooth LE (Location) and permission to run in background</string>
     <string name="intro_allow">Allow</string>
     <string name="intro_step" tools:ignore="MissingTranslation">Step</string>
+    <string name="intro_bt1_perm" tools:ignore="MissingTranslation">Bluetooth Scan Permission</string>
+    <string name="intro_bt2_perm" tools:ignore="MissingTranslation">Bluetooth Connect Permission</string>
     <string name="intro_bat_perm" tools:ignore="MissingTranslation">Battery Optimization</string>
     <string name="intro_loc1_perm" tools:ignore="MissingTranslation">Location Permission</string>
     <string name="intro_loc2_perm" tools:ignore="MissingTranslation">Background Location Permission</string>
