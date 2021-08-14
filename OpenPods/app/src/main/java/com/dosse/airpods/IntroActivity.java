@@ -23,7 +23,7 @@ public class IntroActivity extends AppCompatActivity {
     private TextView msg;
     private Button btn;
 
-    private static final int STEP_PERMISSION_BLUETOOTH_SCAN = 1, STEP_PERMISSION_BLUETOOTH_CONNECT = 2, STEP_PERMISSION_BATTERY_OPTIMIZATION = 3, STEP_PERMISSION_LOCATION = 4, STEP_PERMISSION_BACKGROUND_LOCATION = 5;
+    private static final int STEP_PERMISSION_BLUETOOTH = 1, STEP_PERMISSION_BATTERY_OPTIMIZATION = 2, STEP_PERMISSION_LOCATION = 3, STEP_PERMISSION_BACKGROUND_LOCATION = 4;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -60,10 +60,8 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private int getPermissionState () {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) if (!PermissionUtils.getBluetoothScanPermission(this))
-            return STEP_PERMISSION_BLUETOOTH_SCAN;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) if (!PermissionUtils.getBluetoothConnectPermission(this))
-            return STEP_PERMISSION_BLUETOOTH_CONNECT;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) if (!PermissionUtils.getBluetoothPermissions(this))
+            return STEP_PERMISSION_BLUETOOTH;
         if (!PermissionUtils.getBatteryOptimizationsPermission(this))
             return STEP_PERMISSION_BATTERY_OPTIMIZATION;
         if (!PermissionUtils.getFineLocationPermission(this))
@@ -76,20 +74,15 @@ public class IntroActivity extends AppCompatActivity {
 
     @SuppressLint("BatteryLife")
     private void initScreen () {
-        int currentStep = getPermissionState() - ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 0 : 2);
-        int numOfSteps = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) ? ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 5 : 3) : 2;
+        int currentStep = getPermissionState() - ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 0 : 1);
+        int numOfSteps = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) ? ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 4 : 3) : 2;
 
         switch (getPermissionState()) {
-            case STEP_PERMISSION_BLUETOOTH_SCAN:
-                msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), currentStep, numOfSteps, getString(R.string.intro_bt1_perm)));
+            case STEP_PERMISSION_BLUETOOTH:
+                msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), currentStep, numOfSteps, getString(R.string.intro_bt_perm)));
                 btn.setOnClickListener(view -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) requestPermissions(new String[] {Manifest.permission.BLUETOOTH_SCAN}, 101);
-                });
-                break;
-            case STEP_PERMISSION_BLUETOOTH_CONNECT:
-                msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), currentStep, numOfSteps, getString(R.string.intro_bt2_perm)));
-                btn.setOnClickListener(view -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) requestPermissions(new String[] {Manifest.permission.BLUETOOTH_CONNECT}, 102);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                        requestPermissions(new String[] {Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT}, 101);
                 });
                 break;
             case STEP_PERMISSION_BATTERY_OPTIMIZATION:
@@ -104,12 +97,12 @@ public class IntroActivity extends AppCompatActivity {
                 break;
             case STEP_PERMISSION_LOCATION:
                 msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), currentStep, numOfSteps, getString(R.string.intro_loc1_perm)));
-                btn.setOnClickListener(view -> requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 103)); // Location (for BLE)
+                btn.setOnClickListener(view -> requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 102)); // Location (for BLE)
                 break;
             case STEP_PERMISSION_BACKGROUND_LOCATION:
                 msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), currentStep, numOfSteps, getString(R.string.intro_loc2_perm)));
                 btn.setOnClickListener(view -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) requestPermissions(new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 104);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) requestPermissions(new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 103);
                 });
                 break;
         }
