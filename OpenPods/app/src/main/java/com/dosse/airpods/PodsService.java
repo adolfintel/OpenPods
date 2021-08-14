@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.ParcelUuid;
@@ -257,20 +256,6 @@ public class PodsService extends Service {
 
     private class NotificationThread extends Thread {
 
-        private boolean isLocationEnabled () {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                getApplicationContext();
-                LocationManager service = (LocationManager)getSystemService(LOCATION_SERVICE);
-                return service != null && service.isLocationEnabled();
-            } else {
-                try {
-                    return Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE) != Settings.Secure.LOCATION_MODE_OFF;
-                } catch (Throwable t) {
-                    return true;
-                }
-            }
-        }
-
         private final NotificationManager mNotifyManager;
 
         @SuppressWarnings("WeakerAccess")
@@ -292,8 +277,6 @@ public class PodsService extends Service {
             boolean notificationShowing = false;
             String compat = getPackageManager().getInstallerPackageName(getPackageName());
 
-            RemoteViews[] notificationLocation = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.location_disabled_big), new RemoteViews(getPackageName(), R.layout.location_disabled_small)};
-
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(PodsService.this, TAG);
             mBuilder.setShowWhen(false);
             mBuilder.setOngoing(true);
@@ -302,8 +285,8 @@ public class PodsService extends Service {
 
             for (; ; ) {
                 RemoteViews[] notificationArr = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.status_big), new RemoteViews(getPackageName(), R.layout.status_small)};
+                RemoteViews[] notificationLocation = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.location_disabled_big), new RemoteViews(getPackageName(), R.layout.location_disabled_small)};
 
-                /*&&System.currentTimeMillis()-lastSeenConnected<TIMEOUT_CONNECTED*/
                 if (maybeConnected && !(leftStatus == 15 && rightStatus == 15 && caseStatus == 15)) {
                     if (!notificationShowing) {
                         OpenPodsDebugLog("Creating notification");
@@ -319,8 +302,8 @@ public class PodsService extends Service {
                     mNotifyManager.cancel(1);
                 }
 
-                // Apparently this restriction was removed in android Q
-                if (isLocationEnabled() || Build.VERSION.SDK_INT >= 29) {
+                // Apparently this restriction was removed ONLY in android Q
+                if (PermissionUtils.getLocationPermissions(getApplicationContext()) || Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
                     mBuilder.setCustomContentView(notificationArr[1]);
                     mBuilder.setCustomBigContentView(notificationArr[0]);
                 } else {
@@ -603,7 +586,7 @@ public class PodsService extends Service {
                 .putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName())
                 .putExtra(Settings.EXTRA_CHANNEL_ID, notChannelID);
 
-        PendingIntent notPendingIntent = PendingIntent.getActivity(this, 1110, notIntent, 0);
+        PendingIntent notPendingIntent = PendingIntent.getActivity(this, 1110, notIntent, PendingIntent.FLAG_IMMUTABLE);
 
         Notification.Builder builder = new Notification.Builder(this, notChannelID)
                 .setSmallIcon(R.drawable.pod_case)
