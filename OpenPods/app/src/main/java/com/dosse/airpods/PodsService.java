@@ -116,12 +116,10 @@ public class PodsService extends Service {
                 throw new Exception("BT Off");
 
             List<ScanFilter> filters = getScanFilters();
-            ScanSettings settings;
-
-            if (prefs.getBoolean("batterySaver", false))
-                settings = new ScanSettings.Builder().setScanMode(0).setReportDelay(0).build();
-            else
-                settings = new ScanSettings.Builder().setScanMode(2).setReportDelay(2).build();
+            ScanSettings settings = new ScanSettings.Builder()
+                    .setScanMode(prefs.getBoolean("batterySaver", false) ? ScanSettings.SCAN_MODE_LOW_POWER : ScanSettings.SCAN_MODE_LOW_LATENCY)
+                    .setReportDelay(0)
+                    .build();
 
             btScanner.startScan(filters, settings, new ScanCallback() {
                 @Override
@@ -267,7 +265,7 @@ public class PodsService extends Service {
                 channel.setSound(null, null);
                 channel.enableVibration(false);
                 channel.enableLights(false);
-                channel.setShowBadge(true);
+                channel.setShowBadge(false);
                 channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
                 mNotifyManager.createNotificationChannel(channel);
             }
@@ -578,7 +576,7 @@ public class PodsService extends Service {
 
         NotificationManager notManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel notChannel = new NotificationChannel(notChannelID, getString(R.string.bg_noti_channel), NotificationManager.IMPORTANCE_LOW);
-
+        notChannel.setShowBadge(false);
         notManager.createNotificationChannel(notChannel);
 
         Intent notIntent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
