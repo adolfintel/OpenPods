@@ -118,7 +118,7 @@ public class PodsService extends Service {
             List<ScanFilter> filters = getScanFilters();
             ScanSettings settings = new ScanSettings.Builder()
                     .setScanMode(prefs.getBoolean("batterySaver", false) ? ScanSettings.SCAN_MODE_LOW_POWER : ScanSettings.SCAN_MODE_LOW_LATENCY)
-                    .setReportDelay(0)
+                    .setReportDelay(1)
                     .build();
 
             btScanner.startScan(filters, settings, new ScanCallback() {
