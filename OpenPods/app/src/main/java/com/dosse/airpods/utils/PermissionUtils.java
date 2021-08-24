@@ -1,4 +1,4 @@
-package com.dosse.airpods;
+package com.dosse.airpods.utils;
 
 import static androidx.core.content.ContextCompat.checkSelfPermission;
 

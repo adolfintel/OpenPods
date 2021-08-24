@@ -10,7 +10,7 @@
     <string name="noBtText">看起来您的设备并不支持蓝牙</string>
     <string name="locationDisabledText">您需要开启定位来让 OpenPods 读取状态</string>
     <string name="supportedDevicesTitle"><u>支持的设备:</u></string>
-    <string name="supportedDevicesItems">&#8226; Apple AirPods 一代\n&#8226; Apple AirPods 二代\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevicesItems">&#8226; Apple AirPods 一代\n&#8226; Apple AirPods 二代\n&#8226; Apple AirPods Pro\n&#8226; Apple AirPods Max</string>
 
     <string name="batterySaver">省电模式 (不推荐)</string>
     <string name="batterySaver_desc">可在蓝牙消耗过多电量时开启</string>

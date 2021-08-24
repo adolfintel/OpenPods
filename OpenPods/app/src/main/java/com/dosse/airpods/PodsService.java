@@ -1,5 +1,7 @@
 package com.dosse.airpods;
 
+import static com.dosse.airpods.utils.ScannerUtils.isMax;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -34,9 +36,14 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.preference.PreferenceManager;
 
+import com.dosse.airpods.utils.NotificationUtils;
+import com.dosse.airpods.utils.PermissionUtils;
+import com.dosse.airpods.utils.ScannerUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -51,11 +58,11 @@ public class PodsService extends Service {
     }
 
     private static BluetoothLeScanner btScanner;
-    private static int leftStatus = 15, rightStatus = 15, caseStatus = 15;
+    private static int leftStatus = 15, rightStatus = 15, caseStatus = 15, maxStatus = 15;
     private static boolean chargeL = false, chargeR = false, chargeCase = false;
     private static boolean inEarL = false, inEarR = false;
-    private static final String MODEL_AIRPODS_NORMAL = "airpods12", MODEL_AIRPODS_PRO = "airpodspro";
-    private static String model = MODEL_AIRPODS_NORMAL;
+    public static final String MODEL_AIRPODS_NORMAL = "airpods12", MODEL_AIRPODS_PRO = "airpodspro", MODEL_AIRPODS_MAX = "airpodsmax";
+    public static String model = MODEL_AIRPODS_NORMAL;
 
     /**
      * The following method (startAirPodsScanner) creates a bluetooth LE scanner.
@@ -83,7 +90,7 @@ public class PodsService extends Service {
      * - The 11th character in the string represents the in-ear detection status. Bit 1 is the left pod; Bit 3 is the right pod.
      * - The 7th character in the string represents the AirPods model (E=AirPods pro)
      * <p>
-     * After decoding a beacon, the status is written to leftStatus, rightStatus, caseStatus, chargeL, chargeR, chargeCase, inEarL, inEarR so that the NotificationThread can use the information
+     * After decoding a beacon, the status is written to leftStatus, rightStatus, caseStatus, maxStatus, chargeL, chargeR, chargeCase, inEarL, inEarR so that the NotificationThread can use the information
      * <p>
      * Notes:
      * 1) - isFlipped set by bit 1 of 10th character in the string; seems to be related to in-ear detection;
@@ -139,8 +146,8 @@ public class PodsService extends Service {
 
                         recentBeacons.add(result);
 
-                        OpenPodsDebugLog("" + result.getRssi() + "db");
-                        OpenPodsDebugLog(decodeHex(data));
+                        OpenPodsDebugLog(String.format(Locale.getDefault(), "%ddb", result.getRssi()));
+                        OpenPodsDebugLog(ScannerUtils.decodeHex(data));
 
                         ScanResult strongestBeacon = null;
                         for (int i = 0; i < recentBeacons.size(); i++) {
@@ -160,12 +167,13 @@ public class PodsService extends Service {
                         if (result.getRssi() < -60)
                             return;
 
-                        String a = decodeHex(Objects.requireNonNull(Objects.requireNonNull(result.getScanRecord()).getManufacturerSpecificData(76)));
-                        boolean flip = isFlipped(a);
+                        String a = ScannerUtils.decodeHex(Objects.requireNonNull(Objects.requireNonNull(result.getScanRecord()).getManufacturerSpecificData(76)));
+                        boolean flip = ScannerUtils.isFlipped(a);
 
                         leftStatus = Integer.parseInt("" + a.charAt(flip ? 12 : 13), 16); // Left airpod (0-10 batt; 15=disconnected)
                         rightStatus = Integer.parseInt("" + a.charAt(flip ? 13 : 12), 16); // Right airpod (0-10 batt; 15=disconnected)
                         caseStatus = Integer.parseInt("" + a.charAt(15), 16); // Case (0-10 batt; 15=disconnected)
+                        maxStatus = Integer.parseInt("" + a.charAt(13), 16); // Airpods max (0-10 batt; 15=disconnected)
 
                         int chargeStatus = Integer.parseInt("" + a.charAt(14), 16); // Charge status (bit 0=left; bit 1=right; bit 2=case)
 
@@ -178,7 +186,11 @@ public class PodsService extends Service {
                         inEarL = (inEarStatus & (flip ? 0b00001000 : 0b00000010)) != 0;
                         inEarR = (inEarStatus & (flip ? 0b00000010 : 0b00001000)) != 0;
 
-                        model = (a.charAt(7) == 'E') ? MODEL_AIRPODS_PRO : MODEL_AIRPODS_NORMAL; // Detect if these are AirPods Pro or regular ones
+                        switch (a.charAt(7)) { // Detect if these are AirPods Pro/Max or regular ones
+                            case 'E': model = MODEL_AIRPODS_PRO; break;
+                            case 'A': model = MODEL_AIRPODS_MAX; break;
+                            default: model = MODEL_AIRPODS_NORMAL;
+                        }
 
                         lastSeenConnected = System.currentTimeMillis();
                     } catch (Throwable t) {
@@ -221,21 +233,9 @@ public class PodsService extends Service {
             leftStatus = 15;
             rightStatus = 15;
             caseStatus = 15;
+            maxStatus = 15;
         } catch (Throwable ignored) {
         }
-    }
-
-    private String decodeHex (byte[] bArr) {
-        StringBuilder ret = new StringBuilder();
-
-        for (byte b : bArr)
-            ret.append(String.format("%02X", b));
-
-        return ret.toString();
-    }
-
-    private boolean isFlipped (String str) {
-        return (Integer.parseInt("" + str.charAt(10), 16) & 0x02) == 0;
     }
 
     /**
@@ -285,7 +285,7 @@ public class PodsService extends Service {
                 RemoteViews[] notificationArr = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.status_big), new RemoteViews(getPackageName(), R.layout.status_small)};
                 RemoteViews[] notificationLocation = new RemoteViews[] {new RemoteViews(getPackageName(), R.layout.location_disabled_big), new RemoteViews(getPackageName(), R.layout.location_disabled_small)};
 
-                if (maybeConnected && !(leftStatus == 15 && rightStatus == 15 && caseStatus == 15)) {
+                if (maybeConnected && !(leftStatus == 15 && rightStatus == 15 && caseStatus == 15 && maxStatus == 15)) {
                     if (!notificationShowing) {
                         OpenPodsDebugLog("Creating notification");
                         notificationShowing = true;
@@ -310,17 +310,36 @@ public class PodsService extends Service {
                 }
 
                 if (notificationShowing) {
-                    OpenPodsDebugLog("Left: " + leftStatus + (chargeL ? "+" : "") + (inEarL ? "$" : "") + " Right: " + rightStatus + (chargeR ? "+" : "") + (inEarR ? "$" : "") + " Case: " + caseStatus + (chargeCase ? "+" : "") + " Model: " + model);
+                    OpenPodsDebugLog(isMax() ? String.format(Locale.getDefault(), "Battery: %d Model: %s", maxStatus, model) :
+                            String.format(Locale.getDefault(), "Left: %d%s%s Right: %d%s%s Case: %d%s Model: %s",
+                                    leftStatus, chargeL ? "+" : "", inEarL ? "$" : "",
+                                    rightStatus, chargeR ? "+" : "", inEarR ? "$" : "",
+                                    caseStatus, chargeCase ? "+" : "", model)
+                    );
 
-                    if (model.equals(MODEL_AIRPODS_NORMAL)) for (RemoteViews notification : notificationArr) {
-                        notification.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
-                        notification.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
-                        notification.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
+                    switch (model) {
+                        case MODEL_AIRPODS_NORMAL:
+                            for (RemoteViews notification : notificationArr) {
+                                notification.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
+                                notification.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.pod : R.drawable.pod_disconnected);
+                                notification.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
+                            }
+                            break;
+                        case MODEL_AIRPODS_PRO:
+                            for (RemoteViews notification : notificationArr) {
+                                notification.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
+                                notification.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
+                                notification.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
+                            }
+                            break;
+                        case MODEL_AIRPODS_MAX:
+                            for (RemoteViews notification : notificationArr)
+                                notification.setImageViewResource(R.id.leftPodImg, maxStatus <= 10 ? R.drawable.podmax : R.drawable.podmax_disconnected);
                     }
-                    else if (model.equals(MODEL_AIRPODS_PRO)) for (RemoteViews notification : notificationArr) {
-                        notification.setImageViewResource(R.id.leftPodImg, leftStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
-                        notification.setImageViewResource(R.id.rightPodImg, rightStatus <= 10 ? R.drawable.podpro : R.drawable.podpro_disconnected);
-                        notification.setImageViewResource(R.id.podCaseImg, caseStatus <= 10 ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
+
+                    for (RemoteViews notification : notificationArr) {
+                        notification.setViewVisibility(R.id.rightPod, isMax() ? View.GONE : View.VISIBLE);
+                        notification.setViewVisibility(R.id.podCase, isMax() ? View.GONE : View.VISIBLE);
                     }
 
                     if (System.currentTimeMillis() - lastSeenConnected < TIMEOUT_CONNECTED) for (RemoteViews notification : notificationArr) {
@@ -331,23 +350,19 @@ public class PodsService extends Service {
                         notification.setViewVisibility(R.id.rightPodUpdating, View.INVISIBLE);
                         notification.setViewVisibility(R.id.podCaseUpdating, View.INVISIBLE);
 
-                        String podText_Left = (leftStatus == 10) ? "100%" : ((leftStatus < 10) ? ((leftStatus * 10 + 5) + "%") : "");
-                        String podText_Right = (rightStatus == 10) ? "100%" : ((rightStatus < 10) ? ((rightStatus * 10 + 5) + "%") : "");
-                        String podText_Case = (caseStatus == 10) ? "100%" : ((caseStatus < 10) ? ((caseStatus * 10 + 5) + "%") : "");
+                        notification.setTextViewText(R.id.leftPodText, NotificationUtils.statusToString(isMax() ? maxStatus : leftStatus));
+                        notification.setTextViewText(R.id.rightPodText, NotificationUtils.statusToString(rightStatus));
+                        notification.setTextViewText(R.id.podCaseText, NotificationUtils.statusToString(caseStatus));
 
-                        notification.setTextViewText(R.id.leftPodText, podText_Left);
-                        notification.setTextViewText(R.id.rightPodText, podText_Right);
-                        notification.setTextViewText(R.id.podCaseText, podText_Case);
+                        notification.setImageViewResource(R.id.leftBatImg, NotificationUtils.batImgSrcId(chargeL));
+                        notification.setImageViewResource(R.id.rightBatImg, NotificationUtils.batImgSrcId(chargeR));
+                        notification.setImageViewResource(R.id.caseBatImg, NotificationUtils.batImgSrcId(chargeCase));
 
-                        notification.setImageViewResource(R.id.leftBatImg, chargeL ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-                        notification.setImageViewResource(R.id.rightBatImg, chargeR ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
-                        notification.setImageViewResource(R.id.caseBatImg, chargeCase ? R.drawable.ic_battery_charging_full_green_24dp : R.drawable.ic_battery_alert_red_24dp);
+                        notification.setViewVisibility(R.id.leftBatImg, NotificationUtils.batImgVisibility(chargeL, leftStatus));
+                        notification.setViewVisibility(R.id.rightBatImg, NotificationUtils.batImgVisibility(chargeR, rightStatus));
+                        notification.setViewVisibility(R.id.caseBatImg, NotificationUtils.batImgVisibility(chargeCase, caseStatus));
 
-                        notification.setViewVisibility(R.id.leftBatImg, ((chargeL && leftStatus <= 10) || (leftStatus <= 1) ? View.VISIBLE : View.GONE));
-                        notification.setViewVisibility(R.id.rightBatImg, ((chargeR && rightStatus <= 10) || (rightStatus <= 1) ? View.VISIBLE : View.GONE));
-                        notification.setViewVisibility(R.id.caseBatImg, ((chargeCase && caseStatus <= 10) || (caseStatus <= 1) ? View.VISIBLE : View.GONE));
-
-                        notification.setViewVisibility(R.id.leftInEarImg, inEarL ? View.VISIBLE : View.INVISIBLE);
+                        notification.setViewVisibility(R.id.leftInEarImg, inEarL && !isMax() ? View.VISIBLE : View.INVISIBLE);
                         notification.setViewVisibility(R.id.rightInEarImg, inEarR ? View.VISIBLE : View.INVISIBLE);
                     }
                     else for (RemoteViews notification : notificationArr) {

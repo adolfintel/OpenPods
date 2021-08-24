@@ -14,7 +14,7 @@
     <string name="noBtText">Схоже, що цей пристрій не підтримує Bluetooth LE</string>
     <string name="locationDisabledText">Вам потрібно ввімкнути місцезнаходження, для того, щоб дозволити OpenPods читати статус</string>
     <string name="supportedDevicesTitle"><u>Supported devices:</u></string>
-    <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro\n&#8226; Apple AirPods Max</string>
 
     <string name="batterySaver">Режим збереження енергії (Не рекомендовано)</string>
     <string name="batterySaver_desc">Увімкніть, якщо Bluetooth використовує багато ресурсів</string>

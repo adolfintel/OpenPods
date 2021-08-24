@@ -14,7 +14,7 @@
     <string name="noBtText">Es sieht so aus, als hätte dieses Gerät kein Bluetooth LE</string>
     <string name="locationDisabledText">Du musst Standortinformationen aktivieren, damit OpenPods den Status deiner AirPods auslesen kann</string>
     <string name="supportedDevicesTitle"><u>Unterstützte Geräte:</u></string>
-    <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro\n&#8226; Apple AirPods Max</string>
 
     <string name="batterySaver">Stromsparmodus (nicht empfohlen)</string>
     <string name="batterySaver_desc">Aktiviere diesen Modus, wenn Bluetooth zu viel Batterieleistung erfordert</string>

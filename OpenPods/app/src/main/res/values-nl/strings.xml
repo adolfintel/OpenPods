@@ -14,7 +14,7 @@
     <string name="noBtText">Het lijkt erop dat dit apparaat niet beschikt over Bluetooth LE</string>
     <string name="locationDisabledText">Schakel je locatie in zodat OpenPods de status kan uitlezen</string>
     <string name="supportedDevicesTitle"><u>Ondersteunde apparaten:</u></string>
-    <string name="supportedDevicesItems">&#8226; Apple AirPods 1e gen\n&#8226; Apple AirPods 2e gen\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevicesItems">&#8226; Apple AirPods 1e gen\n&#8226; Apple AirPods 2e gen\n&#8226; Apple AirPods Pro\n&#8226; Apple AirPods Max</string>
 
     <string name="batterySaver">Accu-optimalisatie (niet aanbevolen)</string>
     <string name="batterySaver_desc">Schakel dit in als je merkt dat het accuverbruik hoger is door Bluetooth</string>

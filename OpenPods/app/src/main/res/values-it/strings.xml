@@ -15,7 +15,7 @@
     <string name="noBtText">Questo dispositivo non supporta Bluetooth LE</string>
     <string name="locationDisabledText">Attiva la posizione per permttere a OpenPods di leggere lo stato</string>
     <string name="supportedDevicesTitle"><u>Dispositivi supportati:</u></string>
-    <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro</string>
+    <string name="supportedDevicesItems">&#8226; Apple AirPods 1st gen\n&#8226; Apple AirPods 2nd gen\n&#8226; Apple AirPods Pro\n&#8226; Apple AirPods Max</string>
 
     <string name="batterySaver">Risparmio batteria (sconsigliato)</string>
     <string name="batterySaver_desc">Attiva se il Bluetooth usa molta batteria</string>
