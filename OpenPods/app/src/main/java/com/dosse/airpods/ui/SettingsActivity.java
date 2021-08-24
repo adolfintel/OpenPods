@@ -1,4 +1,4 @@
-package com.dosse.airpods;
+package com.dosse.airpods.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+
+import com.dosse.airpods.R;
+import com.dosse.airpods.receivers.Starter;
 
 import java.util.Objects;
 

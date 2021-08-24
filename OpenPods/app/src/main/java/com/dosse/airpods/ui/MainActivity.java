@@ -1,4 +1,4 @@
-package com.dosse.airpods;
+package com.dosse.airpods.ui;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dosse.airpods.R;
+import com.dosse.airpods.receivers.Starter;
 import com.dosse.airpods.utils.PermissionUtils;
 
 import java.util.Objects;

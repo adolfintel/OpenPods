@@ -1,4 +1,4 @@
-package com.dosse.airpods;
+package com.dosse.airpods.ui;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,10 +12,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import static com.dosse.airpods.AboutActivity.donateURL;
-import static com.dosse.airpods.AboutActivity.fdroidURL;
-import static com.dosse.airpods.AboutActivity.githubURL;
-import static com.dosse.airpods.AboutActivity.websiteURL;
+import static com.dosse.airpods.ui.AboutActivity.donateURL;
+import static com.dosse.airpods.ui.AboutActivity.fdroidURL;
+import static com.dosse.airpods.ui.AboutActivity.githubURL;
+import static com.dosse.airpods.ui.AboutActivity.websiteURL;
+
+import com.dosse.airpods.BuildConfig;
+import com.dosse.airpods.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 

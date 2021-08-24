@@ -1,4 +1,4 @@
-package com.dosse.airpods;
+package com.dosse.airpods.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dosse.airpods.R;
 import com.dosse.airpods.utils.PermissionUtils;
 
 import java.util.Locale;

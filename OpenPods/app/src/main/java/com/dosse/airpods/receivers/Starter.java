@@ -1,9 +1,11 @@
-package com.dosse.airpods;
+package com.dosse.airpods.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+
+import com.dosse.airpods.pods.PodsService;
 
 import java.util.Objects;
 

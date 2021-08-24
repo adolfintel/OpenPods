@@ -3,6 +3,7 @@
     package="com.dosse.airpods">
 
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -25,7 +26,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>
@@ -35,28 +36,28 @@
         </activity>
 
         <activity
-            android:name=".AboutActivity"
+            android:name=".ui.AboutActivity"
             android:label="@string/about"
             android:launchMode="singleTop"
-            android:parentActivityName=".SettingsActivity" />
+            android:parentActivityName=".ui.SettingsActivity" />
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.SettingsActivity"
             android:label="@string/settings"
             android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ui.MainActivity" />
 
         <activity
-            android:name=".NoBTActivity"
+            android:name=".ui.NoBTActivity"
             android:label="@string/app_name" />
 
         <activity
-            android:name=".IntroActivity"
+            android:name=".ui.IntroActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver
-            android:name=".Starter"
+            android:name=".receivers.Starter"
             android:enabled="true"
             android:exported="true"
             android:label="@string/app_name">
@@ -67,7 +68,7 @@
         </receiver>
 
         <service
-            android:name=".PodsService"
+            android:name=".pods.PodsService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />

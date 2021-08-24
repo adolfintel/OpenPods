@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/padding_default"
     android:paddingTop="@dimen/padding_default"
     android:paddingRight="@dimen/padding_default"
-    tools:context=".AboutActivity"
+    tools:context=".ui.AboutActivity"
     tools:ignore="ContentDescription,ButtonStyle">
 
     <ImageView
