@@ -15,7 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dosse.airpods.R;
-import com.dosse.airpods.receivers.Starter;
+import com.dosse.airpods.receivers.StartupReceiver;
 import com.dosse.airpods.utils.PermissionUtils;
 
 import java.util.Objects;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (PermissionUtils.checkAllPermissions(this)) {
-            Starter.startPodsService(getApplicationContext());
+            StartupReceiver.startPodsService(getApplicationContext());
             //Warn MIUI users that their rom has known issues
             try {
                 @SuppressLint("PrivateApi") Class<?> c = Class.forName("android.os.SystemProperties");

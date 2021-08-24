@@ -33,6 +33,8 @@
 
     <string name="batterySaver">Battery saver (Not recommended)</string>
     <string name="batterySaver_desc">Enable this if Bluetooth uses a lot of battery</string>
+    <string name="restart" tools:ignore="MissingTranslation">Restart Service</string>
+    <string name="restart_desc" tools:ignore="MissingTranslation">Do this if the notification is not showing</string>
     <string name="hide">Hide app</string>
     <string name="hide_desc">Hide this app from the launcher</string>
     <string name="hide_dialog" tools:ignore="MissingTranslation">Are you sure?</string>

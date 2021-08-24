@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import com.dosse.airpods.R;
-import com.dosse.airpods.receivers.Starter;
+import com.dosse.airpods.receivers.StartupReceiver;
 
 import java.util.Objects;
 
@@ -32,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     @Override
     public void onSharedPreferenceChanged (SharedPreferences sharedPreferences, String key) {
         if (key.equalsIgnoreCase("batterySaver"))
-            Starter.restartPodsService(getApplicationContext());
+            StartupReceiver.restartPodsService(getApplicationContext());
     }
 
     @Override

@@ -10,9 +10,9 @@ import com.dosse.airpods.pods.PodsService;
 import java.util.Objects;
 
 /**
- * A simple starter class that starts the service when the device is booted, or after an update
+ * A simple startup class that starts the service when the device is booted, or after an update
  */
-public class Starter extends BroadcastReceiver {
+public class StartupReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive (Context context, Intent intent) {

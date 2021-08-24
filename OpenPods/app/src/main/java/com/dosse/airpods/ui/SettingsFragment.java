@@ -19,33 +19,39 @@ import static com.dosse.airpods.ui.AboutActivity.websiteURL;
 
 import com.dosse.airpods.BuildConfig;
 import com.dosse.airpods.R;
+import com.dosse.airpods.receivers.StartupReceiver;
+import com.dosse.airpods.utils.Logger;
+
+import java.util.Objects;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-    private Context context;
-
-    @SuppressWarnings("FieldCanBeLocal")
-    private Preference mAboutPreference, mHideAppPreference, mFDroidPreference, mWebsitePreference, mGithubPreference, mDonationPreference;
+    private Preference mHideAppPreference;
 
     @Override
     public void onCreatePreferences (Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preference_screen, rootKey);
-        context = getContext();
+
+        Preference mRestartPreference = getPreferenceManager().findPreference("restartService");
+        Objects.requireNonNull(mRestartPreference).setOnPreferenceClickListener(preference ->  {
+            StartupReceiver.restartPodsService(requireContext());
+            return true;
+        });
 
         mHideAppPreference = getPreferenceManager().findPreference("hideApp");
-        assert mHideAppPreference != null;
-        mHideAppPreference.setOnPreferenceClickListener(preference -> {
+        Objects.requireNonNull(mHideAppPreference).setOnPreferenceClickListener(preference -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             builder.setTitle(R.string.hide_dialog);
             builder.setMessage(R.string.hide_dialog_desc);
             builder.setPositiveButton(R.string.hide_dialog_button, (dialog, which) -> {
                 PackageManager p = requireContext().getPackageManager();
-                p.setComponentEnabledSetting(new ComponentName(context, MainActivity.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-                Toast.makeText(context, getString(R.string.hideClicked), Toast.LENGTH_LONG).show();
+                p.setComponentEnabledSetting(new ComponentName(requireContext(), MainActivity.class), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+                Toast.makeText(requireContext(), getString(R.string.hideClicked), Toast.LENGTH_LONG).show();
 
                 try {
-                    context.openFileOutput("hidden", Context.MODE_PRIVATE).close();
-                } catch (Throwable ignored) {
+                    requireContext().openFileOutput("hidden", Context.MODE_PRIVATE).close();
+                } catch (Throwable t) {
+                    Logger.error(t);
                 }
 
                 enableDisableOptions();
@@ -56,40 +62,35 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             return true;
         });
 
-        mAboutPreference = getPreferenceManager().findPreference("about");
-        assert mAboutPreference != null;
-        mAboutPreference.setSummary(String.format("%s v%s", getString(R.string.app_name), BuildConfig.VERSION_NAME));
+        Preference mAboutPreference = getPreferenceManager().findPreference("about");
+        Objects.requireNonNull(mAboutPreference).setSummary(String.format("%s v%s", getString(R.string.app_name), BuildConfig.VERSION_NAME));
         mAboutPreference.setOnPreferenceClickListener(preference -> {
-            startActivity(new Intent(context, AboutActivity.class));
+            startActivity(new Intent(requireContext(), AboutActivity.class));
             return true;
         });
 
-        mFDroidPreference = getPreferenceManager().findPreference("fdroid");
-        assert mFDroidPreference != null;
-        mFDroidPreference.setOnPreferenceClickListener(preference -> {
+        Preference mFDroidPreference = getPreferenceManager().findPreference("fdroid");
+        Objects.requireNonNull(mFDroidPreference).setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(fdroidURL)));
             return true;
         });
 
-        mGithubPreference = getPreferenceManager().findPreference("github");
-        assert mGithubPreference != null;
-        mGithubPreference.setOnPreferenceClickListener(preference -> {
+        Preference mGithubPreference = getPreferenceManager().findPreference("github");
+        Objects.requireNonNull(mGithubPreference).setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(githubURL)));
             return true;
         });
 
-        mWebsitePreference = getPreferenceManager().findPreference("website");
-        assert mWebsitePreference != null;
-        mWebsitePreference.setOnPreferenceClickListener(preference -> {
+        Preference mWebsitePreference = getPreferenceManager().findPreference("website");
+        Objects.requireNonNull(mWebsitePreference).setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(websiteURL)));
             return true;
         });
 
-        mDonationPreference = getPreferenceManager().findPreference("donate");
-        assert mDonationPreference != null;
-        mDonationPreference.setOnPreferenceClickListener(preference -> {
+        Preference mDonationPreference = getPreferenceManager().findPreference("donate");
+        Objects.requireNonNull(mDonationPreference).setOnPreferenceClickListener(preference -> {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(donateURL)));
-            Toast.makeText(getContext(), "❤️", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "❤️", Toast.LENGTH_SHORT).show();
             return true;
         });
 
@@ -98,9 +99,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private void enableDisableOptions () {
         try {
-            context.openFileInput("hidden").close();
+            requireContext().openFileInput("hidden").close();
             mHideAppPreference.setEnabled(false);
-        } catch (Throwable ignored) {
+        } catch (Throwable t) {
+            Logger.error(t);
         }
     }
 

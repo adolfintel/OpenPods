@@ -50,11 +50,13 @@ public class NotificationBuilder {
             notification.setImageViewResource(R.id.leftPodImg, status.getLeftPod().isConnected() ? R.drawable.pod : R.drawable.pod_disconnected);
             notification.setImageViewResource(R.id.rightPodImg, status.getRightPod().isConnected() ? R.drawable.pod : R.drawable.pod_disconnected);
             notification.setImageViewResource(R.id.podCaseImg, status.getCasePod().isConnected() ? R.drawable.pod_case : R.drawable.pod_case_disconnected);
-        } else if (status.isAirpodsPro()) for (RemoteViews notification : notificationArr) {
+        }
+        else if (status.isAirpodsPro()) for (RemoteViews notification : notificationArr) {
             notification.setImageViewResource(R.id.leftPodImg, status.getLeftPod().isConnected() ? R.drawable.podpro : R.drawable.podpro_disconnected);
             notification.setImageViewResource(R.id.rightPodImg, status.getRightPod().isConnected() ? R.drawable.podpro : R.drawable.podpro_disconnected);
             notification.setImageViewResource(R.id.podCaseImg, status.getCasePod().isConnected() ? R.drawable.podpro_case : R.drawable.podpro_case_disconnected);
-        } else if (status.isAirpodsMax()) for (RemoteViews notification : notificationArr) {
+        }
+        else if (status.isAirpodsMax()) for (RemoteViews notification : notificationArr) {
             notification.setImageViewResource(R.id.leftPodImg, status.getMaxPod().isConnected() ? R.drawable.podmax : R.drawable.podmax_disconnected);
         }
 
@@ -83,7 +85,7 @@ public class NotificationBuilder {
             notification.setViewVisibility(R.id.rightBatImg, batImgVisibility(status.getRightPod()));
             notification.setViewVisibility(R.id.caseBatImg, batImgVisibility(status.getCasePod()));
 
-            notification.setViewVisibility(R.id.leftInEarImg, status.getLeftPod().isInEar()? View.VISIBLE : View.INVISIBLE);
+            notification.setViewVisibility(R.id.leftInEarImg, status.getLeftPod().isInEar() ? View.VISIBLE : View.INVISIBLE);
             notification.setViewVisibility(R.id.rightInEarImg, status.getRightPod().isInEar() ? View.VISIBLE : View.INVISIBLE);
         }
         else for (RemoteViews notification : notificationArr) {
