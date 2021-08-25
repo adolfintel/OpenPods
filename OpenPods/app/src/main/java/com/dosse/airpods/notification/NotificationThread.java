@@ -62,7 +62,7 @@ public abstract class NotificationThread extends Thread {
                     Logger.debug("Creating notification");
                     notificationShowing = true;
                 }
-                Logger.debug(status.parseStatusForLogger());
+                Logger.debug(status.getAirpods().parseStatusForLogger());
                 mNotifyManager.notify(NOTIFICATION_ID, builder.build(status));
             } else {
                 if (notificationShowing) {
