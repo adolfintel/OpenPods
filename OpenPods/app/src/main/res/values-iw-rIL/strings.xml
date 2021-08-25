@@ -14,8 +14,18 @@
 
     <string name="noBtText">נראה כי מכשיר זה אינו תומך ב-Bluetooth LE</string>
     <string name="locationDisabledText">אתה צריך להפעיל שיתוף מיקום בכדי לאפשר ל-OpenPods לקרוא את סטטוס האוזניות</string>
+
     <string name="supportedDevicesTitle"><u>מכשירים נתמכים</u></string>
-    <string name="supportedDevicesItems">• אפל איירפודס דור ראשון\n• אפל איירפודס דור שני\n• אפל איירפודס פרו\n• אפל איירפודס מקס</string>
+    <string name="airpods1">• אפל איירפודס דור ראשון</string>
+    <string name="airpods2">• אפל איירפודס דור שני</string>
+    <string name="airpodspro">• אפל איירפודס פרו</string>
+    <string name="airpodsmax">• אפל איירפודס מקס</string>
+    <string name="beatsx">• ביטס אקס</string>
+    <string name="beatsflex">• ביטס פלקס</string>
+    <string name="beatssolo3">• ביטס סולו 3</string>
+    <string name="beatsstudio3">• ביטס סטודיו 3</string>
+    <string name="powerbeats3">•פווארביטס 3</string>
+    <string name="powerbeatspro">• פווארביטס פרו</string>
 
     <string name="batterySaver">חיסכון בסוללה (לא מומלץ)</string>
     <string name="batterySaver_desc">הפעל אם Bluetooth משתמש בהרבה סוללה</string>
