@@ -18,6 +18,13 @@ The Free and Open Source app for monitoring your AirPods on Android
 * Apple AirPods 1st gen
 * Apple AirPods 2nd gen
 * Apple AirPods Pro
+* Apple AirPods Max
+* Beats X
+* Beats Flex
+* Beats Solo 3
+* Beats Studio 3
+* Powerbeats 3
+* Powerbeats Pro
 
 ## DO NOT REUPLOAD TO GOOGLE PLAY
 **This app violates Google Play policies and is designed to break if you try to fix that unless you really know what you're doing.**<br />
