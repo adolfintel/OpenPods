@@ -57,11 +57,11 @@ public class NotificationBuilder {
                 notification.setImageViewResource(R.id.rightPodImg, ((RegularPods)airpods).getRightDrawable());
                 notification.setImageViewResource(R.id.podCaseImg, ((RegularPods)airpods).getCaseDrawable());
             } else {
-                notification.setImageViewResource(R.id.leftPodImg, ((SinglePods)airpods).getDrawable());
+                notification.setImageViewResource(R.id.podCaseImg, ((SinglePods)airpods).getDrawable());
             }
 
+            notification.setViewVisibility(R.id.leftPod, single ? View.GONE : View.VISIBLE);
             notification.setViewVisibility(R.id.rightPod, single ? View.GONE : View.VISIBLE);
-            notification.setViewVisibility(R.id.podCase, single ? View.GONE : View.VISIBLE);
         }
 
         if (isFreshStatus(status)) for (RemoteViews notification : notificationArr) {
@@ -92,10 +92,9 @@ public class NotificationBuilder {
             } else {
                 SinglePods singlePods = (SinglePods)airpods;
 
-                notification.setTextViewText(R.id.leftPodText, singlePods.getParsedStatus());
-                notification.setImageViewResource(R.id.leftBatImg, singlePods.getBatImgSrcId());
-                notification.setViewVisibility(R.id.leftBatImg, singlePods.getBatImgVisibility());
-                notification.setViewVisibility(R.id.leftInEarImg, singlePods.getInEarVisibility());
+                notification.setTextViewText(R.id.podCaseText, singlePods.getParsedStatus());
+                notification.setImageViewResource(R.id.caseBatImg, singlePods.getBatImgSrcId());
+                notification.setViewVisibility(R.id.caseBatImg, singlePods.getBatImgVisibility());
             }
         }
         else for (RemoteViews notification : notificationArr) {
