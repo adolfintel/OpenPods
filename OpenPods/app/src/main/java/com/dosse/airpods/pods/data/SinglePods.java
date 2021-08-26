@@ -20,10 +20,6 @@ public abstract class SinglePods implements IPods {
         return pod.parseStatus();
     }
 
-    public int getInEarVisibility () {
-        return pod.inEarVisibility();
-    }
-
     public int getBatImgVisibility () {
         return pod.batImgVisibility();
     }

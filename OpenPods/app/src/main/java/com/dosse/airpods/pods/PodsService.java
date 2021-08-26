@@ -43,38 +43,6 @@ import java.util.Objects;
  */
 public class PodsService extends Service {
 
-    /**
-     * The following method (startAirPodsScanner) creates a bluetooth LE scanner.
-     * This scanner receives all beacons from nearby BLE devices (not just your devices!) so we need to do 3 things:
-     * - Check that the beacon comes from something that looks like a pair of AirPods
-     * - Make sure that it is YOUR pair of AirPods
-     * - Decode the beacon to get the status
-     * <p>
-     * On a normal OS, we would use the bluetooth address of the device to filter out beacons from other devices.
-     * UNFORTUNATELY, someone at google was so concerned about privacy (yea, as if they give a shit) that he decided it was a good idea to not allow access to the bluetooth address of incoming BLE beacons.
-     * As a result, we have no reliable way to make sure that the beacon comes from YOUR airpods and not the guy sitting next to you on the bus.
-     * What we did to workaround this issue is this:
-     * - When a beacon arrives that looks like a pair of AirPods, look at the other beacons received in the last 10 seconds and get the strongest one
-     * - If the strongest beacon's fake address is the same as this, use this beacon; otherwise use the strongest beacon
-     * - Filter for signals stronger than -60db
-     * - Decode...
-     * <p>
-     * Decoding the beacon:
-     * This was done through reverse engineering. Hopefully it's correct.
-     * - The beacon coming from a pair of AirPods contains a manufacturer specific data field n°76 of 27 bytes
-     * - We convert this data to a hexadecimal string
-     * - The 12th and 13th characters in the string represent the charge of the left and right pods. Under unknown circumstances[1], they are right and left instead (see isFlipped). Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
-     * - The 15th character in the string represents the charge of the case. Values between 0 and 10 are battery 0-100%; Value 15 means it's disconnected
-     * - The 14th character in the string represents the "in charge" status. Bit 0 (LSB) is the left pod; Bit 1 is the right pod; Bit 2 is the case. Bit 3 might be case open/closed but I'm not sure and it's not used
-     * - The 11th character in the string represents the in-ear detection status. Bit 1 is the left pod; Bit 3 is the right pod.
-     * - The 7th character in the string represents the AirPods model (E=AirPods pro)
-     * <p>
-     * After decoding a beacon, the status is written to leftStatus, rightStatus, caseStatus, maxStatus, chargeL, chargeR, chargeCase, inEarL, inEarR so that the NotificationThread can use the information
-     * <p>
-     * Notes:
-     * 1) - isFlipped set by bit 1 of 10th character in the string; seems to be related to in-ear detection;
-     */
-
     private BluetoothLeScanner btScanner;
     private PodsStatus status = PodsStatus.DISCONNECTED;
 
@@ -346,7 +314,7 @@ public class PodsService extends Service {
         return START_STICKY;
     }
 
-    // Foreground service background notification (confusing I know).
+    // Foreground service for background notification (confusing I know).
     // Only enabled for API30+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private Notification createBackgroundNotification () {
