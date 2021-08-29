@@ -1,13 +1,13 @@
 package com.dosse.airpods.notification;
 
+import static com.dosse.airpods.notification.NotificationBuilder.NOTIFICATION_ID;
+import static com.dosse.airpods.notification.NotificationBuilder.TAG;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
-
-import static com.dosse.airpods.notification.NotificationBuilder.NOTIFICATION_ID;
-import static com.dosse.airpods.notification.NotificationBuilder.TAG;
 
 import com.dosse.airpods.pods.PodsStatus;
 import com.dosse.airpods.utils.Logger;
@@ -26,7 +26,7 @@ import com.dosse.airpods.utils.Logger;
 public abstract class NotificationThread extends Thread {
     private static final long SLEEP_TIMEOUT = 1000;
 
-    private final Context mContext;
+    private final String compat;
     private final NotificationBuilder builder;
     private final NotificationManager mNotifyManager;
 
@@ -35,8 +35,8 @@ public abstract class NotificationThread extends Thread {
     public abstract PodsStatus getStatus ();
 
     public NotificationThread (Context context) {
-        mContext = context;
-        mNotifyManager = (NotificationManager)mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        compat = context.getPackageManager().getInstallerPackageName(context.getPackageName());
+        mNotifyManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         // On Oreo (API27) and newer, create a notification channel.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(TAG, TAG, NotificationManager.IMPORTANCE_LOW);
@@ -47,12 +47,11 @@ public abstract class NotificationThread extends Thread {
             channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             mNotifyManager.createNotificationChannel(channel);
         }
-        builder = new NotificationBuilder(mContext);
+        builder = new NotificationBuilder(context);
     }
 
     public void run () {
         boolean notificationShowing = false;
-        String compat = mContext.getPackageManager().getInstallerPackageName(mContext.getPackageName());
 
         while (!Thread.interrupted()) {
             PodsStatus status = getStatus();

@@ -6,7 +6,7 @@
         android:title="@string/app_name"
         app:iconSpaceReserved="false">
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="false"
             android:key="batterySaver"
             android:summary="@string/batterySaver_desc"
@@ -29,27 +29,47 @@
             android:key="about"
             android:summary="@string/app_name"
             android:title="@string/about"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false">
+            <intent
+                android:targetClass="com.dosse.airpods.ui.AboutActivity"
+                android:targetPackage="com.dosse.airpods" />
+        </Preference>
 
         <Preference
             android:key="fdroid"
             android:title="@string/fdroid"
-            app:iconSpaceReserved="false" />
-        
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/fdroid_url" />
+        </Preference>
+
         <Preference
             android:key="website"
             android:title="@string/website"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/website_url" />
+        </Preference>
 
         <Preference
             android:key="github"
             android:title="@string/github"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/github_url" />
+        </Preference>
 
         <Preference
             android:key="donate"
             android:title="@string/donate"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/donate_url" />
+        </Preference>
 
     </PreferenceCategory>
 

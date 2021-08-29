@@ -12,12 +12,6 @@ import com.dosse.airpods.R;
 
 public class AboutActivity extends AppCompatActivity {
 
-
-    public static final String websiteURL = "https://fdossena.com/?p=openPods/index.frag";
-    public static final String githubURL = "https://github.com/adolfintel/OpenPods";
-    public static final String donateURL = "https://paypal.me/sineisochronic";
-    public static final String fdroidURL = "https://f-droid.org/packages/com.dosse.airpods/";
-
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +34,10 @@ public class AboutActivity extends AppCompatActivity {
 
         ((WebView)(findViewById(R.id.license))).loadUrl("file:///android_asset/license.html");
 
-        findViewById(R.id.website).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(websiteURL))));
-        findViewById(R.id.github).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(githubURL))));
+        findViewById(R.id.website).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.website_url)))));
+        findViewById(R.id.github).setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_url)))));
         findViewById(R.id.donate).setOnClickListener(v -> {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(donateURL)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.donate_url))));
             Toast.makeText(AboutActivity.this, "❤️", Toast.LENGTH_SHORT).show();
         });
 

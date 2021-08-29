@@ -50,4 +50,9 @@
     <string name="website">Website</string>
     <string name="github" tools:ignore="MissingTranslation">Github</string>
     <string name="donate">Donate</string>
+
+    <string name="fdroid_url" translatable="false">https://f-droid.org/packages/com.dosse.airpods/</string>
+    <string name="website_url" translatable="false">https://fdossena.com/?p=openPods/index.frag</string>
+    <string name="github_url" translatable="false">https://github.com/adolfintel/OpenPods</string>
+    <string name="donate_url" translatable="false">https://paypal.me/sineisochronic</string>
 </resources>

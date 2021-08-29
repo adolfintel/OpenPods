@@ -1,8 +1,8 @@
 package com.dosse.airpods.pods;
 
 import static com.dosse.airpods.pods.PodsStatusScanCallback.getScanFilters;
+import static com.dosse.airpods.utils.SharedPreferencesUtils.isSavingBattery;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -17,14 +17,12 @@ import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.ParcelUuid;
 import android.provider.Settings;
 
 import androidx.annotation.RequiresApi;
-import androidx.preference.PreferenceManager;
 
 import com.dosse.airpods.receivers.BluetoothListener;
 import com.dosse.airpods.receivers.BluetoothReceiver;
@@ -46,7 +44,6 @@ public class PodsService extends Service {
     private BluetoothLeScanner btScanner;
     private PodsStatus status = PodsStatus.DISCONNECTED;
 
-    @SuppressLint("StaticFieldLeak")
     private static NotificationThread n = null;
     private static boolean maybeConnected = false;
 
@@ -67,8 +64,6 @@ public class PodsService extends Service {
         try {
             Logger.debug("START SCANNER");
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            boolean batterySaver = prefs.getBoolean("batterySaver", false);
             BluetoothManager btManager = (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
             BluetoothAdapter btAdapter = btManager.getAdapter();
 
@@ -91,7 +86,7 @@ public class PodsService extends Service {
             btScanner = btAdapter.getBluetoothLeScanner();
 
             ScanSettings scanSettings = new ScanSettings.Builder()
-                    .setScanMode(batterySaver ? ScanSettings.SCAN_MODE_LOW_POWER : ScanSettings.SCAN_MODE_LOW_LATENCY)
+                    .setScanMode(isSavingBattery(getApplicationContext()) ? ScanSettings.SCAN_MODE_LOW_POWER : ScanSettings.SCAN_MODE_LOW_LATENCY)
                     .setReportDelay(1) // DON'T USE 0
                     .build();
 
@@ -230,9 +225,7 @@ public class PodsService extends Service {
             Logger.error(t);
         }
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        if (prefs.getBoolean("batterySaver", false)) {
+        if (isSavingBattery(getApplicationContext())) {
             screenReceiver = new ScreenReceiver() {
                 @Override
                 public void onStart () {
