@@ -19,12 +19,6 @@
             android:title="@string/restart"
             app:iconSpaceReserved="false" />
 
-        <Preference
-            android:key="hideApp"
-            android:summary="@string/hide_desc"
-            android:title="@string/hide"
-            app:iconSpaceReserved="false" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -41,6 +35,7 @@
             android:key="fdroid"
             android:title="@string/fdroid"
             app:iconSpaceReserved="false" />
+        
         <Preference
             android:key="website"
             android:title="@string/website"

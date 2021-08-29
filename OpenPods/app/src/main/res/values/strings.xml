@@ -19,16 +19,6 @@
     <string name="msg_loc2_perm" tools:ignore="MissingTranslation">Background Location permission not granted, please enable it in settings.</string>
 
     <string name="main_description">The app will show a notification when your AirPods are connected</string>
-    <string name="hide_message">You can hide this app if you want</string>
-    <string name="settings" tools:ignore="MissingTranslation">Settings</string>
-
-    <string name="miui_warning" tools:ignore="MissingTranslation">MIUI detected</string>
-    <string name="miui_warning_desc" tools:ignore="MissingTranslation">The ROM running on this device has known compatibility issues. You can continue but OpenPods may not work properly.</string>
-    <string name="miui_warning_continue" tools:ignore="MissingTranslation">Continue</string>
-
-    <string name="noBtText">It looks like this device doesn\'t have Bluetooth LE</string>
-    <string name="locationDisabledText">You need to turn on Location to allow OpenPods to read the status</string>
-
     <string name="supportedDevicesTitle"><u>Supported devices:</u></string>
     <string name="airpods1">&#8226; Apple AirPods 1st gen</string>
     <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
@@ -41,21 +31,23 @@
     <string name="powerbeats3">&#8226; Powerbeats 3</string>
     <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
 
+    <string name="miui_warning" tools:ignore="MissingTranslation">MIUI detected</string>
+    <string name="miui_warning_desc" tools:ignore="MissingTranslation">The ROM running on this device has known compatibility issues. You can continue but OpenPods may not work properly.</string>
+    <string name="miui_warning_continue" tools:ignore="MissingTranslation">Continue</string>
+
+    <string name="noBtText">It looks like this device doesn\'t have Bluetooth LE</string>
+    <string name="locationDisabledText">You need to turn on Location to allow OpenPods to read the status</string>
+
+    <string name="settings" tools:ignore="MissingTranslation">Settings</string>
     <string name="batterySaver">Battery saver (Not recommended)</string>
     <string name="batterySaver_desc">Enable this if Bluetooth uses a lot of battery</string>
     <string name="restart" tools:ignore="MissingTranslation">Restart Service</string>
     <string name="restart_desc" tools:ignore="MissingTranslation">Do this if the notification is not showing</string>
-    <string name="hide">Hide app</string>
-    <string name="hide_desc">Hide this app from the launcher</string>
-    <string name="hide_dialog" tools:ignore="MissingTranslation">Are you sure?</string>
-    <string name="hide_dialog_desc" tools:ignore="MissingTranslation">Are you sure that you want to hide the App? This can only be undone by reinstalling it.</string>
-    <string name="hide_dialog_button" tools:ignore="MissingTranslation">Hide</string>
-    <string name="hideClicked">The icon will disappear soon</string>
-    <string name="about">About</string>
 
+    <string name="about">About</string>
     <string name="about_dev">Developed by Federico Dossena and Itai Levin</string>
+    <string name="fdroid" translatable="false">F-Droid</string>
     <string name="website">Website</string>
     <string name="github" tools:ignore="MissingTranslation">Github</string>
     <string name="donate">Donate</string>
-    <string name="fdroid" translatable="false">F-Droid</string>
 </resources>

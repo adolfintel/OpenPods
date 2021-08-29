@@ -5,16 +5,6 @@
     <string name="intro_allow">אפשר</string>
 
     <string name="main_description">האפליקציה תשלח התראה כאשר האיירפודס מחוברות</string>
-    <string name="hide_message">אתה יכול להסתיר אפליקציה זו</string>
-    <string name="settings">הגדרות</string>
-
-    <string name="miui_warning">MIUI נמצא</string>
-    <string name="miui_warning_desc">למערכת ההפעלה על מכשיר זה יש בעיות תאימות ידועות עם האפליקציה. אתה יכול להמשיך להשתמש ב-OpenPods אך לא בטוח שדברים יעבדו כמו שצריך.</string>
-    <string name="miui_warning_continue">המשך</string>
-
-    <string name="noBtText">נראה כי מכשיר זה אינו תומך ב-Bluetooth LE</string>
-    <string name="locationDisabledText">אתה צריך להפעיל שיתוף מיקום בכדי לאפשר ל-OpenPods לקרוא את סטטוס האוזניות</string>
-
     <string name="supportedDevicesTitle"><u>מכשירים נתמכים</u></string>
     <string name="airpods1">• אפל איירפודס דור ראשון</string>
     <string name="airpods2">• אפל איירפודס דור שני</string>
@@ -27,16 +17,18 @@
     <string name="powerbeats3">•פווארביטס 3</string>
     <string name="powerbeatspro">• פווארביטס פרו</string>
 
+    <string name="miui_warning">MIUI נמצא</string>
+    <string name="miui_warning_desc">למערכת ההפעלה על מכשיר זה יש בעיות תאימות ידועות עם האפליקציה. אתה יכול להמשיך להשתמש ב-OpenPods אך לא בטוח שדברים יעבדו כמו שצריך.</string>
+    <string name="miui_warning_continue">המשך</string>
+
+    <string name="noBtText">נראה כי מכשיר זה אינו תומך ב-Bluetooth LE</string>
+    <string name="locationDisabledText">אתה צריך להפעיל שיתוף מיקום בכדי לאפשר ל-OpenPods לקרוא את סטטוס האוזניות</string>
+
+    <string name="settings">הגדרות</string>
     <string name="batterySaver">חיסכון בסוללה (לא מומלץ)</string>
     <string name="batterySaver_desc">הפעל אם Bluetooth משתמש בהרבה סוללה</string>
-    <string name="hide">הסתר אפליקציה</string>
-    <string name="hide_desc">הסתר את האפליקציה ממסך הבית</string>
-    <string name="hide_dialog">האם אתה בטוח?</string>
-    <string name="hide_dialog_desc">האם אתה בטוח שאתה רוצה להסתיר את האפליקציה? ניתן לבטל זאת רק על ידי התקנה מחדש</string>
-    <string name="hide_dialog_button">הסתר</string>
-    <string name="hideClicked">האפליקציה תוסתר בקרוב</string>
-    <string name="about">אודות</string>
 
+    <string name="about">אודות</string>
     <string name="about_dev">פותח על ידי פדריקו דוסנה ואיתי לוין</string>
     <string name="website">אתר המפתח</string>
     <string name="github">קוד מקור</string>

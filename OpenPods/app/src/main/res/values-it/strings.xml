@@ -5,16 +5,6 @@
     <string name="intro_allow">Consenti</string>
 
     <string name="main_description">L\'app mostrerà una notifica quando le tue AirPods sono connesse</string>
-    <string name="hide_message">Puoi nascondere l\'app se vuoi</string>
-    <string name="settings">Impostazioni</string>
-
-    <string name="miui_warning">MIUI rilevata</string>
-    <string name="miui_warning_desc">La ROM di questo dispositivo ha dei problemi di compatibilità noti. Puoi continuare ma OpenPods potrebbe non funzionare correttamente.</string>
-    <string name="miui_warning_continue">Continua</string>
-
-    <string name="noBtText">Questo dispositivo non supporta Bluetooth LE</string>
-    <string name="locationDisabledText">Attiva la posizione per permttere a OpenPods di leggere lo stato</string>
-
     <string name="supportedDevicesTitle"><u>Dispositivi supportati:</u></string>
     <string name="airpods1">&#8226; Apple AirPods 1st gen</string>
     <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
@@ -27,13 +17,18 @@
     <string name="powerbeats3">&#8226; Powerbeats 3</string>
     <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
 
+    <string name="miui_warning">MIUI rilevata</string>
+    <string name="miui_warning_desc">La ROM di questo dispositivo ha dei problemi di compatibilità noti. Puoi continuare ma OpenPods potrebbe non funzionare correttamente.</string>
+    <string name="miui_warning_continue">Continua</string>
+
+    <string name="noBtText">Questo dispositivo non supporta Bluetooth LE</string>
+    <string name="locationDisabledText">Attiva la posizione per permttere a OpenPods di leggere lo stato</string>
+
+    <string name="settings">Impostazioni</string>
     <string name="batterySaver">Risparmio batteria (sconsigliato)</string>
     <string name="batterySaver_desc">Attiva se il Bluetooth usa molta batteria</string>
-    <string name="hide">Nascondi app</string>
-    <string name="hide_desc">Nascondi questa app dal programma di avvio</string>
-    <string name="hideClicked">L\'icona sarà rimossa presto</string>
-    <string name="about">Informazioni su</string>
 
+    <string name="about">Informazioni su</string>
     <string name="about_dev">Sviluppata da Federico Dossena e Itai Levin</string>
     <string name="website">Sito web</string>
     <string name="donate">Donazioni</string>

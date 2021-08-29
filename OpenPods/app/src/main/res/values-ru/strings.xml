@@ -5,15 +5,6 @@
     <string name="intro_allow">Разрешить</string>
 
     <string name="main_description">Приложение покажет уведомление, когда будет установлено соединение с AirPods</string>
-    <string name="hide_message">Вы можете скрыть это приложение, если хотите</string>
-    <string name="settings">Настройки</string>
-
-    <string name="miui_warning">MIUI обнаружено</string>
-    <string name="miui_warning_continue">Продолжать</string>
-
-    <string name="noBtText">Похоже, что Bluetooth LE не поддерживается на Вашем устройстве</string>
-    <string name="locationDisabledText">Вам нужно включить местоположение, чтобы разрешить OpenPods читать статус</string>
-
     <string name="supportedDevicesTitle"><u>Поддерживаемые устройства:</u></string>
     <string name="airpods1">&#8226; Apple AirPods 1st gen</string>
     <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
@@ -26,13 +17,17 @@
     <string name="powerbeats3">&#8226; Powerbeats 3</string>
     <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
 
+    <string name="miui_warning">MIUI обнаружено</string>
+    <string name="miui_warning_continue">Продолжать</string>
+
+    <string name="noBtText">Похоже, что Bluetooth LE не поддерживается на Вашем устройстве</string>
+    <string name="locationDisabledText">Вам нужно включить местоположение, чтобы разрешить OpenPods читать статус</string>
+
+    <string name="settings">Настройки</string>
     <string name="batterySaver">Режим энергосбережения (Не рекомендуется)</string>
     <string name="batterySaver_desc">Включите, если Bluetooth использует слишком много ресурсов</string>
-    <string name="hide">Скрыть приложение</string>
-    <string name="hide_desc">Скрыть это приложение с домашней страницы</string>
-    <string name="hideClicked">Иконка скоро исчезнет</string>
-    <string name="about">О приложении</string>
 
+    <string name="about">О приложении</string>
     <string name="about_dev">Разработано Federico Dossena и Itai Levin</string>
     <string name="website">Сайт</string>
     <string name="donate">Поддержать</string>

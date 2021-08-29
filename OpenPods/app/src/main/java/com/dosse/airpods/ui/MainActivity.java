@@ -67,16 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume () {
-        super.onResume();
-        try {
-            getApplicationContext().openFileInput("hidden").close();
-            finish();
-        } catch (Throwable ignored) {
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;

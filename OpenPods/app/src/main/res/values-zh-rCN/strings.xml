@@ -5,11 +5,6 @@
     <string name="intro_allow">允许</string>
 
     <string name="main_description">当您的 AirPods 接入时，我们会在通知栏显示通知</string>
-    <string name="hide_message">您可以隐藏此应用</string>
-
-    <string name="noBtText">看起来您的设备并不支持蓝牙</string>
-    <string name="locationDisabledText">您需要开启定位来让 OpenPods 读取状态</string>
-
     <string name="supportedDevicesTitle"><u>支持的设备:</u></string>
     <string name="airpods1">&#8226; Apple AirPods 一代</string>
     <string name="airpods2">&#8226; Apple AirPods 二代</string>
@@ -22,13 +17,13 @@
     <string name="powerbeats3">&#8226; Powerbeats 3</string>
     <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
 
+    <string name="noBtText">看起来您的设备并不支持蓝牙</string>
+    <string name="locationDisabledText">您需要开启定位来让 OpenPods 读取状态</string>
+
     <string name="batterySaver">省电模式 (不推荐)</string>
     <string name="batterySaver_desc">可在蓝牙消耗过多电量时开启</string>
-    <string name="hide">隐藏</string>
-    <string name="hide_desc">从您的首页隐藏此应用</string>
-    <string name="hideClicked">桌面图标很快就会被隐藏掉</string>
-    <string name="about">关于</string>
 
+    <string name="about">关于</string>
     <string name="about_dev">由 Federico Dossena 和 Itai Levin 开发</string>
     <string name="website">网站</string>
     <string name="donate">捐赠</string>
