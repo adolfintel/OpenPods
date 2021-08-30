@@ -135,14 +135,7 @@ public class PodsService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
             startForeground(101, createBackgroundNotification());
 
-        try {
-            if (btReceiver != null) {
-                unregisterReceiver(btReceiver);
-                btReceiver = null;
-            }
-        } catch (Throwable t) {
-            Logger.error(t);
-        }
+        unregisterBtReceiver();
 
         btReceiver = new BluetoothReceiver() {
             @Override
@@ -215,14 +208,7 @@ public class PodsService extends Service {
             startAirPodsScanner(); // If BT is already on when the app is started, start the scanner without waiting for an event to happen
 
         // Screen on/off listener to suspend scanning when the screen is off, to save battery
-        try {
-            if (screenReceiver != null) {
-                unregisterReceiver(screenReceiver);
-                screenReceiver = null;
-            }
-        } catch (Throwable t) {
-            Logger.error(t);
-        }
+        unregisterScreenReceiver();
 
         if (isSavingBattery(getApplicationContext())) {
             screenReceiver = new ScreenReceiver() {
@@ -267,24 +253,8 @@ public class PodsService extends Service {
     @Override
     public void onDestroy () {
         super.onDestroy();
-
-        try {
-            if (btReceiver != null) {
-                unregisterReceiver(btReceiver);
-                btReceiver = null;
-            }
-        } catch (Throwable t) {
-            Logger.error(t);
-        }
-
-        try {
-            if (screenReceiver != null) {
-                unregisterReceiver(screenReceiver);
-                screenReceiver = null;
-            }
-        } catch (Throwable t) {
-            Logger.error(t);
-        }
+        unregisterBtReceiver();
+        unregisterScreenReceiver();
     }
 
     @Override
@@ -332,6 +302,28 @@ public class PodsService extends Service {
                 .setOngoing(true);
 
         return builder.build();
+    }
+
+    private void unregisterBtReceiver () {
+        try {
+            if (btReceiver != null) {
+                unregisterReceiver(btReceiver);
+                btReceiver = null;
+            }
+        } catch (Throwable t) {
+            Logger.error(t);
+        }
+    }
+
+    private void unregisterScreenReceiver () {
+        try {
+            if (screenReceiver != null) {
+                unregisterReceiver(screenReceiver);
+                screenReceiver = null;
+            }
+        } catch (Throwable t) {
+            Logger.error(t);
+        }
     }
 
 }
