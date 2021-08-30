@@ -1,6 +1,5 @@
 package com.dosse.airpods.ui;
 
-import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
@@ -11,11 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dosse.airpods.R;
 import com.dosse.airpods.receivers.StartupReceiver;
+import com.dosse.airpods.utils.MIUIWarning;
 import com.dosse.airpods.utils.PermissionUtils;
 
 import java.util.Objects;
@@ -35,34 +34,13 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (PermissionUtils.checkAllPermissions(this)) {
-            StartupReceiver.startPodsService(getApplicationContext());
-            //Warn MIUI users that their rom has known issues
-            try {
-                @SuppressLint("PrivateApi") Class<?> c = Class.forName("android.os.SystemProperties");
-                String miuiVersion = (String)c.getMethod("get", String.class).invoke(c, "ro.miui.ui.version.code");
-                if (miuiVersion != null && !miuiVersion.isEmpty()) {
-                    try {
-                        getApplicationContext().openFileInput("miuiwarn").close();
-                    } catch (Throwable ignored) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setTitle(R.string.miui_warning);
-                        builder.setMessage(R.string.miui_warning_desc);
-                        builder.setNeutralButton(R.string.miui_warning_continue, (dialog, which) -> dialog.dismiss());
-                        builder.setOnDismissListener(dialog -> {
-                            try {
-                                getApplicationContext().openFileOutput("miuiwarn", Context.MODE_PRIVATE).close();
-                            } catch (Throwable ignored2) {
-                            }
-                        });
-                        builder.show();
-                    }
-                }
-            } catch (Throwable ignored) {
-            }
-        } else {
+        if (!PermissionUtils.checkAllPermissions(this)) {
             startActivity(new Intent(MainActivity.this, IntroActivity.class));
             finish();
+        } else {
+            StartupReceiver.startPodsService(getApplicationContext());
+            //Warn MIUI users that their rom has known issues
+            MIUIWarning.show(this);
         }
     }
 
