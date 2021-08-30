@@ -1,8 +1,5 @@
 package com.dosse.airpods.pods;
 
-import static com.dosse.airpods.pods.PodsStatusScanCallback.getScanFilters;
-import static com.dosse.airpods.utils.SharedPreferencesUtils.isSavingBattery;
-
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -21,17 +18,19 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.ParcelUuid;
 import android.provider.Settings;
-
 import androidx.annotation.RequiresApi;
 
+import com.dosse.airpods.R;
+import com.dosse.airpods.notification.NotificationThread;
 import com.dosse.airpods.receivers.BluetoothListener;
 import com.dosse.airpods.receivers.BluetoothReceiver;
-import com.dosse.airpods.notification.NotificationThread;
-import com.dosse.airpods.R;
 import com.dosse.airpods.receivers.ScreenReceiver;
 import com.dosse.airpods.utils.Logger;
 
 import java.util.Objects;
+
+import static com.dosse.airpods.pods.PodsStatusScanCallback.getScanFilters;
+import static com.dosse.airpods.utils.SharedPreferencesUtils.isSavingBattery;
 
 /**
  * This is the class that does most of the work. It has 3 functions:

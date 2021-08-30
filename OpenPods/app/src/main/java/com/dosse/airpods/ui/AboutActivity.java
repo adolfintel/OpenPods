@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dosse.airpods.R;

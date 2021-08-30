@@ -1,16 +1,15 @@
 package com.dosse.airpods.utils;
 
-import static androidx.core.content.ContextCompat.checkSelfPermission;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.PowerManager;
-
 import androidx.annotation.RequiresApi;
 
 import java.util.Objects;
+
+import static androidx.core.content.ContextCompat.checkSelfPermission;
 
 public class PermissionUtils {
 

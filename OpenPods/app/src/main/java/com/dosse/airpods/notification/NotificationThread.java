@@ -1,8 +1,5 @@
 package com.dosse.airpods.notification;
 
-import static com.dosse.airpods.notification.NotificationBuilder.NOTIFICATION_ID;
-import static com.dosse.airpods.notification.NotificationBuilder.TAG;
-
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,6 +8,9 @@ import android.os.Build;
 
 import com.dosse.airpods.pods.PodsStatus;
 import com.dosse.airpods.utils.Logger;
+
+import static com.dosse.airpods.notification.NotificationBuilder.NOTIFICATION_ID;
+import static com.dosse.airpods.notification.NotificationBuilder.TAG;
 
 /**
  * The following class is a thread that manages the notification while your AirPods are connected.

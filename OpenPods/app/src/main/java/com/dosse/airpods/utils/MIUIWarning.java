@@ -2,7 +2,6 @@ package com.dosse.airpods.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-
 import androidx.appcompat.app.AlertDialog;
 
 import com.dosse.airpods.R;
