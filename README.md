@@ -62,7 +62,7 @@ Legal actions can and will be taken when uploading a compiled version to the Goo
 This paragraph was added due to multiple license violations found on the Google Play Store. If you're not sure whether you're allowed to distribute your modified version, please contact the developer.
 
 ## Donate
-[Donate with PayPal](https://www.paypal.me/sineisochronic)
+<a href="https://www.paypal.me/sineisochronic"><img src="assets/donate-with-paypal.png" alt="Donate with PayPal" height="80"></a>
 
 ## License
 [![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)  
