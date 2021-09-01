@@ -1,0 +1,4 @@
+* Ask for confirmation before hiding the app.
+* Added Fix for Notification Visibility on locked Screens.
+* Added warning for MIUI users.
+* Smaller APK size.

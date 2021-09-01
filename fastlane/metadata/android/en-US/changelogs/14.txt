@@ -1,0 +1,5 @@
+* Implemented dark mode
+* Redesigned notification
+* UI improvements
+* Changed target SDK to 29
+* Minor changes 

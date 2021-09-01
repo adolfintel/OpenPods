@@ -1,0 +1,3 @@
+* Improved BLE scanner, event detection, decoding
+* Fixed huge notification icon bug
+* Added Spanish translation

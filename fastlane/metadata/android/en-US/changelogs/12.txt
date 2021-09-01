@@ -1,0 +1,2 @@
+* AirPods Pro added to list of supported devices
+* Minor changes and fixes 

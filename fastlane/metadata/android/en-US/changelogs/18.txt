@@ -1,0 +1,5 @@
+* Added support for AirPods Max, Beats X, Beats Flex, Beats Solo 3, Beats Studio 3, Powerbeats 3, Powerbeats Pro
+* Android 12 support 
+* Improved service
+* Fixed a minor issue with battery optimization
+* Removed hide app option (useless on newer android versions)

@@ -1,0 +1,6 @@
+* Implemented battery saving mode
+* Added Settings and About pages
+* Changed handling of battery status (5-15-25-...-100 instead of 10-20-30-...-100)
+* Removed unnecessary permission
+* Minor changes
+* Updated project to latest Gradle, Android studio 

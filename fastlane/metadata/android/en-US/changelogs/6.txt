@@ -1,0 +1,3 @@
+* Introduced workaround for notification occasionally getting stuck
+* Added German translation
+* Added Chinese translation 
