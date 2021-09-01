@@ -3,12 +3,12 @@
 <h4 align="center">The Free and Open Source app for monitoring your AirPods on Android</h4>
 <p align="center">
 	<a href="https://github.com/adolfintel/OpenPods/releases">
-		<img src="https://img.shields.io/github/release/adolfintel/OpenPods.svg" alt="GitHub release">
+		<img src="https://img.shields.io/github/release/adolfintel/OpenPods.svg?color=blueviolet" alt="GitHub release">
 	</a>
 	<a href="https://www.gnu.org/licenses/gpl-3.0">
 		<img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPLv3">
 	</a>
-	<img alt="Minimum SDK" src="https://img.shields.io/badge/API-21%2B-32B5ED">
+	<img alt="Minimum SDK" src="https://img.shields.io/badge/API-21%2B-green">
 </a>
 </p>
 <p align="center">
@@ -24,16 +24,16 @@
 
 [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png"
     alt="Big notification"
-    height="400">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png)
+    width="200">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png)
 [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png"
     alt="Small notification"
-    height="400">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png)
+    width="200">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png)
 [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png"
     alt="Setup screen"
-    height="400">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png)
+    width="200">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png)
 [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png"
     alt="Home screen"
-    height="400">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png)
+    width="200">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png)
 	
 ## Features
 
