@@ -1,0 +1,4 @@
+* Fixed a bug where the app would think that location was disabled but was actually set to device only
+* Fixed rare bug where the app wouldn't start on boot
+* Made it harder for people to maliciously reupload the app to Google Play
+* Updated project to latest Gradle and Android Studio 

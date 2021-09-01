@@ -1,0 +1,1 @@
+* Added support for 2nd gen Airpods (still needs some testing) 

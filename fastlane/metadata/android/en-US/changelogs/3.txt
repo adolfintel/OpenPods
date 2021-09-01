@@ -1,0 +1,3 @@
+* Improved notification behavior
+* Added notification if location is disabled
+* Minor changes 

@@ -1,0 +1,4 @@
+* Improved BLE scanner
+* Improved permission and BLE detection
+* App now starts at boot as intended
+* Minor changes

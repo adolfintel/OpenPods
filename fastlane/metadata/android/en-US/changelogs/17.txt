@@ -1,0 +1,3 @@
+* Fixed Android 11 compatibility issues
+* Improved setup screen
+* Minor changes and improvements 

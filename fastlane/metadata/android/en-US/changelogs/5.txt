@@ -1,0 +1,2 @@
+* Improved BLE scanner and filtering
+* Improved Bluetooth event handling

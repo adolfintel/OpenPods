@@ -1,0 +1,2 @@
+* New notification icon
+* Fixed incorrect notification colors on Android Q 
