@@ -8,8 +8,7 @@
 	<a href="https://www.gnu.org/licenses/gpl-3.0">
 		<img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPLv3">
 	</a>
-	<img alt="Minimum SDK" src="https://img.shields.io/badge/API-21%2B-green">
-</a>
+	<img alt="Minimum SDK" src="https://img.shields.io/badge/API-23%2B-green">
 </p>
 <p align="center">
 	<a href="https://f-droid.org/packages/com.dosse.airpods">
