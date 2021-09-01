@@ -1,20 +1,49 @@
-![OpenPods Logo](fastlane/metadata/android/en-US/images/featureGraphic.png)
+<p align="center"><img src="fastlane/metadata/android/en-US/images/icon.png" width="150"></p> 
+<h1 align="center"><b>OpenPods</b></h1>
+<h4 align="center">The Free and Open Source app for monitoring your AirPods on Android</h4>
+<p align="center">
+	<a href="https://github.com/adolfintel/OpenPods/releases">
+		<img src="https://img.shields.io/github/release/adolfintel/OpenPods.svg?color=blueviolet" alt="GitHub release">
+	</a>
+	<a href="https://www.gnu.org/licenses/gpl-3.0">
+		<img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPLv3">
+	</a>
+	<img alt="Minimum SDK" src="https://img.shields.io/badge/API-21%2B-green">
+</a>
+</p>
+<p align="center">
+	<a href="https://f-droid.org/packages/com.dosse.airpods">
+		<img src="assets/get-it-on-fdroid.png" alt="Get it on F-Droid" height="80">
+	</a>
+	<a href="https://downloads.fdossena.com/geth.php?r=openpods-apk">
+		<img src="assets/get-it-on-openpods.png" alt="Get it on OpenPods" height="80">
+	</a>
+</p>
 
-# OpenPods
-The Free and Open Source app for monitoring your AirPods on Android
+## Screenshots
 
-## Download
-<a href="https://f-droid.org/packages/com.dosse.airpods"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80"></a>
-
-[Download APK](https://downloads.fdossena.com/geth.php?r=openpods-apk)
-
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png"
+    alt="Big notification"
+    width="200">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png"
+    alt="Small notification"
+    width="200">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png"
+    alt="Setup screen"
+    width="200">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png)
+[<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png"
+    alt="Home screen"
+    width="200">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png)
+	
 ## Features
+
 * Shows a notification with AirPods status when they are connected
 * Respects your privacy
 * Free and Open Source software
 * Supports Dark Theme
 
 ## Supported devices
+
 * Apple AirPods 1st gen
 * Apple AirPods 2nd gen
 * Apple AirPods Pro
@@ -33,13 +62,10 @@ Legal actions can and will be taken when uploading a compiled version to the Goo
 This paragraph was added due to multiple license violations found on the Google Play Store. If you're not sure whether you're allowed to distribute your modified version, please contact the developer.
 
 ## Donate
-[Donate with PayPal](https://www.paypal.me/sineisochronic)
-
-## Screenshots
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png" width="400"> &nbsp; <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png" width="400"> &nbsp; <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png" width="400"> &nbsp; <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png" width="400">
+<a href="https://www.paypal.me/sineisochronic"><img src="assets/donate-with-paypal.png" alt="Donate with PayPal" height="80"></a>
 
 ## License
-Copyright (C) 2021 Federico Dossena
+[![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)  
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -53,5 +79,10 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+&nbsp;
+&nbsp;
+
+Copyright (C) 2021 Federico Dossena
 
 AirPods is a trademark of Apple inc.

@@ -1,1 +1,15 @@
-/_old_
+# Android specific
+local.properties
+
+# Gradle
+.cxx
+.externalNativeBuild
+.gradle
+build
+
+# IntelliJ IDEA
+.idea
+*.iml
+
+# macOS
+.DS_Store
