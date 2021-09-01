@@ -13,10 +13,10 @@
 </p>
 <p align="center">
 	<a href="https://f-droid.org/packages/com.dosse.airpods">
-		<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">
+		<img src="assets/get-it-on-fdroid.png" alt="Get it on F-Droid" height="80">
 	</a>
 	<a href="https://downloads.fdossena.com/geth.php?r=openpods-apk">
-		<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on OpenPods" height="80">
+		<img src="assets/get-it-on-openpods.png" alt="Get it on OpenPods" height="80">
 	</a>
 </p>
 
@@ -24,16 +24,16 @@
 
 [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png"
     alt="Big notification"
-    height="256">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png)
+    height="400">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen1.png)
 [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png"
     alt="Small notification"
-    height="256">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png)
+    height="400">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen2.png)
 [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png"
     alt="Setup screen"
-    height="256">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png)
+    height="400">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen3.png)
 [<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png"
     alt="Home screen"
-    height="256">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png)
+    height="400">](fastlane/metadata/android/en-US/images/phoneScreenshots/screen4.png)
 	
 ## Features
 
