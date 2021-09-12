@@ -22,7 +22,6 @@
     <string name="miui_warning_continue">계속</string>
 
     <string name="noBtText">이 장치에는 Bluetooth LE가 없는 것 같습니다.</string>
-    <string name="locationDisabledText">OpenPod에서 상태를 읽을 수 있도록 하려면 위치를 허용해야 합니다.</string>
 
     <string name="settings">설정</string>
     <string name="batterySaver">배터리 관리모드 (추천하지 않음)</string>

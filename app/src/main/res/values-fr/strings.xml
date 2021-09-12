@@ -21,7 +21,6 @@
     <string name="miui_warning_continue">Continuer</string>
 
     <string name="noBtText">Il semble que cet appareil ne dispose pas de Bluetooth LE.</string>
-    <string name="locationDisabledText">Vous devez activer la localisation pour permettre aux OpenPod de lire l\'état de vos AirPods.</string>
 
     <string name="settings">Réglages</string>
     <string name="batterySaver">Économiseur de batterie (non recommandé)</string>

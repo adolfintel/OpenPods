@@ -18,7 +18,6 @@
     <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
 
     <string name="noBtText">看起来您的设备并不支持蓝牙</string>
-    <string name="locationDisabledText">您需要开启定位来让 OpenPods 读取状态</string>
 
     <string name="batterySaver">省电模式 (不推荐)</string>
     <string name="batterySaver_desc">可在蓝牙消耗过多电量时开启</string>

@@ -22,7 +22,6 @@
     <string name="miui_warning_continue">Continua</string>
 
     <string name="noBtText">Questo dispositivo non supporta Bluetooth LE</string>
-    <string name="locationDisabledText">Attiva la posizione per permttere a OpenPods di leggere lo stato</string>
 
     <string name="settings">Impostazioni</string>
     <string name="batterySaver">Risparmio batteria (sconsigliato)</string>

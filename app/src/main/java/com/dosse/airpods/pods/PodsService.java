@@ -132,7 +132,7 @@ public class PodsService extends Service {
     public void onCreate () {
         super.onCreate();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             startForeground(101, createBackgroundNotification());
 
         unregisterBtReceiver();

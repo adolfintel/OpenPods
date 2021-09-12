@@ -21,7 +21,6 @@
     <string name="miui_warning_continue">продовжувати</string>
 
     <string name="noBtText">Схоже, що цей пристрій не підтримує Bluetooth LE</string>
-    <string name="locationDisabledText">Вам потрібно ввімкнути місцезнаходження, для того, щоб дозволити OpenPods читати статус</string>
 
     <string name="settings">Налаштування</string>
     <string name="batterySaver">Режим збереження енергії (Не рекомендовано)</string>

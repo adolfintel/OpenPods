@@ -33,7 +33,6 @@
     <string name="miui_warning_continue">Doorgaan</string>
 
     <string name="noBtText">Het lijkt er op dat dit apparaat niet beschikt over Bluetooth LE</string>
-    <string name="locationDisabledText">Schakel je locatie in zodat OpenPods de status kan uitlezen</string>
 
     <string name="settings">Instellingen</string>
     <string name="batterySaver">Accu-optimalisatie (niet aanbevolen)</string>

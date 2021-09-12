@@ -72,7 +72,7 @@ public class IntroActivity extends AppCompatActivity {
             return STEP_PERMISSION_BATTERY_OPTIMIZATION;
         if (!PermissionUtils.getFineLocationPermission(this))
             return STEP_PERMISSION_LOCATION;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) if (!PermissionUtils.getBackgroundLocationPermission(this))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) if (!PermissionUtils.getBackgroundLocationPermission(this))
             return STEP_PERMISSION_BACKGROUND_LOCATION;
 
         return 0;
@@ -81,7 +81,7 @@ public class IntroActivity extends AppCompatActivity {
     @SuppressLint("BatteryLife")
     private void initScreen () {
         int currentStep = getPermissionState() - ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 0 : 1);
-        int numOfSteps = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) ? ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 4 : 3) : 2;
+        int numOfSteps = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) ? ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 4 : 3) : 2;
 
         runOnUiThread(() -> {
             switch (getPermissionState()) {
@@ -109,7 +109,7 @@ public class IntroActivity extends AppCompatActivity {
                 case STEP_PERMISSION_BACKGROUND_LOCATION:
                     msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), currentStep, numOfSteps, getString(R.string.intro_loc2_perm)));
                     btn.setOnClickListener(view -> {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) requestPermissions(new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, BACKGROUND_LOCATION_REQUEST_CODE);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) requestPermissions(new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, BACKGROUND_LOCATION_REQUEST_CODE);
                     });
                     break;
             }

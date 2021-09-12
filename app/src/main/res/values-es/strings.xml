@@ -21,7 +21,6 @@
     <string name="miui_warning_continue">Continuar</string>
 
     <string name="noBtText">Parece que éste dispositivo no tiene Bluetooth LE.</string>
-    <string name="locationDisabledText">Necesitas activar la Localización para permitir que OpenPods lea el estado.</string>
 
     <string name="settings">Ajustes</string>
     <string name="batterySaver">Ahorro de energía (no recomendado)</string>

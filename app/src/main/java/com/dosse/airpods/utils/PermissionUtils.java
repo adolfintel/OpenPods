@@ -37,7 +37,7 @@ public class PermissionUtils {
     }
 
     public static boolean getLocationPermissions (Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
             return getFineLocationPermission(context) && getBackgroundLocationPermission(context);
         else
             return getFineLocationPermission(context);

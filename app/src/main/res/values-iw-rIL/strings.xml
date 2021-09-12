@@ -22,7 +22,6 @@
     <string name="miui_warning_continue">המשך</string>
 
     <string name="noBtText">נראה כי מכשיר זה אינו תומך ב-Bluetooth LE</string>
-    <string name="locationDisabledText">אתה צריך להפעיל שיתוף מיקום בכדי לאפשר ל-OpenPods לקרוא את סטטוס האוזניות</string>
 
     <string name="settings">הגדרות</string>
     <string name="batterySaver">חיסכון בסוללה (לא מומלץ)</string>

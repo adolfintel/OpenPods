@@ -36,7 +36,6 @@
     <string name="miui_warning_continue" tools:ignore="MissingTranslation">Continue</string>
 
     <string name="noBtText">It looks like this device doesn\'t have Bluetooth LE</string>
-    <string name="locationDisabledText">You need to turn on Location to allow OpenPods to read the status</string>
 
     <string name="settings" tools:ignore="MissingTranslation">Settings</string>
     <string name="batterySaver">Battery saver (Not recommended)</string>

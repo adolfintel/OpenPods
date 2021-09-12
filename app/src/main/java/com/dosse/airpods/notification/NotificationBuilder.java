@@ -2,7 +2,6 @@ package com.dosse.airpods.notification;
 
 import android.app.Notification;
 import android.content.Context;
-import android.os.Build;
 import android.view.View;
 import android.widget.RemoteViews;
 import androidx.core.app.NotificationCompat;
@@ -12,40 +11,28 @@ import com.dosse.airpods.pods.PodsStatus;
 import com.dosse.airpods.pods.data.IPods;
 import com.dosse.airpods.pods.data.RegularPods;
 import com.dosse.airpods.pods.data.SinglePods;
-import com.dosse.airpods.utils.PermissionUtils;
 
 public class NotificationBuilder {
     public static final String TAG = "AirPods";
     public static final long TIMEOUT_CONNECTED = 30000;
     public static final int NOTIFICATION_ID = 1;
 
-    private final RemoteViews[] notificationArr, notificationLocation;
-    private final Context mContext;
+    private final RemoteViews[] notificationArr;
     private final NotificationCompat.Builder mBuilder;
 
     public NotificationBuilder (Context context) {
-        mContext = context;
-
         notificationArr = new RemoteViews[] {new RemoteViews(context.getPackageName(), R.layout.status_big), new RemoteViews(context.getPackageName(), R.layout.status_small)};
-        notificationLocation = new RemoteViews[] {new RemoteViews(context.getPackageName(), R.layout.location_disabled_big), new RemoteViews(context.getPackageName(), R.layout.location_disabled_small)};
 
         mBuilder = new NotificationCompat.Builder(context, TAG);
         mBuilder.setShowWhen(false);
         mBuilder.setOngoing(true);
         mBuilder.setSmallIcon(R.mipmap.notification_icon);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        mBuilder.setCustomContentView(notificationArr[1]);
+        mBuilder.setCustomBigContentView(notificationArr[0]);
     }
 
     public Notification build (PodsStatus status) {
-
-        // Apparently this restriction was removed ONLY in android Q
-        if (PermissionUtils.getLocationPermissions(mContext) || Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-            mBuilder.setCustomContentView(notificationArr[1]);
-            mBuilder.setCustomBigContentView(notificationArr[0]);
-        } else {
-            mBuilder.setCustomContentView(notificationLocation[1]);
-            mBuilder.setCustomBigContentView(notificationLocation[0]);
-        }
 
         IPods airpods = status.getAirpods();
         boolean single = airpods.isSingle();
