@@ -4,6 +4,7 @@ public interface IPods {
 
     String MODEL_AIRPODS_GEN1 = "airpods1";
     String MODEL_AIRPODS_GEN2 = "airpods2";
+    String MODEL_AIRPODS_GEN3 = "airpods3";
     String MODEL_AIRPODS_PRO = "airpodspro";
     String MODEL_AIRPODS_MAX = "airpodsmax";
     String MODEL_BEATS_X = "beatsx";

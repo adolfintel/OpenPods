@@ -2,6 +2,7 @@ package com.dosse.airpods.pods;
 
 import com.dosse.airpods.pods.data.AirPods1;
 import com.dosse.airpods.pods.data.AirPods2;
+import com.dosse.airpods.pods.data.AirPods3;
 import com.dosse.airpods.pods.data.AirPodsMax;
 import com.dosse.airpods.pods.data.AirPodsPro;
 import com.dosse.airpods.pods.data.BeatsFlex;
@@ -68,29 +69,34 @@ public class PodsStatus {
         Pod casePod = new Pod(caseStatus, chargeCase, false);
         Pod singlePod = new Pod(singleStatus, chargeSingle, false);
 
+        char idSingle = status.charAt(7); // We don't know the full ID for all devices
+        String idFull = status.substring(6, 10);
+
         // Detect which model
-        switch (status.charAt(7)) {
-            case '2': pods = new AirPods1(leftPod, rightPod, casePod); // Airpods 1st gen
-                break;
-            case 'F': pods = new AirPods2(leftPod, rightPod, casePod); // Airpods 2nd gen
-                break;
-            case 'E': pods = new AirPodsPro(leftPod, rightPod, casePod); // Airpods Pro
-                break;
-            case 'A': pods = new AirPodsMax(singlePod); // Airpods Max
-                break;
-            case 'B': pods = new PowerbeatsPro(leftPod, rightPod, casePod); // Powerbeats Pro
-                break;
-            case '5': pods = new BeatsX(singlePod); // Beats X
-                break;
-            case '0': pods = new BeatsFlex(singlePod); // Beats Flex
-                break;
-            case '6': pods = new BeatsSolo3(singlePod); // Beats Solo 3
-                break;
-            case '9': pods = new BeatsStudio3(singlePod); // Beats Studio 3
-                break;
-            case '3': pods = new Powerbeats3(singlePod); // Powerbeats 3
-                break;
-            default: pods = new RegularPods(leftPod, rightPod, casePod); // Unknown
+        if ("0220".equals(idFull)) {
+            pods = new AirPods1(leftPod, rightPod, casePod); // Airpods 1st gen
+        } else if ("0F20".equals(idFull)) {
+            pods = new AirPods2(leftPod, rightPod, casePod); // Airpods 2nd gen
+        } else if ("1320".equals(idFull)) {
+            pods = new AirPods3(leftPod, rightPod, casePod); // Airpods 3rd gen
+        } else if ("0E20".equals(idFull)) {
+            pods = new AirPodsPro(leftPod, rightPod, casePod); // Airpods Pro
+        } else if ('A' == idSingle) {
+            pods = new AirPodsMax(singlePod); // Airpods Max
+        } else if ('B' == idSingle) {
+            pods = new PowerbeatsPro(leftPod, rightPod, casePod); // Powerbeats Pro
+        } else if ("0520".equals(idFull)) {
+            pods = new BeatsX(singlePod); // Beats X
+        } else if ("1020".equals(idFull)) {
+            pods = new BeatsFlex(singlePod); // Beats Flex
+        } else if ("0620".equals(idFull)) {
+            pods = new BeatsSolo3(singlePod); // Beats Solo 3
+        } else if ('9' == idSingle) {
+            pods = new BeatsStudio3(singlePod); // Beats Studio 3
+        } else if ("0320".equals(idFull)) {
+            pods = new Powerbeats3(singlePod); // Powerbeats 3
+        } else {
+            pods = new RegularPods(leftPod, rightPod, casePod); // Unknown
         }
     }
 
