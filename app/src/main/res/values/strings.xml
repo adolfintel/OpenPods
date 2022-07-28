@@ -22,6 +22,7 @@
     <string name="supportedDevicesTitle"><u>Supported devices:</u></string>
     <string name="airpods1">&#8226; Apple AirPods 1st gen</string>
     <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
+    <string name="airpods3">&#8226; Apple AirPods 3rd gen</string>
     <string name="airpodspro">&#8226; Apple AirPods Pro</string>
     <string name="airpodsmax">&#8226; Apple AirPods Max</string>
     <string name="beatsx">&#8226; Beats X</string>

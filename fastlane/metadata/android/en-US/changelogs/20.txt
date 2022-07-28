@@ -1,0 +1,2 @@
+* Added support for AirPods 3rd gen
+* Minor changes and improvements

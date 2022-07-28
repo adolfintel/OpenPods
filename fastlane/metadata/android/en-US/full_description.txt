@@ -9,6 +9,7 @@ Features:
 Supported devices:
 * Apple AirPods 1st gen
 * Apple AirPods 2nd gen
+* Apple AirPods 3rd gen
 * Apple AirPods Pro
 * Apple AirPods Max
 * Beats X

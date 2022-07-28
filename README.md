@@ -45,6 +45,7 @@
 
 * Apple AirPods 1st gen
 * Apple AirPods 2nd gen
+* Apple AirPods 3rd gen
 * Apple AirPods Pro
 * Apple AirPods Max
 * Beats X
@@ -82,6 +83,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 &nbsp;
 &nbsp;
 
-Copyright (C) 2021 Federico Dossena
+Copyright (C) 2019-2022 Federico Dossena
 
 AirPods is a trademark of Apple inc.
