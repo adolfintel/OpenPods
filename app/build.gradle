@@ -1,15 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion '32.0.0'
+    namespace 'com.dosse.airpods'
+
+    compileSdkVersion 33
+    buildToolsVersion '33.0.0'
 
     defaultConfig {
         applicationId "com.dosse.airpods"
         minSdkVersion 23
-        targetSdkVersion 31
-        versionCode 20
-        versionName '1.8'
+        targetSdkVersion 33
+        versionCode 21
+        versionName '1.9'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,17 +24,19 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     compileOptions {
         sourceCompatibility = 11
         targetCompatibility = 11
     }
+
+    lint {
+        abortOnError false
+    }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    //noinspection GradleDependency 1.5.0/1.5.1 is broken
+    implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.preference:preference:1.2.0'
 }
