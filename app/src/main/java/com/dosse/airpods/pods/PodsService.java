@@ -1,5 +1,6 @@
 package com.dosse.airpods.pods;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -59,6 +60,7 @@ public class PodsService extends Service {
      *
      * After decoding a beacon, the status is written to PodsStatus so that the NotificationThread can use the information
      */
+    @SuppressLint("MissingPermission")
     private void startAirPodsScanner () {
         try {
             Logger.debug("START SCANNER");
@@ -71,7 +73,6 @@ public class PodsService extends Service {
                 return;
             }
 
-            //if (batterySaver && btScanner != null && scanCallback != null) {
             if (btScanner != null && scanCallback != null) {
                 btScanner.stopScan(scanCallback);
                 scanCallback = null;
@@ -102,6 +103,7 @@ public class PodsService extends Service {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void stopAirPodsScanner () {
         try {
             if (btScanner != null && scanCallback != null) {
@@ -233,6 +235,7 @@ public class PodsService extends Service {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private static boolean checkUUID (BluetoothDevice bluetoothDevice) {
         ParcelUuid[] AIRPODS_UUIDS = {
                 ParcelUuid.fromString("74ec2172-0bad-4d01-8f77-997b2be0722a"),
