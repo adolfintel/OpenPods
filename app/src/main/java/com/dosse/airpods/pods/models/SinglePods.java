@@ -1,4 +1,6 @@
-package com.dosse.airpods.pods.types;
+package com.dosse.airpods.pods.models;
+
+import com.dosse.airpods.pods.Pod;
 
 import java.util.Locale;
 

@@ -8,9 +8,9 @@ import androidx.core.app.NotificationCompat;
 
 import com.dosse.airpods.R;
 import com.dosse.airpods.pods.PodsStatus;
-import com.dosse.airpods.pods.types.IPods;
-import com.dosse.airpods.pods.types.RegularPods;
-import com.dosse.airpods.pods.types.SinglePods;
+import com.dosse.airpods.pods.models.IPods;
+import com.dosse.airpods.pods.models.RegularPods;
+import com.dosse.airpods.pods.models.SinglePods;
 
 public class NotificationBuilder {
     public static final String TAG = "AirPods";

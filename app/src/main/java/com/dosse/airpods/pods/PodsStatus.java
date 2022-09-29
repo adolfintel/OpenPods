@@ -1,19 +1,18 @@
 package com.dosse.airpods.pods;
 
-import com.dosse.airpods.pods.types.AirPods1;
-import com.dosse.airpods.pods.types.AirPods2;
-import com.dosse.airpods.pods.types.AirPods3;
-import com.dosse.airpods.pods.types.AirPodsMax;
-import com.dosse.airpods.pods.types.AirPodsPro;
-import com.dosse.airpods.pods.types.BeatsFlex;
-import com.dosse.airpods.pods.types.BeatsSolo3;
-import com.dosse.airpods.pods.types.BeatsStudio3;
-import com.dosse.airpods.pods.types.BeatsX;
-import com.dosse.airpods.pods.types.IPods;
-import com.dosse.airpods.pods.types.Pod;
-import com.dosse.airpods.pods.types.Powerbeats3;
-import com.dosse.airpods.pods.types.PowerbeatsPro;
-import com.dosse.airpods.pods.types.RegularPods;
+import com.dosse.airpods.pods.models.AirPods1;
+import com.dosse.airpods.pods.models.AirPods2;
+import com.dosse.airpods.pods.models.AirPods3;
+import com.dosse.airpods.pods.models.AirPodsMax;
+import com.dosse.airpods.pods.models.AirPodsPro;
+import com.dosse.airpods.pods.models.BeatsFlex;
+import com.dosse.airpods.pods.models.BeatsSolo3;
+import com.dosse.airpods.pods.models.BeatsStudio3;
+import com.dosse.airpods.pods.models.BeatsX;
+import com.dosse.airpods.pods.models.IPods;
+import com.dosse.airpods.pods.models.Powerbeats3;
+import com.dosse.airpods.pods.models.PowerbeatsPro;
+import com.dosse.airpods.pods.models.RegularPods;
 
 /**
  * Decoding the beacon:

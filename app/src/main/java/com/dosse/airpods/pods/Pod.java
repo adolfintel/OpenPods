@@ -1,4 +1,4 @@
-package com.dosse.airpods.pods.types;
+package com.dosse.airpods.pods;
 
 import android.view.View;
 

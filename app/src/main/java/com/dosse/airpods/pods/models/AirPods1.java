@@ -1,4 +1,6 @@
-package com.dosse.airpods.pods.types;
+package com.dosse.airpods.pods.models;
+
+import com.dosse.airpods.pods.Pod;
 
 public class AirPods1 extends RegularPods {
 
@@ -8,7 +10,7 @@ public class AirPods1 extends RegularPods {
 
     @Override
     public String getModel () {
-        return MODEL_AIRPODS_GEN1;
+        return Constants.MODEL_AIRPODS_GEN1;
     }
 
 }

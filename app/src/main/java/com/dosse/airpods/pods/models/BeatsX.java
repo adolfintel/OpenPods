@@ -1,6 +1,7 @@
-package com.dosse.airpods.pods.types;
+package com.dosse.airpods.pods.models;
 
 import com.dosse.airpods.R;
+import com.dosse.airpods.pods.Pod;
 
 public class BeatsX extends SinglePods {
 
@@ -15,7 +16,7 @@ public class BeatsX extends SinglePods {
 
     @Override
     public String getModel () {
-        return MODEL_BEATS_X;
+        return Constants.MODEL_BEATS_X;
     }
 
 }

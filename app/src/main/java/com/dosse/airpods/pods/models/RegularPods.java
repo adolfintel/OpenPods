@@ -1,6 +1,7 @@
-package com.dosse.airpods.pods.types;
+package com.dosse.airpods.pods.models;
 
 import com.dosse.airpods.R;
+import com.dosse.airpods.pods.Pod;
 
 import java.util.Locale;
 
@@ -48,7 +49,7 @@ public class RegularPods implements IPods {
 
     @Override
     public String getModel () {
-        return MODEL_UNKNOWN;
+        return Constants.MODEL_UNKNOWN;
     }
 
     @Override
