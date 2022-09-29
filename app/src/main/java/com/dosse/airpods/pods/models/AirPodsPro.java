@@ -3,9 +3,9 @@ package com.dosse.airpods.pods.models;
 import com.dosse.airpods.R;
 import com.dosse.airpods.pods.Pod;
 
-public class AirPodsPro1 extends RegularPods {
+public class AirPodsPro extends RegularPods {
 
-    public AirPodsPro1 (Pod leftPod, Pod rightPod, Pod casePod) {
+    public AirPodsPro (Pod leftPod, Pod rightPod, Pod casePod) {
         super(leftPod, rightPod, casePod);
     }
 
@@ -26,7 +26,7 @@ public class AirPodsPro1 extends RegularPods {
 
     @Override
     public String getModel () {
-        return Constants.MODEL_AIRPODS_PRO_GEN1;
+        return Constants.MODEL_AIRPODS_PRO;
     }
 
 }

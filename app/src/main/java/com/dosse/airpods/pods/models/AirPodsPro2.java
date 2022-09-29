@@ -26,7 +26,7 @@ public class AirPodsPro2 extends RegularPods {
 
     @Override
     public String getModel () {
-        return Constants.MODEL_AIRPODS_PRO_GEN2;
+        return Constants.MODEL_AIRPODS_PRO_2;
     }
 
 }

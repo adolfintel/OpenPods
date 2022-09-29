@@ -24,6 +24,7 @@
     <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
     <string name="airpods3" tools:ignore="MissingTranslation">&#8226; Apple AirPods 3rd gen</string>
     <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodspro2" tools:ignore="MissingTranslation">&#8226; Apple AirPods Pro 2</string>
     <string name="airpodsmax">&#8226; Apple AirPods Max</string>
     <string name="beatsx">&#8226; Beats X</string>
     <string name="beatsflex">&#8226; Beats Flex</string>
