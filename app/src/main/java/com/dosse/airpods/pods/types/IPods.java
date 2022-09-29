@@ -1,4 +1,4 @@
-package com.dosse.airpods.pods.data;
+package com.dosse.airpods.pods.types;
 
 public interface IPods {
 
