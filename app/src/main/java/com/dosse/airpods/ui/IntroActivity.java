@@ -28,8 +28,8 @@ public class IntroActivity extends AppCompatActivity {
     private TextView msg;
     private Button btn;
 
-    private static final int STEP_PERMISSION_BLUETOOTH = 1, STEP_PERMISSION_BATTERY_OPTIMIZATION = 2, STEP_PERMISSION_LOCATION = 3, STEP_PERMISSION_BACKGROUND_LOCATION = 4;
-    private static final int BLUETOOTH_REQUEST_CODE = 101, LOCATION_REQUEST_CODE = 102, BACKGROUND_LOCATION_REQUEST_CODE = 103;
+    private static final int STEP_PERMISSION_BLUETOOTH = 1, STEP_PERMISSION_BATTERY_OPTIMIZATION = 2, STEP_PERMISSION_LOCATION = 3, STEP_PERMISSION_BACKGROUND_LOCATION = 4, STEP_PERMISSION_NOTIFICATION = 5;
+    private static final int BLUETOOTH_REQUEST_CODE = 101, LOCATION_REQUEST_CODE = 102, BACKGROUND_LOCATION_REQUEST_CODE = 103, NOTIFICATION_REQUEST_CODE = 104;
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -74,14 +74,15 @@ public class IntroActivity extends AppCompatActivity {
             return STEP_PERMISSION_LOCATION;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) if (!PermissionUtils.getBackgroundLocationPermission(this))
             return STEP_PERMISSION_BACKGROUND_LOCATION;
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) if (!PermissionUtils.getNotificationPermissions(this))
+            return STEP_PERMISSION_NOTIFICATION;
         return 0;
     }
 
     @SuppressLint("BatteryLife")
     private void initScreen () {
         int currentStep = getPermissionState() - ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 0 : 1);
-        int numOfSteps = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) ? ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 4 : 3) : 2;
+        int numOfSteps = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) ? 5 : (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) ? ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ? 4 : 3) : 2;
 
         runOnUiThread(() -> {
             switch (getPermissionState()) {
@@ -112,6 +113,11 @@ public class IntroActivity extends AppCompatActivity {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) requestPermissions(new String[] {Manifest.permission.ACCESS_BACKGROUND_LOCATION}, BACKGROUND_LOCATION_REQUEST_CODE);
                     });
                     break;
+                case STEP_PERMISSION_NOTIFICATION:
+                    msg.setText(String.format(Locale.getDefault(), "%s %d/%d: %s", getString(R.string.intro_step), currentStep, numOfSteps, getString(R.string.intro_notif_perm)));
+                    btn.setOnClickListener(view -> {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) requestPermissions(new String[] {Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_REQUEST_CODE);
+                    });
             }
             btn.setText(String.format(Locale.getDefault(), "%s (%d/%d)", getString(R.string.intro_allow), currentStep, numOfSteps));
         });
@@ -129,6 +135,9 @@ public class IntroActivity extends AppCompatActivity {
                 break;
             case BACKGROUND_LOCATION_REQUEST_CODE:
                 if (!hasAllPermissionsGranted(grantResults)) Toast.makeText(this, getString(R.string.msg_loc2_perm), Toast.LENGTH_LONG).show();
+                break;
+            case NOTIFICATION_REQUEST_CODE:
+                if (!hasAllPermissionsGranted(grantResults)) Toast.makeText(this, getString(R.string.msg_notif_perm), Toast.LENGTH_LONG).show();
                 break;
         }
     }
