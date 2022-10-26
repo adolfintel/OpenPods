@@ -21,6 +21,11 @@ public class PermissionUtils {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    public static boolean getNotificationPermissions (Context context) {
+        return checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.S)
     public static boolean getBluetoothPermissions (Context context) {
         return checkSelfPermission(context, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
@@ -44,6 +49,8 @@ public class PermissionUtils {
     }
 
     public static boolean checkAllPermissions (Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            return getNotificationPermissions(context) && getBatteryOptimizationsPermission(context) && getLocationPermissions(context) && getBluetoothPermissions(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
             return getBatteryOptimizationsPermission(context) && getLocationPermissions(context) && getBluetoothPermissions(context);
         else
