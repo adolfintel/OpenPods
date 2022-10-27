@@ -14,9 +14,11 @@
     <string name="intro_bat_perm" tools:ignore="MissingTranslation">Battery Optimization</string>
     <string name="intro_loc1_perm" tools:ignore="MissingTranslation">Location Permission</string>
     <string name="intro_loc2_perm" tools:ignore="MissingTranslation">Background Location Permission</string>
+    <string name="intro_notif_perm" tools:ignore="MissingTranslation">Notification Permission</string>
     <string name="msg_bt_perm" tools:ignore="MissingTranslation">Bluetooth permissions not granted, please enable them in settings.</string>
     <string name="msg_loc1_perm" tools:ignore="MissingTranslation">Location permission not granted, please enable it in settings.</string>
     <string name="msg_loc2_perm" tools:ignore="MissingTranslation">Background Location permission not granted, please enable it in settings.</string>
+    <string name="msg_notif_perm" tools:ignore="MissingTranslation">Notification Permission not granted, please enable it in settings.</string>
 
     <string name="main_description">The app will show a notification when your AirPods are connected</string>
     <string name="supportedDevicesTitle"><u>Supported devices:</u></string>
