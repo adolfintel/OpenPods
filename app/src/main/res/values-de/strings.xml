@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">OpenPods</string>
+
+    <string name="bg_noti_channel" translatable="false">Background Notification</string>
+    <string name="bg_noti_title" tools:ignore="MissingTranslation">Läuft im Hintergrund</string>
+    <string name="bg_noti_text" tools:ignore="MissingTranslation">Anklicken, um die Benachrichtigungseinstellungen zu öffnen</string>
+  
     <string name="intro_title">Diese App erlaubt es dir, den Status deiner AirPods auf einem beliebigen Android-Gerät zu überprüfen</string>
     <string name="intro_message">Für den Dienst benötigen wir die Berechtigung zur Verwendung von Bluetooth LE (Standort) und die Berechtigung zum Betrieb im Hintergrund</string>
     <string name="intro_allow">Erlauben</string>
+    <string name="intro_step" tools:ignore="MissingTranslation">Weiter</string>
+    <string name="intro_bt_perm" tools:ignore="MissingTranslation">Bluetooth-Berechtigung</string>
+    <string name="intro_bat_perm" tools:ignore="MissingTranslation">Akku-Optimierung</string>
+    <string name="intro_loc1_perm" tools:ignore="MissingTranslation">Standortberechtigung</string>
+    <string name="intro_loc2_perm" tools:ignore="MissingTranslation">Berechtigung für Standort im Hintergrund</string>
+    <string name="intro_notif_perm" tools:ignore="MissingTranslation">Berechtigung für Benachrichtigung</string>
+    <string name="msg_bt_perm" tools:ignore="MissingTranslation">Bluetooth-Berechtigung nicht erteilt, bitte in den Einstellungen aktivieren.</string>
+    <string name="msg_loc1_perm" tools:ignore="MissingTranslation">Standortberechtigung nicht erteilt, bitte in den Einstellungen aktivieren.</string>
+    <string name="msg_loc2_perm" tools:ignore="MissingTranslation">Berechtigung für Standort im Hintergrund nicht erteilt, bitte in den Einstellungen aktivieren.</string>
+    <string name="msg_notif_perm" tools:ignore="MissingTranslation">Berechtigung für Benachrichtigung nicht erteilt, bitte in den Einstellungen aktivieren.</string>
 
     <string name="main_description">Die App zeigt eine Benachrichtigung, wenn deine AirPods verbunden sind</string>
     <string name="supportedDevicesTitle"><u>Unterstützte Geräte:</u></string>
-    <string name="airpods1">&#8226; Apple AirPods 1st gen</string>
-    <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
+    <string name="airpods1">&#8226; Apple AirPods 1</string>
+    <string name="airpods2">&#8226; Apple AirPods 2</string>
+    <string name="airpods3" tools:ignore="MissingTranslation">&#8226; Apple AirPods 3</string>
     <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodspro2" tools:ignore="MissingTranslation">&#8226; Apple AirPods Pro 2</string>
     <string name="airpodsmax">&#8226; Apple AirPods Max</string>
     <string name="beatsx">&#8226; Beats X</string>
     <string name="beatsflex">&#8226; Beats Flex</string>
@@ -18,16 +36,26 @@
     <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
 
     <string name="miui_warning">MIUI erkannt</string>
+    <string name="miui_warning_desc" tools:ignore="MissingTranslation">Die ROM, die auf diesem Gerät läuft, hat bekannte Kompatibilitätsprobleme. Du kannst fortfahren, aber OpenPods funktioniert möglicherweise nicht richtig.</string>
     <string name="miui_warning_continue">Fortsetzen</string>
 
     <string name="noBtText">Es sieht so aus, als hätte dieses Gerät kein Bluetooth LE</string>
 
     <string name="settings">Einstellungen</string>
     <string name="batterySaver">Stromsparmodus (nicht empfohlen)</string>
-    <string name="batterySaver_desc">Aktiviere diesen Modus, wenn Bluetooth zu viel Batterieleistung erfordert</string>
+    <string name="batterySaver_desc">Aktiviere diesen Modus, wenn Bluetooth zu viel Akkuleistung erfordert</string>
+    <string name="restart" tools:ignore="MissingTranslation">Dienst neu starten</string>
+    <string name="restart_desc" tools:ignore="MissingTranslation">Wähle dies, wenn die Benachrichtigung nicht angezeigt wird</string>
 
     <string name="about">Über</string>
     <string name="about_dev">Entwickelt von Federico Dossena und Itai Levin</string>
+    <string name="fdroid" translatable="false">F-Droid</string>
     <string name="website">Webseite</string>
+    <string name="github" tools:ignore="MissingTranslation">Github</string>
     <string name="donate">Spenden</string>
+    
+    <string name="fdroid_url" translatable="false">https://f-droid.org/packages/com.dosse.airpods/</string>
+    <string name="website_url" translatable="false">https://fdossena.com/?p=openPods/index.frag</string>
+    <string name="github_url" translatable="false">https://github.com/adolfintel/OpenPods</string>
+    <string name="donate_url" translatable="false">https://paypal.me/sineisochronic</string>
 </resources>
