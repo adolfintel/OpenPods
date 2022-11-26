@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name" translatable="false">OpenPods</string>
+
+    <string name="bg_noti_channel" translatable="false">Фоновое уведомление</string>
+    <string name="bg_noti_title" tools:ignore="MissingTranslation">Работает в фоновом режиме</string>
+    <string name="bg_noti_text" tools:ignore="MissingTranslation">Нажмите, чтобы войти в настройки уведомлений</string>
+
     <string name="intro_title">Это приложение позволяет Вам проверить статус ваших AirPods на любом Android-устройстве</string>
     <string name="intro_message">Для работы нам нужно Bluetooth LE(местоположение) и разрешение на запуск в фоновом режиме</string>
     <string name="intro_allow">Разрешить</string>
+    <string name="intro_step" tools:ignore="MissingTranslation">Шаг</string>
+    <string name="intro_bt_perm" tools:ignore="MissingTranslation">Bluetooth</string>
+    <string name="intro_bat_perm" tools:ignore="MissingTranslation">Оптимизация расхода батареи</string>
+    <string name="intro_loc1_perm" tools:ignore="MissingTranslation">Местоположение</string>
+    <string name="intro_loc2_perm" tools:ignore="MissingTranslation">Местоположение в фоновом режиме</string>
+    <string name="intro_notif_perm" tools:ignore="MissingTranslation">Уведомления</string>
+    <string name="msg_bt_perm" tools:ignore="MissingTranslation">Разрешение на использование Bluetooth не получено. Пожалуйста, выставьте его вручную в настройках приложения.</string>
+    <string name="msg_loc1_perm" tools:ignore="MissingTranslation">Разрешение на использование местоположения не получено. Пожалуйста, выставьте его вручную в настройках приложения.</string>
+    <string name="msg_loc2_perm" tools:ignore="MissingTranslation">Разрешение на использование местоположения в фоновом режиме не получено. Пожалуйста, выставьте его вручную в настройках приложения.</string>
+    <string name="msg_notif_perm" tools:ignore="MissingTranslation">Разрешение на отображение уведомлений не получено. Пожалуйста, выставьте его вручную в настройках приложения.</string>
 
     <string name="main_description">Приложение покажет уведомление, когда будет установлено соединение с AirPods</string>
     <string name="supportedDevicesTitle"><u>Поддерживаемые устройства:</u></string>
     <string name="airpods1">&#8226; Apple AirPods 1st gen</string>
     <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
+    <string name="airpods3" tools:ignore="MissingTranslation">&#8226; Apple AirPods 3rd gen</string>
     <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodspro2" tools:ignore="MissingTranslation">&#8226; Apple AirPods Pro 2</string>
     <string name="airpodsmax">&#8226; Apple AirPods Max</string>
     <string name="beatsx">&#8226; Beats X</string>
     <string name="beatsflex">&#8226; Beats Flex</string>
@@ -18,16 +36,21 @@
     <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
 
     <string name="miui_warning">MIUI обнаружено</string>
-    <string name="miui_warning_continue">Продолжать</string>
+    <string name="miui_warning_desc">Прошивка, запущенная на вашем устройстве имеет известные неполадки с совместимостью с некоторыми программами. Вы можете продолжить, однако правильная работа OpenPods не гарантируется.</string>
+    <string name="miui_warning_continue">Продолжить</string>
 
-    <string name="noBtText">Похоже, что Bluetooth LE не поддерживается на Вашем устройстве</string>
+    <string name="noBtText">Похоже, что Bluetooth LE не поддерживается на Вашем устройстве.</string>
 
     <string name="settings">Настройки</string>
-    <string name="batterySaver">Режим энергосбережения (Не рекомендуется)</string>
+    <string name="batterySaver">Режим энергосбережения (не рекомендуется)</string>
     <string name="batterySaver_desc">Включите, если Bluetooth использует слишком много ресурсов</string>
+    <string name="restart" tools:ignore="MissingTranslation">Перезапуск службы</string>
+    <string name="restart_desc" tools:ignore="MissingTranslation">На случай если уведомление не показывается</string>
 
     <string name="about">О приложении</string>
     <string name="about_dev">Разработано Federico Dossena и Itai Levin</string>
+    <string name="fdroid" translatable="false">F-Droid</string>
     <string name="website">Сайт</string>
+    <string name="github" tools:ignore="MissingTranslation">Github</string>
     <string name="donate">Поддержать</string>
 </resources>
