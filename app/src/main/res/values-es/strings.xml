@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_title">Esta aplicación te permite ver el estado de tus AirPods en cualquier dispositivo Android.</string>
+    <string name="intro_message">Para operar necesitamos permiso para usar Bluetooth LE (Localización) y permiso para ejecutar la app en segundo plano.</string>
+    <string name="intro_allow">Permitir</string>
+
+    <string name="main_description">Esta aplicación mostrará una notificación cuando tus AirPods estén conectados.</string>
+    <string name="supportedDevicesTitle"><u>Dispositivos compatibles:</u></string>
+    <string name="airpods1">&#8226; Apple AirPods 1ª generación</string>
+    <string name="airpods2">&#8226; Apple AirPods 2ª generación</string>
+    <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodsmax">&#8226; Apple AirPods Max</string>
+    <string name="beatsx">&#8226; Beats X</string>
+    <string name="beatsflex">&#8226; Beats Flex</string>
+    <string name="beatssolo3">&#8226; Beats Solo 3</string>
+    <string name="beatsstudio3">&#8226; Beats Studio 3</string>
+    <string name="powerbeats3">&#8226; Powerbeats 3</string>
+    <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
+
+    <string name="miui_warning">MIUI detectado</string>
+    <string name="miui_warning_continue">Continuar</string>
+
+    <string name="noBtText">Parece que éste dispositivo no tiene Bluetooth LE.</string>
+
+    <string name="settings">Ajustes</string>
+    <string name="batterySaver">Ahorro de energía (no recomendado)</string>
+    <string name="batterySaver_desc">Activa ésta opción si el Bluetooth consume mucha batería.</string>
+
+    <string name="about">Acerca de</string>
+    <string name="about_dev">Desarrollado por Federico Dossena y Itai Levin</string>
+    <string name="website">Página web</string>
+    <string name="donate">Donar</string>
+</resources>

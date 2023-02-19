@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bg_noti_title">Wordt uitgevoerd op de achtergrond</string>
+    <string name="bg_noti_text">Druk om de melding te openen</string>
+
+    <string name="intro_title">Met deze app kun je de status van je AirPods bekijken op elk Android-apparaat</string>
+    <string name="intro_message">De app heeft toegang nodig tot Bluetooth LE (locatie), en moet op de achtergrond worden uitgevoerd</string>
+    <string name="intro_allow">Toestaan</string>
+    <string name="intro_step">Stap</string>
+    <string name="intro_bt_perm">Bluetoothrechten</string>
+    <string name="intro_bat_perm">Accu-optimalisatie</string>
+    <string name="intro_loc1_perm">Locatierecht</string>
+    <string name="intro_loc2_perm">Achtergrondlocatierecht</string>
+    <string name="msg_bt_perm">De bluetoothrechten zijn niet verleend - verleen ze via de instellingen.</string>
+    <string name="msg_loc1_perm">Het locatierecht is niet verleend - verleen dit via de instellingen.</string>
+    <string name="msg_loc2_perm">Het achtergrondlocatierecht is niet verleend - verleen dit via de instellingen.</string>
+
+    <string name="main_description">De app toont een melding zodra je je AirPods verbindt</string>
+    <string name="supportedDevicesTitle"><u>Ondersteunde apparaten:</u></string>
+    <string name="airpods1">&#8226; Apple AirPods 1e gen.</string>
+    <string name="airpods2">&#8226; Apple AirPods 2e gen.</string>
+    <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodsmax">&#8226; Apple AirPods Max</string>
+    <string name="beatsx">&#8226; Beats X</string>
+    <string name="beatsflex">&#8226; Beats Flex</string>
+    <string name="beatssolo3">&#8226; Beats Solo 3</string>
+    <string name="beatsstudio3">&#8226; Beats Studio 3</string>
+    <string name="powerbeats3">&#8226; Powerbeats 3</string>
+    <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
+
+    <string name="miui_warning">MIUI gedetecteerd</string>
+    <string name="miui_warning_desc">Op de rom op dit apparaat zijn comptabiliteitsproblemen bekend. Je kunt doorgaan, maar OpenPods werkt mogelijk niet goed.</string>
+    <string name="miui_warning_continue">Doorgaan</string>
+
+    <string name="noBtText">Het lijkt er op dat dit apparaat niet beschikt over Bluetooth LE</string>
+
+    <string name="settings">Instellingen</string>
+    <string name="batterySaver">Accu-optimalisatie (niet aanbevolen)</string>
+    <string name="batterySaver_desc">Schakel dit in als je merkt dat het accuverbruik hoger is door bluetooth</string>
+    <string name="restart">Dienst herstarten</string>
+    <string name="restart_desc">Herstart de dienst als de melding niet wordt getoond</string>
+
+    <string name="about">Over</string>
+    <string name="about_dev">Gemaakt door Federico Dossena en Itai Levin</string>
+    <string name="website">Website</string>
+    <string name="github">GitHub</string>
+    <string name="donate">Doneren</string>
+</resources>

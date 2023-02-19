@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_title">Cette application vous permet de voir l\'état de vos AirPods sur n\'importe quel appareil Android.</string>
+    <string name="intro_message">Pour opérer, nous avons besoin de votre permission pour utiliser Bluetooth LE (Localisation) et permission pour exécuter l\'application en arrière-plan.</string>
+    <string name="intro_allow">Permettre</string>
+
+    <string name="main_description">Cette application affichera une notification lorsque vos AirPods seront connectés.</string>
+    <string name="supportedDevicesTitle"><u>Appareils pris en charge :</u></string>
+    <string name="airpods1">&#8226; Apple AirPods 1re génération</string>
+    <string name="airpods2">&#8226; Apple AirPods 2e génération</string>
+    <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodsmax">&#8226; Apple AirPods Max</string>
+    <string name="beatsx">&#8226; Beats X</string>
+    <string name="beatsflex">&#8226; Beats Flex</string>
+    <string name="beatssolo3">&#8226; Beats Solo 3</string>
+    <string name="beatsstudio3">&#8226; Beats Studio 3</string>
+    <string name="powerbeats3">&#8226; Powerbeats 3</string>
+    <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
+
+    <string name="miui_warning">MIUI détecté</string>
+    <string name="miui_warning_continue">Continuer</string>
+
+    <string name="noBtText">Il semble que cet appareil ne dispose pas de Bluetooth LE.</string>
+
+    <string name="settings">Réglages</string>
+    <string name="batterySaver">Économiseur de batterie (non recommandé)</string>
+    <string name="batterySaver_desc">Activez cette option si Bluetooth utilise beaucoup de batterie</string>
+
+    <string name="about">À propos</string>
+    <string name="about_dev">Développé par Federico Dossena et Itai Levin</string>
+    <string name="website">Site web</string>
+    <string name="donate">Faire un don</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_title">Questa app consente di monitorare lo stato delle tue AirPods su Android</string>
+    <string name="intro_message">Per funzionare, abbiamo bisogno dei permessi per Bluetooth LE (Posizione) e di esecuzione in background</string>
+    <string name="intro_allow">Consenti</string>
+
+    <string name="main_description">L\'app mostrerà una notifica quando le tue AirPods sono connesse</string>
+    <string name="supportedDevicesTitle"><u>Dispositivi supportati:</u></string>
+    <string name="airpods1">&#8226; Apple AirPods 1st gen</string>
+    <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
+    <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodsmax">&#8226; Apple AirPods Max</string>
+    <string name="beatsx">&#8226; Beats X</string>
+    <string name="beatsflex">&#8226; Beats Flex</string>
+    <string name="beatssolo3">&#8226; Beats Solo 3</string>
+    <string name="beatsstudio3">&#8226; Beats Studio 3</string>
+    <string name="powerbeats3">&#8226; Powerbeats 3</string>
+    <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
+
+    <string name="miui_warning">MIUI rilevata</string>
+    <string name="miui_warning_desc">La ROM di questo dispositivo ha dei problemi di compatibilità noti. Puoi continuare ma OpenPods potrebbe non funzionare correttamente.</string>
+    <string name="miui_warning_continue">Continua</string>
+
+    <string name="noBtText">Questo dispositivo non supporta Bluetooth LE</string>
+
+    <string name="settings">Impostazioni</string>
+    <string name="batterySaver">Risparmio batteria (sconsigliato)</string>
+    <string name="batterySaver_desc">Attiva se il Bluetooth usa molta batteria</string>
+
+    <string name="about">Informazioni su</string>
+    <string name="about_dev">Sviluppata da Federico Dossena e Itai Levin</string>
+    <string name="website">Sito web</string>
+    <string name="donate">Donazioni</string>
+</resources>

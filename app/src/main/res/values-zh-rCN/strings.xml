@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_title">此应用可以让您在任何安卓设备上查看 AirPods 的状态</string>
+    <string name="intro_message">我们需要蓝牙、定位以及在后台运行的权限来正常运作</string>
+    <string name="intro_allow">允许</string>
+
+    <string name="main_description">当您的 AirPods 接入时，我们会在通知栏显示通知</string>
+    <string name="supportedDevicesTitle"><u>支持的设备:</u></string>
+    <string name="airpods1">&#8226; Apple AirPods 一代</string>
+    <string name="airpods2">&#8226; Apple AirPods 二代</string>
+    <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodsmax">&#8226; Apple AirPods Max</string>
+    <string name="beatsx">&#8226; Beats X</string>
+    <string name="beatsflex">&#8226; Beats Flex</string>
+    <string name="beatssolo3">&#8226; Beats Solo 3</string>
+    <string name="beatsstudio3">&#8226; Beats Studio 3</string>
+    <string name="powerbeats3">&#8226; Powerbeats 3</string>
+    <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
+
+    <string name="noBtText">看起来您的设备并不支持蓝牙</string>
+
+    <string name="batterySaver">省电模式 (不推荐)</string>
+    <string name="batterySaver_desc">可在蓝牙消耗过多电量时开启</string>
+
+    <string name="about">关于</string>
+    <string name="about_dev">由 Federico Dossena 和 Itai Levin 开发</string>
+    <string name="website">网站</string>
+    <string name="donate">捐赠</string>
+</resources>

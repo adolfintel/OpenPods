@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_title">Цей додаток дозволяє Вам перевірити статус ваших AirPods на будь-якому Android-пристрої</string>
+    <string name="intro_message">Для роботи ми використовуємо Bluetooth LE (місцезнаходження) та дозвіл на роботу додатку в фоновому режимі</string>
+    <string name="intro_allow">Дозволити</string>
+
+    <string name="main_description">Цей додаток покаже сповіщення, коли Ваші AirPods будуть підключені</string>
+    <string name="supportedDevicesTitle"><u>Supported devices:</u></string>
+    <string name="airpods1">&#8226; Apple AirPods 1st gen</string>
+    <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
+    <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodsmax">&#8226; Apple AirPods Max</string>
+    <string name="beatsx">&#8226; Beats X</string>
+    <string name="beatsflex">&#8226; Beats Flex</string>
+    <string name="beatssolo3">&#8226; Beats Solo 3</string>
+    <string name="beatsstudio3">&#8226; Beats Studio 3</string>
+    <string name="powerbeats3">&#8226; Powerbeats 3</string>
+    <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
+
+    <string name="miui_warning">MIUI виявлено</string>
+    <string name="miui_warning_continue">продовжувати</string>
+
+    <string name="noBtText">Схоже, що цей пристрій не підтримує Bluetooth LE</string>
+
+    <string name="settings">Налаштування</string>
+    <string name="batterySaver">Режим збереження енергії (Не рекомендовано)</string>
+    <string name="batterySaver_desc">Увімкніть, якщо Bluetooth використовує багато ресурсів</string>
+
+    <string name="about">Про програму</string>
+    <string name="about_dev">Розроблено Federico Dossena й Itai Levin</string>
+    <string name="website">Сайт</string>
+    <string name="donate">Підтримати</string>
+</resources>

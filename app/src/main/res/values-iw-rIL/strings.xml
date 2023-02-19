@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_title">אפליקציה זו מאפשרת לך לבדוק את המצב של האיירפודס שלך מכל מכשיר אנדרואיד</string>
+    <string name="intro_message">כדי שאפליקציה זו תוכל לתפקד, הינך נדרש לאפשר גישה ל-Bluetooth LE (מיקום) ולריצה ברקע</string>
+    <string name="intro_allow">אפשר</string>
+
+    <string name="main_description">האפליקציה תשלח התראה כאשר האיירפודס מחוברות</string>
+    <string name="supportedDevicesTitle"><u>מכשירים נתמכים</u></string>
+    <string name="airpods1">• אפל איירפודס דור ראשון</string>
+    <string name="airpods2">• אפל איירפודס דור שני</string>
+    <string name="airpods3">• אפל איירפודס דור שלישי</string>
+    <string name="airpodspro">• אפל איירפודס פרו</string>
+    <string name="airpodspro2">• אפל איירפודס פרו 2</string>
+    <string name="airpodsmax">• אפל איירפודס מקס</string>
+    <string name="beatsx">• ביטס אקס</string>
+    <string name="beatsflex">• ביטס פלקס</string>
+    <string name="beatssolo3">• ביטס סולו 3</string>
+    <string name="beatsstudio3">• ביטס סטודיו 3</string>
+    <string name="powerbeats3">•פווארביטס 3</string>
+    <string name="powerbeatspro">• פווארביטס פרו</string>
+
+    <string name="miui_warning">MIUI נמצא</string>
+    <string name="miui_warning_desc">למערכת ההפעלה על מכשיר זה יש בעיות תאימות ידועות עם האפליקציה. אתה יכול להמשיך להשתמש ב-OpenPods אך לא בטוח שדברים יעבדו כמו שצריך.</string>
+    <string name="miui_warning_continue">המשך</string>
+
+    <string name="noBtText">נראה כי מכשיר זה אינו תומך ב-Bluetooth LE</string>
+
+    <string name="settings">הגדרות</string>
+    <string name="batterySaver">חיסכון בסוללה (לא מומלץ)</string>
+    <string name="batterySaver_desc">הפעל אם Bluetooth משתמש בהרבה סוללה</string>
+
+    <string name="about">אודות</string>
+    <string name="about_dev">פותח על ידי פדריקו דוסנה ואיתי לוין</string>
+    <string name="website">אתר המפתח</string>
+    <string name="github">קוד מקור</string>
+    <string name="donate">תרומה</string>
+</resources>
