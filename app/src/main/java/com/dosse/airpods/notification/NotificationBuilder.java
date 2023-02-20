@@ -30,6 +30,8 @@ public class NotificationBuilder {
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         mBuilder.setCustomContentView(notificationArr[1]);
         mBuilder.setCustomBigContentView(notificationArr[0]);
+
+        mBuilder.setCategory(NotificationCompat.CATEGORY_SERVICE); //show notification on android 12 and above #144 #143
     }
 
     public Notification build (PodsStatus status) {
