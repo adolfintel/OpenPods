@@ -19,8 +19,8 @@
     <string name="powerbeats3">•פווארביטס 3</string>
     <string name="powerbeatspro">• פווארביטס פרו</string>
 
-    <string name="miui_warning">MIUI נמצא</string>
-    <string name="miui_warning_desc">למערכת ההפעלה על מכשיר זה יש בעיות תאימות ידועות עם האפליקציה. אתה יכול להמשיך להשתמש ב-OpenPods אך לא בטוח שדברים יעבדו כמו שצריך.</string>
+    <string name="miui_warning">MIUI זוהה</string>
+    <string name="miui_warning_desc">למערכת ההפעלה במכשיר זה יש בעיות תאימות ידועות עם האפליקציה. אתה יכול להמשיך להשתמש ב-OpenPods אך לא בטוח שדברים יעבדו כמו שצריך.</string>
     <string name="miui_warning_continue">המשך</string>
 
     <string name="noBtText">נראה כי מכשיר זה אינו תומך ב-Bluetooth LE</string>
