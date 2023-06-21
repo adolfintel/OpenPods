@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">OpenPods</string>
+
+    <string name="bg_noti_channel" translatable="false">Background Notification</string>
+    <string name="bg_noti_title" tools:ignore="MissingTranslation">Běží na pozadí</string>
+    <string name="bg_noti_text" tools:ignore="MissingTranslation">Stisknutím otevřete nastavení oznámení</string>
+
+    <string name="intro_title">Tato aplikace vám umožňuje zkontrolovat stav vašich AirPods na jakémkoli zařízení s Androidem</string>
+    <string name="intro_message">Pro provoz je potřeba povolení k použití Bluetooth LE (místo) a povolení k běhu na pozadí</string>
+    <string name="intro_allow">Povolit</string>
+    <string name="intro_step" tools:ignore="MissingTranslation">Krok</string>
+    <string name="intro_bt_perm" tools:ignore="MissingTranslation">Povolení Bluetooth</string>
+    <string name="intro_bat_perm" tools:ignore="MissingTranslation">Optimalizace baterie</string>
+    <string name="intro_loc1_perm" tools:ignore="MissingTranslation">Povolení polohy</string>
+    <string name="intro_loc2_perm" tools:ignore="MissingTranslation">Povolení polohy v pozadí</string>
+    <string name="intro_notif_perm" tools:ignore="MissingTranslation">Povolení notifikace</string>
+    <string name="msg_bt_perm" tools:ignore="MissingTranslation">Nebylo uděleno povolení pro Bluetooth, povolte jej prosím v nastavení.</string>
+    <string name="msg_loc1_perm" tools:ignore="MissingTranslation">Nebylo uděleno povolení polohy, povolte jej prosím v nastavení.</string>
+    <string name="msg_loc2_perm" tools:ignore="MissingTranslation">Nebylo uděleno povolení polohy na pozadí, povolte jej prosím v nastavení.</string>
+    <string name="msg_notif_perm" tools:ignore="MissingTranslation">Nebylo uděleno povolení notifikace, povolte jej prosím v nastavení.</string>
+
+    <string name="main_description">The app will show a notification when your AirPods are connected</string>
+    <string name="supportedDevicesTitle"><u>Supported devices:</u></string>
+    <string name="airpods1">&#8226; Apple AirPods 1st gen</string>
+    <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
+    <string name="airpods3" tools:ignore="MissingTranslation">&#8226; Apple AirPods 3rd gen</string>
+    <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodspro2" tools:ignore="MissingTranslation">&#8226; Apple AirPods Pro 2</string>
+    <string name="airpodsmax">&#8226; Apple AirPods Max</string>
+    <string name="beatsx">&#8226; Beats X</string>
+    <string name="beatsflex">&#8226; Beats Flex</string>
+    <string name="beatssolo3">&#8226; Beats Solo 3</string>
+    <string name="beatsstudio3">&#8226; Beats Studio 3</string>
+    <string name="powerbeats3">&#8226; Powerbeats 3</string>
+    <string name="powerbeatspro">&#8226; Powerbeats Pro</string>
+
+    <string name="miui_warning" tools:ignore="MissingTranslation">Detekováno MIUI</string>
+    <string name="miui_warning_desc" tools:ignore="MissingTranslation">Na tomto zařízení běží ROM s známými problémy kompatibility. Můžete pokračovat, ale OpenPods nemusí fungovat správně.</string>
+    <string name="miui_warning_continue" tools:ignore="MissingTranslation">Pokračovat</string>
+
+    <string name="noBtText">Toto zařízení nemá Bluetooth LE</string>
+
+    <string name="settings" tools:ignore="MissingTranslation">Nastavení</string>
+    <string name="batterySaver">Spořič baterie (nedoporučeno)</string>
+    <string name="batterySaver_desc">Povolte pokud Bluetooth spotřebovává velké množství baterie</string>
+    <string name="restart" tools:ignore="MissingTranslation">Službu restartujte</string>
+    <string name="restart_desc" tools:ignore="MissingTranslation">Udělejte to v případě, že se oznámení nezobrazuje</string>
+
+    <string name="about">O developerovi</string>
+    <string name="about_dev">Vytvořili společně Federico Dossena a Itai Levin</string>
+    <string name="fdroid" translatable="false">F-Droid</string>
+    <string name="website">webová stránka</string>
+    <string name="github" tools:ignore="MissingTranslation">Github</string>
+    <string name="donate">Darujte</string>
+
+    <string name="fdroid_url" translatable="false">https://f-droid.org/packages/com.dosse.airpods/</string>
+    <string name="website_url" translatable="false">https://fdossena.com/?p=openPods/index.frag</string>
+    <string name="github_url" translatable="false">https://github.com/adolfintel/OpenPods</string>
+    <string name="donate_url" translatable="false">https://paypal.me/sineisochronic</string>
+</resources>
