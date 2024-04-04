@@ -19,9 +19,8 @@ import com.dosse.airpods.utils.PermissionUtils;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
-    protected void onCreate (Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -30,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         if (btAdapter == null || (btAdapter.isEnabled() && btAdapter.getBluetoothLeScanner() == null) || (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE))) {
             startActivity(new Intent(MainActivity.this, NoBTActivity.class));
             finish();
+
             return;
         }
 
@@ -44,18 +44,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu (Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected (@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_ab_settings) {
             startActivity(new Intent(this, SettingsActivity.class)); // Settings icon clicked
             return true;
         }
+
         return false;
     }
-
 }

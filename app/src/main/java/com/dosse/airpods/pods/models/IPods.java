@@ -1,13 +1,11 @@
 package com.dosse.airpods.pods.models;
 
 public interface IPods {
+    String getModel();
 
-    String getModel ();
+    boolean isSingle();
 
-    boolean isSingle ();
+    boolean isDisconnected();
 
-    boolean isDisconnected ();
-
-    String parseStatusForLogger ();
-
+    String parseStatusForLogger();
 }

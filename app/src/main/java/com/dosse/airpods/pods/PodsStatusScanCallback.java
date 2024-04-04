@@ -24,18 +24,17 @@ import java.util.Objects;
  * - Decode...
  */
 public abstract class PodsStatusScanCallback extends ScanCallback {
+    private static final long RECENT_BEACONS_MAX_T_NS = 10000000000L; //10s
 
-    public static final long RECENT_BEACONS_MAX_T_NS = 10000000000L; //10s
+    private static final int AIRPODS_MANUFACTURER = 76;
+    private static final int AIRPODS_DATA_LENGTH = 27;
+    private static final int MIN_RSSI = -60;
 
-    public static final int AIRPODS_MANUFACTURER = 76;
-    public static final int AIRPODS_DATA_LENGTH = 27;
-    public static final int MIN_RSSI = -60;
+    private final List<ScanResult> mRecentBeacons = new ArrayList<>();
 
-    private final List<ScanResult> recentBeacons = new ArrayList<>();
+    public abstract void onStatus(PodsStatus status);
 
-    public abstract void onStatus (PodsStatus status);
-
-    public static List<ScanFilter> getScanFilters () {
+    public static List<ScanFilter> getScanFilters() {
         byte[] manufacturerData = new byte[AIRPODS_DATA_LENGTH];
         byte[] manufacturerDataMask = new byte[AIRPODS_DATA_LENGTH];
 
@@ -52,18 +51,20 @@ public abstract class PodsStatusScanCallback extends ScanCallback {
     }
 
     @Override
-    public void onBatchScanResults (List<ScanResult> scanResults) {
-        for (ScanResult result : scanResults)
+    public void onBatchScanResults(List<ScanResult> scanResults) {
+        for (ScanResult result : scanResults) {
             onScanResult(-1, result);
+        }
 
         super.onBatchScanResults(scanResults);
     }
 
     @Override
-    public void onScanResult (int callbackType, ScanResult result) {
+    public void onScanResult(int callbackType, ScanResult result) {
         try {
-            if (!isAirpodsResult(result))
+            if (!isAirpodsResult(result)) {
                 return;
+            }
 
             result.getDevice().getAddress();
 
@@ -71,8 +72,9 @@ public abstract class PodsStatusScanCallback extends ScanCallback {
             Logger.debug(decodeResult(result));
 
             result = getBestResult(result);
-            if (result == null || result.getRssi() < MIN_RSSI)
+            if (result == null || result.getRssi() < MIN_RSSI) {
                 return;
+            }
 
             PodsStatus status = new PodsStatus(decodeResult(result));
             onStatus(status);
@@ -81,50 +83,56 @@ public abstract class PodsStatusScanCallback extends ScanCallback {
         }
     }
 
-    private ScanResult getBestResult (ScanResult result) {
-        recentBeacons.add(result);
+    private ScanResult getBestResult(ScanResult result) {
+        mRecentBeacons.add(result);
         ScanResult strongestBeacon = null;
 
-        for (int i = 0; i < recentBeacons.size(); i++) {
-            if (SystemClock.elapsedRealtimeNanos() - recentBeacons.get(i).getTimestampNanos() > RECENT_BEACONS_MAX_T_NS) {
-                recentBeacons.remove(i--);
+        for (int i = 0; i < mRecentBeacons.size(); i++) {
+            if (SystemClock.elapsedRealtimeNanos() - mRecentBeacons.get(i).getTimestampNanos() > RECENT_BEACONS_MAX_T_NS) {
+                mRecentBeacons.remove(i--);
                 continue;
             }
 
-            if (strongestBeacon == null || strongestBeacon.getRssi() < recentBeacons.get(i).getRssi())
-                strongestBeacon = recentBeacons.get(i);
+            if (strongestBeacon == null || strongestBeacon.getRssi() < mRecentBeacons.get(i).getRssi()) {
+                strongestBeacon = mRecentBeacons.get(i);
+            }
         }
 
-        if (strongestBeacon != null && Objects.equals(strongestBeacon.getDevice().getAddress(), result.getDevice().getAddress()))
+        if (strongestBeacon != null && Objects.equals(strongestBeacon.getDevice().getAddress(), result.getDevice().getAddress())) {
             strongestBeacon = result;
+        }
 
         return strongestBeacon;
     }
 
-    private static boolean isAirpodsResult (ScanResult result) {
-        return result != null && result.getScanRecord() != null && isDataValid(result.getScanRecord().getManufacturerSpecificData(AIRPODS_MANUFACTURER));
+    private static boolean isAirpodsResult(ScanResult result) {
+        return result != null
+                && result.getScanRecord() != null
+                && isDataValid(result.getScanRecord().getManufacturerSpecificData(AIRPODS_MANUFACTURER));
     }
 
-    private static boolean isDataValid (byte[] data) {
+    private static boolean isDataValid(byte[] data) {
         return data != null && data.length == AIRPODS_DATA_LENGTH;
     }
 
-    private static String decodeResult (ScanResult result) {
+    private static String decodeResult(ScanResult result) {
         if (result != null && result.getScanRecord() != null) {
             byte[] data = result.getScanRecord().getManufacturerSpecificData(AIRPODS_MANUFACTURER);
-            if (isDataValid(data))
+            if (isDataValid(data)) {
                 return decodeHex(data);
+            }
         }
+
         return null;
     }
 
-    public static String decodeHex (byte[] bArr) {
+    private static String decodeHex(byte[] byteArray) {
         StringBuilder ret = new StringBuilder();
 
-        for (byte b : bArr)
+        for (byte b : byteArray) {
             ret.append(String.format("%02X", b));
+        }
 
         return ret.toString();
     }
-
 }

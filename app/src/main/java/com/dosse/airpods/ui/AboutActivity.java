@@ -10,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.dosse.airpods.R;
 
 public class AboutActivity extends AppCompatActivity {
-
     @Override
-    protected void onCreate (Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
@@ -42,5 +41,4 @@ public class AboutActivity extends AppCompatActivity {
 
         // ------------ END OF LEGAL DANGER ZONE ------------ //
     }
-
 }

@@ -17,29 +17,32 @@ public class NotificationBuilder {
     public static final long TIMEOUT_CONNECTED = 30000;
     public static final int NOTIFICATION_ID = 1;
 
-    private final RemoteViews[] notificationArr;
+    private final RemoteViews[] mRemoteViews;
     private final NotificationCompat.Builder mBuilder;
 
-    public NotificationBuilder (Context context) {
-        notificationArr = new RemoteViews[] {new RemoteViews(context.getPackageName(), R.layout.status_big), new RemoteViews(context.getPackageName(), R.layout.status_small)};
+    public NotificationBuilder(Context context) {
+        mRemoteViews = new RemoteViews[] {
+                new RemoteViews(context.getPackageName(), R.layout.status_big),
+                new RemoteViews(context.getPackageName(), R.layout.status_small)
+        };
 
         mBuilder = new NotificationCompat.Builder(context, TAG);
         mBuilder.setShowWhen(false);
         mBuilder.setOngoing(true);
         mBuilder.setSmallIcon(R.mipmap.notification_icon);
         mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        mBuilder.setCustomContentView(notificationArr[1]);
-        mBuilder.setCustomBigContentView(notificationArr[0]);
+        mBuilder.setCustomContentView(mRemoteViews[1]);
+        mBuilder.setCustomBigContentView(mRemoteViews[0]);
         mBuilder.setStyle(new NotificationCompat.DecoratedCustomViewStyle()); //Make the notification extendable issue #165
         mBuilder.setCategory(NotificationCompat.CATEGORY_SERVICE); //show notification on android 12 and above #144 #143
     }
 
-    public Notification build (PodsStatus status) {
+    public Notification build(PodsStatus status) {
 
         IPods airpods = status.getAirpods();
         boolean single = airpods.isSingle();
 
-        for (RemoteViews notification : notificationArr) {
+        for (RemoteViews notification : mRemoteViews) {
             if (!single) {
                 notification.setImageViewResource(R.id.leftPodImg, ((RegularPods)airpods).getLeftDrawable());
                 notification.setImageViewResource(R.id.rightPodImg, ((RegularPods)airpods).getRightDrawable());
@@ -52,7 +55,7 @@ public class NotificationBuilder {
             notification.setViewVisibility(R.id.rightPod, single ? View.GONE : View.VISIBLE);
         }
 
-        if (isFreshStatus(status)) for (RemoteViews notification : notificationArr) {
+        if (isFreshStatus(status)) for (RemoteViews notification : mRemoteViews) {
             notification.setViewVisibility(R.id.leftPodText, View.VISIBLE);
             notification.setViewVisibility(R.id.rightPodText, View.VISIBLE);
             notification.setViewVisibility(R.id.podCaseText, View.VISIBLE);
@@ -84,8 +87,7 @@ public class NotificationBuilder {
                 notification.setImageViewResource(R.id.caseBatImg, singlePods.getBatImgSrcId());
                 notification.setViewVisibility(R.id.caseBatImg, singlePods.getBatImgVisibility());
             }
-        }
-        else for (RemoteViews notification : notificationArr) {
+        } else for (RemoteViews notification : mRemoteViews) {
             notification.setViewVisibility(R.id.leftPodText, View.INVISIBLE);
             notification.setViewVisibility(R.id.rightPodText, View.INVISIBLE);
             notification.setViewVisibility(R.id.podCaseText, View.INVISIBLE);
@@ -102,8 +104,7 @@ public class NotificationBuilder {
         return mBuilder.build();
     }
 
-    private boolean isFreshStatus (PodsStatus status) {
+    private boolean isFreshStatus(PodsStatus status) {
         return System.currentTimeMillis() - status.getTimestamp() < TIMEOUT_CONNECTED;
     }
-
 }

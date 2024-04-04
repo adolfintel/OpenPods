@@ -4,23 +4,27 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothProfile;
 
 public abstract class BluetoothListener implements BluetoothProfile.ServiceListener {
+    public abstract boolean onConnect(BluetoothDevice bluetoothDevice);
 
-    public abstract boolean onConnect (BluetoothDevice bluetoothDevice);
-
-    public abstract void onDisconnect ();
+    public abstract void onDisconnect();
 
     @Override
-    public void onServiceConnected (int profile, BluetoothProfile bluetoothProfile) {
-        if (profile == BluetoothProfile.HEADSET)
-            for (BluetoothDevice device : bluetoothProfile.getConnectedDevices())
-                if (onConnect(device))
-                    break;
+    public void onServiceConnected(int profile, BluetoothProfile bluetoothProfile) {
+        if (profile != BluetoothProfile.HEADSET) {
+            return;
+        }
+
+        for (BluetoothDevice device : bluetoothProfile.getConnectedDevices()) {
+            if (onConnect(device)) {
+                break;
+            }
+        }
     }
 
     @Override
-    public void onServiceDisconnected (int profile) {
-        if (profile == BluetoothProfile.HEADSET)
+    public void onServiceDisconnected(int profile) {
+        if (profile == BluetoothProfile.HEADSET) {
             onDisconnect();
+        }
     }
-
 }

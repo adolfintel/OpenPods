@@ -11,9 +11,8 @@ import com.dosse.airpods.R;
 import com.dosse.airpods.receivers.StartupReceiver;
 
 public class SettingsActivity extends AppCompatActivity {
-
     @Override
-    protected void onCreate (Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportFragmentManager()
@@ -23,9 +22,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
-
         @Override
-        public void onCreatePreferences (Bundle savedInstanceState, String rootKey) {
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.preference_screen, rootKey);
 
             getPreference("batterySaver").setOnPreferenceClickListener(preference -> {
@@ -46,10 +44,8 @@ public class SettingsActivity extends AppCompatActivity {
             });
         }
 
-        private Preference getPreference (String key) {
+        private Preference getPreference(String key) {
             return getPreferenceManager().findPreference(key);
         }
-
     }
-
 }
