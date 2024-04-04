@@ -10,7 +10,7 @@ android {
         applicationId "com.dosse.airpods"
         minSdk 26
         targetSdk 34
-        versionCode 22
+        versionCode 23
         versionName '1.10'
     }
 
