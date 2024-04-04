@@ -1,19 +1,17 @@
-apply plugin: 'com.android.application'
+plugins {
+    alias(libs.plugins.androidApplication)
+}
 
 android {
     namespace 'com.dosse.airpods'
-
-    compileSdkVersion 33
-    buildToolsVersion '33.0.0'
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.dosse.airpods"
-        minSdkVersion 23
-        targetSdkVersion 33
+        minSdk 26
+        targetSdk 34
         versionCode 22
         versionName '1.9.1'
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -23,20 +21,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-
-    compileOptions {
-        sourceCompatibility = 11
-        targetCompatibility = 11
+    buildFeatures {
+        buildConfig true
     }
-
-    lint {
-        abortOnError false
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 }
 
 dependencies {
-    //noinspection GradleDependency 1.5.0/1.5.1 is broken
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'androidx.preference:preference:1.2.0'
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.preference
 }
