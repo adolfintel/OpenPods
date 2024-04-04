@@ -27,21 +27,20 @@ import com.dosse.airpods.pods.models.RegularPods;
  * Bit 0 (LSB) is the left pod; Bit 1 is the right pod; Bit 2 is the case. Bit 3 might be case open/closed but I'm not sure and it's not used
  * - The 11th character in the string represents the in-ear detection status. Bit 1 is the left pod; Bit 3 is the right pod.
  * - The 7th character in the string represents the model
- *
+ * <p>
  * Notes:
  * 1) - isFlipped set by bit 1 of 10th character in the string; seems to be related to in-ear detection;
  */
 public class PodsStatus {
-
     public static final PodsStatus DISCONNECTED = new PodsStatus();
 
-    private IPods pods;
-    private final long timestamp = System.currentTimeMillis();
+    private IPods mPods;
+    private final long mTimestamp = System.currentTimeMillis();
 
-    public PodsStatus () {
+    private PodsStatus() {
     }
 
-    public PodsStatus (String status) {
+    public PodsStatus(String status) {
         if (status == null)
             return;
 
@@ -74,51 +73,51 @@ public class PodsStatus {
 
         // Detect which model
         if ("0220".equals(idFull)) {
-            pods = new AirPods1(leftPod, rightPod, casePod); // Airpods 1st gen
+            mPods = new AirPods1(leftPod, rightPod, casePod); // Airpods 1st gen
         } else if ("0F20".equals(idFull)) {
-            pods = new AirPods2(leftPod, rightPod, casePod); // Airpods 2nd gen
+            mPods = new AirPods2(leftPod, rightPod, casePod); // Airpods 2nd gen
         } else if ("1320".equals(idFull)) {
-            pods = new AirPods3(leftPod, rightPod, casePod); // Airpods 3rd gen
+            mPods = new AirPods3(leftPod, rightPod, casePod); // Airpods 3rd gen
         } else if ("0E20".equals(idFull)) {
-            pods = new AirPodsPro(leftPod, rightPod, casePod); // Airpods Pro
-        } else if ("1420".equals(idFull)) {
-            pods = new AirPodsPro2(leftPod, rightPod, casePod); // Airpods Pro 2
+            mPods = new AirPodsPro(leftPod, rightPod, casePod); // Airpods Pro
+        } else if ("1420".equals(idFull) || "2420".equals(idFull)) {
+            mPods = new AirPodsPro2(leftPod, rightPod, casePod); // Airpods Pro 2
         } else if ('A' == idSingle) {
-            pods = new AirPodsMax(singlePod); // Airpods Max
+            mPods = new AirPodsMax(singlePod); // Airpods Max
         } else if ('B' == idSingle) {
-            pods = new PowerbeatsPro(leftPod, rightPod, casePod); // Powerbeats Pro
+            mPods = new PowerbeatsPro(leftPod, rightPod, casePod); // Powerbeats Pro
         } else if ("0520".equals(idFull)) {
-            pods = new BeatsX(singlePod); // Beats X
+            mPods = new BeatsX(singlePod); // Beats X
         } else if ("1020".equals(idFull)) {
-            pods = new BeatsFlex(singlePod); // Beats Flex
+            mPods = new BeatsFlex(singlePod); // Beats Flex
         } else if ("0620".equals(idFull)) {
-            pods = new BeatsSolo3(singlePod); // Beats Solo 3
+            mPods = new BeatsSolo3(singlePod); // Beats Solo 3
         } else if ('9' == idSingle) {
-            pods = new BeatsStudio3(singlePod); // Beats Studio 3
+            mPods = new BeatsStudio3(singlePod); // Beats Studio 3
         } else if ("0320".equals(idFull)) {
-            pods = new Powerbeats3(singlePod); // Powerbeats 3
+            mPods = new Powerbeats3(singlePod); // Powerbeats 3
         } else {
-            pods = new RegularPods(leftPod, rightPod, casePod); // Unknown
+            mPods = new RegularPods(leftPod, rightPod, casePod); // Unknown
         }
     }
 
-    public static boolean isFlipped (String str) {
+    public static boolean isFlipped(String str) {
         return (Integer.parseInt("" + str.charAt(10), 16) & 0x02) == 0;
     }
 
-    public IPods getAirpods () {
-        return pods;
+    public IPods getAirpods() {
+        return mPods;
     }
 
-    public boolean isAllDisconnected () {
-        if (this == DISCONNECTED)
+    public boolean isAllDisconnected() {
+        if (this == DISCONNECTED) {
             return true;
+        }
 
-        return pods.isDisconnected();
+        return mPods.isDisconnected();
     }
 
-    public long getTimestamp () {
-        return timestamp;
+    public long getTimestamp() {
+        return mTimestamp;
     }
-
 }
