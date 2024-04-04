@@ -15,11 +15,9 @@ import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.IBinder;
 import android.os.ParcelUuid;
 import android.provider.Settings;
-import androidx.annotation.RequiresApi;
 
 import com.dosse.airpods.R;
 import com.dosse.airpods.notification.NotificationThread;
@@ -40,16 +38,15 @@ import static com.dosse.airpods.utils.SharedPreferencesUtils.isSavingBattery;
  * - Display the notification with the status
  */
 public class PodsService extends Service {
+    private BluetoothLeScanner mBluetoothScanner;
+    private PodsStatus mStatus = PodsStatus.DISCONNECTED;
 
-    private BluetoothLeScanner btScanner;
-    private PodsStatus status = PodsStatus.DISCONNECTED;
+    private static NotificationThread mNotificationThread = null;
+    private static boolean mMaybeConnected = false;
 
-    private static NotificationThread n = null;
-    private static boolean maybeConnected = false;
-
-    private BroadcastReceiver btReceiver = null;
-    private BroadcastReceiver screenReceiver = null;
-    private PodsStatusScanCallback scanCallback = null;
+    private BroadcastReceiver mBluetoothReceiver = null;
+    private BroadcastReceiver mScreenReceiver = null;
+    private PodsStatusScanCallback mScanCallback = null;
 
     /**
      * The following method (startAirPodsScanner) creates a bluetooth LE scanner.
@@ -57,11 +54,11 @@ public class PodsService extends Service {
      * - Check that the beacon comes from something that looks like a pair of AirPods
      * - Make sure that it is YOUR pair of AirPods
      * - Decode the beacon to get the status
-     *
+     * <p>
      * After decoding a beacon, the status is written to PodsStatus so that the NotificationThread can use the information
      */
     @SuppressLint("MissingPermission")
-    private void startAirPodsScanner () {
+    private void startAirPodsScanner() {
         try {
             Logger.debug("START SCANNER");
 
@@ -73,9 +70,9 @@ public class PodsService extends Service {
                 return;
             }
 
-            if (btScanner != null && scanCallback != null) {
-                btScanner.stopScan(scanCallback);
-                scanCallback = null;
+            if (mBluetoothScanner != null && mScanCallback != null) {
+                mBluetoothScanner.stopScan(mScanCallback);
+                mScanCallback = null;
             }
 
             if (!btAdapter.isEnabled()) {
@@ -83,46 +80,46 @@ public class PodsService extends Service {
                 return;
             }
 
-            btScanner = btAdapter.getBluetoothLeScanner();
+            mBluetoothScanner = btAdapter.getBluetoothLeScanner();
 
             ScanSettings scanSettings = new ScanSettings.Builder()
                     .setScanMode(isSavingBattery(getApplicationContext()) ? ScanSettings.SCAN_MODE_LOW_POWER : ScanSettings.SCAN_MODE_LOW_LATENCY)
                     .setReportDelay(1) // DON'T USE 0
                     .build();
 
-            scanCallback = new PodsStatusScanCallback() {
+            mScanCallback = new PodsStatusScanCallback() {
                 @Override
-                public void onStatus (PodsStatus newStatus) {
-                    status = newStatus;
+                public void onStatus(PodsStatus newStatus) {
+                    mStatus = newStatus;
                 }
             };
 
-            btScanner.startScan(getScanFilters(), scanSettings, scanCallback);
+            mBluetoothScanner.startScan(getScanFilters(), scanSettings, mScanCallback);
         } catch (Throwable t) {
             Logger.error(t);
         }
     }
 
     @SuppressLint("MissingPermission")
-    private void stopAirPodsScanner () {
+    private void stopAirPodsScanner() {
         try {
-            if (btScanner != null && scanCallback != null) {
+            if (mBluetoothScanner != null && mScanCallback != null) {
                 Logger.debug("STOP SCANNER");
 
-                btScanner.stopScan(scanCallback);
-                scanCallback = null;
+                mBluetoothScanner.stopScan(mScanCallback);
+                mScanCallback = null;
             }
-            status = PodsStatus.DISCONNECTED;
+            mStatus = PodsStatus.DISCONNECTED;
         } catch (Throwable t) {
             Logger.error(t);
         }
     }
 
-    public PodsService () {
+    public PodsService() {
     }
 
     @Override
-    public IBinder onBind (Intent intent) {
+    public IBinder onBind(Intent intent) {
         return null;
     }
 
@@ -130,54 +127,53 @@ public class PodsService extends Service {
      * When the service is created, we register to get as many bluetooth and airpods related events as possible.
      * ACL_CONNECTED and ACL_DISCONNECTED should have been enough, but you never know with android these days.
      */
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
-    public void onCreate () {
+    public void onCreate() {
         super.onCreate();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            startForeground(101, createBackgroundNotification());
+        startForeground(101, createBackgroundNotification());
 
         unregisterBtReceiver();
 
-        btReceiver = new BluetoothReceiver() {
+        mBluetoothReceiver = new BluetoothReceiver() {
             @Override
-            public void onStart () {
+            public void onStart() {
                 // Bluetooth turned on, start/restart scanner.
                 Logger.debug("BT ON");
                 startAirPodsScanner();
             }
 
             @Override
-            public void onStop () {
+            public void onStop() {
                 // Bluetooth turned off, stop scanner and remove notification.
                 Logger.debug("BT OFF");
-                maybeConnected = false;
+                mMaybeConnected = false;
                 stopAirPodsScanner();
             }
 
             @Override
-            public void onConnect (BluetoothDevice bluetoothDevice) {
+            public void onConnect(BluetoothDevice bluetoothDevice) {
                 // Airpods filter
                 if (checkUUID(bluetoothDevice)) {
                     // Airpods connected, show notification.
                     Logger.debug("ACL CONNECTED");
-                    maybeConnected = true;
+                    mMaybeConnected = true;
                 }
             }
 
             @Override
-            public void onDisconnect (BluetoothDevice bluetoothDevice) {
+            public void onDisconnect(BluetoothDevice bluetoothDevice) {
                 // Airpods filter
                 if (checkUUID(bluetoothDevice)) {
                     // Airpods disconnected, remove notification but leave the scanner going.
                     Logger.debug("ACL DISCONNECTED");
-                    maybeConnected = false;
+                    mMaybeConnected = false;
                 }
             }
         };
 
         try {
-            registerReceiver(btReceiver, BluetoothReceiver.buildFilter());
+            registerReceiver(mBluetoothReceiver, BluetoothReceiver.buildFilter());
         } catch (Throwable t) {
             Logger.error(t);
         }
@@ -187,12 +183,12 @@ public class PodsService extends Service {
         BluetoothAdapter ba = ((BluetoothManager)Objects.requireNonNull(getSystemService(Context.BLUETOOTH_SERVICE))).getAdapter();
         ba.getProfileProxy(getApplicationContext(), new BluetoothListener() {
             @Override
-            public boolean onConnect (BluetoothDevice device) {
+            public boolean onConnect(BluetoothDevice device) {
                 Logger.debug("BT PROXY SERVICE CONNECTED ");
 
                 if (checkUUID(device)) {
                     Logger.debug("BT PROXY: AIRPODS ALREADY CONNECTED");
-                    maybeConnected = true;
+                    mMaybeConnected = true;
                     return true;
                 }
 
@@ -200,35 +196,37 @@ public class PodsService extends Service {
             }
 
             @Override
-            public void onDisconnect () {
+            public void onDisconnect() {
                 Logger.debug("BT PROXY SERVICE DISCONNECTED ");
-                maybeConnected = false;
+                mMaybeConnected = false;
             }
         }, BluetoothProfile.HEADSET);
 
-        if (ba.isEnabled())
-            startAirPodsScanner(); // If BT is already on when the app is started, start the scanner without waiting for an event to happen
+        // If BT is already on when the app is started, start the scanner without waiting for an event to happen
+        if (ba.isEnabled()) {
+            startAirPodsScanner();
+        }
 
         // Screen on/off listener to suspend scanning when the screen is off, to save battery
         unregisterScreenReceiver();
 
         if (isSavingBattery(getApplicationContext())) {
-            screenReceiver = new ScreenReceiver() {
+            mScreenReceiver = new ScreenReceiver() {
                 @Override
-                public void onStart () {
+                public void onStart() {
                     Logger.debug("SCREEN ON");
                     startAirPodsScanner();
                 }
 
                 @Override
-                public void onStop () {
+                public void onStop() {
                     Logger.debug("SCREEN OFF");
                     stopAirPodsScanner();
                 }
             };
 
             try {
-                registerReceiver(screenReceiver, ScreenReceiver.buildFilter());
+                registerReceiver(mScreenReceiver, ScreenReceiver.buildFilter());
             } catch (Throwable t) {
                 Logger.error(t);
             }
@@ -236,53 +234,57 @@ public class PodsService extends Service {
     }
 
     @SuppressLint("MissingPermission")
-    private static boolean checkUUID (BluetoothDevice bluetoothDevice) {
+    private static boolean checkUUID(BluetoothDevice bluetoothDevice) {
         ParcelUuid[] AIRPODS_UUIDS = {
                 ParcelUuid.fromString("74ec2172-0bad-4d01-8f77-997b2be0722a"),
                 ParcelUuid.fromString("2a72e02b-7b99-778f-014d-ad0b7221ec74")
         };
         ParcelUuid[] uuids = bluetoothDevice.getUuids();
 
-        if (uuids == null)
+        if (uuids == null) {
             return false;
+        }
 
-        for (ParcelUuid u : uuids)
-            for (ParcelUuid v : AIRPODS_UUIDS)
-                if (u.equals(v)) return true;
+        for (ParcelUuid u : uuids) {
+            for (ParcelUuid v : AIRPODS_UUIDS) {
+                if (u.equals(v)) {
+                    return true;
+                }
+            }
+        }
 
         return false;
     }
 
     @Override
-    public void onDestroy () {
+    public void onDestroy() {
         super.onDestroy();
         unregisterBtReceiver();
         unregisterScreenReceiver();
     }
 
     @Override
-    public int onStartCommand (Intent intent, int flags, int startId) {
-        if (n == null || !n.isAlive()) {
-            n = new NotificationThread(this) {
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (mNotificationThread == null || !mNotificationThread.isAlive()) {
+            mNotificationThread = new NotificationThread(this) {
                 @Override
-                public boolean isConnected () {
-                    return maybeConnected;
+                public boolean isConnected() {
+                    return mMaybeConnected;
                 }
 
                 @Override
-                public PodsStatus getStatus () {
-                    return status;
+                public PodsStatus getStatus() {
+                    return mStatus;
                 }
             };
-            n.start();
+            mNotificationThread.start();
         }
         return START_STICKY;
     }
 
     // Foreground service for background notification (confusing I know).
     // Only enabled for API30+
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private Notification createBackgroundNotification () {
+    private Notification createBackgroundNotification() {
         final String notChannelID = "FOREGROUND_ID";
 
         NotificationManager notManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
@@ -307,26 +309,25 @@ public class PodsService extends Service {
         return builder.build();
     }
 
-    private void unregisterBtReceiver () {
+    private void unregisterBtReceiver() {
         try {
-            if (btReceiver != null) {
-                unregisterReceiver(btReceiver);
-                btReceiver = null;
+            if (mBluetoothReceiver != null) {
+                unregisterReceiver(mBluetoothReceiver);
+                mBluetoothReceiver = null;
             }
         } catch (Throwable t) {
             Logger.error(t);
         }
     }
 
-    private void unregisterScreenReceiver () {
+    private void unregisterScreenReceiver() {
         try {
-            if (screenReceiver != null) {
-                unregisterReceiver(screenReceiver);
-                screenReceiver = null;
+            if (mScreenReceiver != null) {
+                unregisterReceiver(mScreenReceiver);
+                mScreenReceiver = null;
             }
         } catch (Throwable t) {
             Logger.error(t);
         }
     }
-
 }
