@@ -33,12 +33,16 @@ import java.util.Objects;
 import static com.dosse.airpods.pods.BroadcastParam.ACTION_STATUS;
 import static com.dosse.airpods.pods.BroadcastParam.EXTRA_IS_ALL_DISCONNECTED;
 import static com.dosse.airpods.pods.BroadcastParam.EXTRA_IS_SINGLE;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_LEFT_POD_CHARGING;
 import static com.dosse.airpods.pods.BroadcastParam.EXTRA_LEFT_POD_IN_EAR;
 import static com.dosse.airpods.pods.BroadcastParam.EXTRA_LEFT_POD_STATUS;
 import static com.dosse.airpods.pods.BroadcastParam.EXTRA_MODEL;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_POD_CASE_CHARGING;
 import static com.dosse.airpods.pods.BroadcastParam.EXTRA_POD_CASE_STATUS;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_RIGHT_POD_CHARGING;
 import static com.dosse.airpods.pods.BroadcastParam.EXTRA_RIGHT_POD_IN_EAR;
 import static com.dosse.airpods.pods.BroadcastParam.EXTRA_RIGHT_POD_STATUS;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_SINGLE_POD_CHARGING;
 import static com.dosse.airpods.pods.BroadcastParam.EXTRA_SINGLE_POD_STATUS;
 import static com.dosse.airpods.pods.PodsStatusScanCallback.getScanFilters;
 import static com.dosse.airpods.utils.SharedPreferencesUtils.isSavingBattery;
@@ -355,6 +359,8 @@ public class PodsService extends Service {
         if (mStatus.getAirpods().isSingle()) {
             intent.putExtra(EXTRA_SINGLE_POD_STATUS,
                     ((SinglePods) mStatus.getAirpods()).getParsedStatus());
+            intent.putExtra(EXTRA_SINGLE_POD_CHARGING,
+                    ((SinglePods) mStatus.getAirpods()).isCharging());
         } else {
             intent.putExtra(EXTRA_LEFT_POD_STATUS,
                     ((RegularPods) mStatus.getAirpods()).getParsedStatus(RegularPods.LEFT));
@@ -366,6 +372,12 @@ public class PodsService extends Service {
                     ((RegularPods) mStatus.getAirpods()).isInEar(RegularPods.LEFT));
             intent.putExtra(EXTRA_RIGHT_POD_IN_EAR,
                     ((RegularPods) mStatus.getAirpods()).isInEar(RegularPods.RIGHT));
+            intent.putExtra(EXTRA_LEFT_POD_CHARGING,
+                    ((RegularPods) mStatus.getAirpods()).isCharging(RegularPods.LEFT));
+            intent.putExtra(EXTRA_RIGHT_POD_CHARGING,
+                    ((RegularPods) mStatus.getAirpods()).isCharging(RegularPods.RIGHT));
+            intent.putExtra(EXTRA_POD_CASE_CHARGING,
+                    ((RegularPods) mStatus.getAirpods()).isCharging(RegularPods.CASE));
         }
         sendBroadcast(intent);
     }

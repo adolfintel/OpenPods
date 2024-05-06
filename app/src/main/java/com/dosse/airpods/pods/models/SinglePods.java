@@ -21,6 +21,10 @@ public abstract class SinglePods implements IPods {
         return pod.parseStatus();
     }
 
+    public boolean isCharging() {
+        return pod.isCharging();
+    }
+
     public int getBatImgVisibility() {
         return pod.batImgVisibility();
     }

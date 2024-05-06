@@ -94,17 +94,21 @@ registerReceiver(airpodReceiver, airpodFilter);
 
 Primary action: `com.dosse.airpods.status` contains the following intent extras:
 
-| Intent Extra      | Type | Description                                                                                                                                      |
-|-------------------| ---- |--------------------------------------------------------------------------------------------------------------------------------------------------|
-| isAllDisconnected | boolean | True if airpod (including case, left pod, right pod) lost connection, otherwise false                                                            |
-| model             | String | Model of the airpod                                                                                                                              |
-| isSingle          | boolean | True if the model is single (ie. Beats Studio, Beats Solo, etc.)                                                                                 |
-| leftPodStatus     | String | Battery percentage (with % suffix) of the left pod if it is connected, blank if disconnected. **Only applicable for non-single pod models**      |
-| rightPodStatus    | String  | Battery percentage (with % suffix) of the right pod if it is connected, blank if disconnected. **Only applicable for non-single pod models**     |
-| caseStatus        | String  | Battery percentage (with % suffix) of the charging case if it is connected, blank if disconnected. **Only applicable for non-single pod models** |
-| singlePodStatus   | String  | Battery percentage (with % suffix) of the airpod if it is connected, blank if disconnected. **Only applicable for single pod models**            |
-| leftPodInEar      | boolean | If left pod is detected to be in ear. **Only applicable for non-single pod models**                                                              |
-| rightPodInEar     | boolean | If right pod is detected to be in ear. **Only applicable for non-single pod models**                                                             |
+| Intent Extra       | Type | Description                                                                                                                                  |
+|--------------------| ---- |----------------------------------------------------------------------------------------------------------------------------------------------|
+| isAllDisconnected  | boolean | True if airpod (including case, left pod, right pod) lost connection, otherwise false                                                        |
+| model              | String | Model of the airpod                                                                                                                          |
+| isSingle           | boolean | True if the model is single (ie. Beats Studio, Beats Solo, etc.), otherwise false                                                            |
+| leftPodStatus      | String | Battery percentage (with % suffix) of the left pod if it is connected, blank if disconnected. **Only applicable for non-single pod models**  |
+| rightPodStatus     | String  | Battery percentage (with % suffix) of the right pod if it is connected, blank if disconnected. **Only applicable for non-single pod models** |
+| caseStatus         | String  | Battery percentage (with % suffix) of the charging case if it is connected, blank if disconnected. **Only applicable for non-single pod models** |
+| singlePodStatus    | String  | Battery percentage (with % suffix) of the airpod if it is connected, blank if disconnected. **Only applicable for single pod models**        |
+| isLeftPodCharging  | boolean | True if left pod is charging in case, otherwise false. **Only applicable for non-single pod models**                                         |
+| isRightPodCharging | boolean | True if right pod is charging in case, otherwise false. **Only applicable for non-single pod models**                                        |
+| isCaseCharging | boolean | True if airpod case is charging, otherwise false. **Only applicable for non-single pod models**                                              |
+| isSinglePodCharging | boolean | True if single pod is charging, otherwise false. **Only applicable for single pod models**                                                   |
+| leftPodInEar       | boolean | If left pod is detected to be in ear. **Only applicable for non-single pod models**                                                          |
+| rightPodInEar      | boolean | If right pod is detected to be in ear. **Only applicable for non-single pod models**                                                         |
 
 ## DO NOT REUPLOAD TO GOOGLE PLAY
 **This app violates Google Play policies and is designed to break if you try to fix that unless you really know what you're doing.**<br />
