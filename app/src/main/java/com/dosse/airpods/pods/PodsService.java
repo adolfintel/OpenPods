@@ -21,6 +21,8 @@ import android.provider.Settings;
 
 import com.dosse.airpods.R;
 import com.dosse.airpods.notification.NotificationThread;
+import com.dosse.airpods.pods.models.RegularPods;
+import com.dosse.airpods.pods.models.SinglePods;
 import com.dosse.airpods.receivers.BluetoothListener;
 import com.dosse.airpods.receivers.BluetoothReceiver;
 import com.dosse.airpods.receivers.ScreenReceiver;
@@ -28,6 +30,16 @@ import com.dosse.airpods.utils.Logger;
 
 import java.util.Objects;
 
+import static com.dosse.airpods.pods.BroadcastParam.ACTION_STATUS;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_IS_ALL_DISCONNECTED;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_IS_SINGLE;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_LEFT_POD_IN_EAR;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_LEFT_POD_STATUS;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_MODEL;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_POD_CASE_STATUS;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_RIGHT_POD_IN_EAR;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_RIGHT_POD_STATUS;
+import static com.dosse.airpods.pods.BroadcastParam.EXTRA_SINGLE_POD_STATUS;
 import static com.dosse.airpods.pods.PodsStatusScanCallback.getScanFilters;
 import static com.dosse.airpods.utils.SharedPreferencesUtils.isSavingBattery;
 
@@ -91,6 +103,8 @@ public class PodsService extends Service {
                 @Override
                 public void onStatus(PodsStatus newStatus) {
                     mStatus = newStatus;
+
+                    sendBroadcast();
                 }
             };
 
@@ -329,5 +343,30 @@ public class PodsService extends Service {
         } catch (Throwable t) {
             Logger.error(t);
         }
+    }
+
+    private void sendBroadcast() {
+        Intent intent = new Intent();
+        intent.setAction(ACTION_STATUS);
+        intent.putExtra(EXTRA_IS_ALL_DISCONNECTED, mStatus.isAllDisconnected());
+        intent.putExtra(EXTRA_MODEL, mStatus.getAirpods().getModel());
+        intent.putExtra(EXTRA_IS_SINGLE, mStatus.getAirpods().isSingle());
+
+        if (mStatus.getAirpods().isSingle()) {
+            intent.putExtra(EXTRA_SINGLE_POD_STATUS,
+                    ((SinglePods) mStatus.getAirpods()).getParsedStatus());
+        } else {
+            intent.putExtra(EXTRA_LEFT_POD_STATUS,
+                    ((RegularPods) mStatus.getAirpods()).getParsedStatus(RegularPods.LEFT));
+            intent.putExtra(EXTRA_RIGHT_POD_STATUS,
+                    ((RegularPods) mStatus.getAirpods()).getParsedStatus(RegularPods.RIGHT));
+            intent.putExtra(EXTRA_POD_CASE_STATUS,
+                    ((RegularPods) mStatus.getAirpods()).getParsedStatus(RegularPods.CASE));
+            intent.putExtra(EXTRA_LEFT_POD_IN_EAR,
+                    ((RegularPods) mStatus.getAirpods()).isInEar(RegularPods.LEFT));
+            intent.putExtra(EXTRA_RIGHT_POD_IN_EAR,
+                    ((RegularPods) mStatus.getAirpods()).isInEar(RegularPods.RIGHT));
+        }
+        sendBroadcast(intent);
     }
 }

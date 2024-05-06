@@ -22,6 +22,12 @@ public class RegularPods implements IPods {
         return pods[pos].parseStatus();
     }
 
+    public boolean isInEar(int pos) {
+
+
+        return pods[pos].isInEar();
+    }
+
     public int getInEarVisibility(int pos) {
         return pods[pos].inEarVisibility();
     }
