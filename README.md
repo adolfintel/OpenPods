@@ -60,6 +60,7 @@
 This app can post broadcast intents that can be read by any apps on the same device.
 
 To register for a broadcast receiver:
+
 **AndroidManifest.xml**
 ```xml
 <receiver android:name=".AirpodReceiver"
@@ -75,7 +76,7 @@ To register for a broadcast receiver:
 public class AirpodReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(ACTION_STATUS)) {
+        if (intent.getAction().equals("com.dosse.airpods.status")) {
            // Do something with "intent.getExtras()" here
         }
     }
@@ -84,12 +85,13 @@ public class AirpodReceiver extends BroadcastReceiver {
 
 **Register Receiver**
 ```java
-IntentFilter airpodFilter = new IntentFilter(ACTION_STATUS);
+IntentFilter airpodFilter = new IntentFilter("com.dosse.airpods.status");
 AirpodReceiver airpodReceiver = new AirpodReceiver();
 registerReceiver(airpodReceiver, airpodFilter);
 ```
 
 **Intent Extras**
+
 Primary action: `com.dosse.airpods.status` contains the following intent extras:
 
 | Intent Extra      | Type | Description                                                                                                                                      |
