@@ -56,6 +56,54 @@
 * Powerbeats 3
 * Powerbeats Pro
 
+## Integration
+This app can post broadcast intents that can be read by any apps on the same device.
+
+To register for a broadcast receiver:
+**AndroidManifest.xml**
+```xml
+<receiver android:name=".AirpodReceiver"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="com.dosse.airpods.status"/>
+    </intent-filter>
+</receiver>
+```
+
+**Receiver**
+```java
+public class AirpodReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (intent.getAction().equals(ACTION_STATUS)) {
+           // Do something with "intent.getExtras()" here
+        }
+    }
+}
+```
+
+**Register Receiver**
+```java
+IntentFilter airpodFilter = new IntentFilter(ACTION_STATUS);
+AirpodReceiver airpodReceiver = new AirpodReceiver();
+registerReceiver(airpodReceiver, airpodFilter);
+```
+
+**Intent Extras**
+Primary action: `com.dosse.airpods.status` contains the following intent extras:
+
+| Intent Extra      | Type | Description                                                                                                                                      |
+|-------------------| ---- |--------------------------------------------------------------------------------------------------------------------------------------------------|
+| isAllDisconnected | boolean | True if airpod (including case, left pod, right pod) lost connection, otherwise false                                                            |
+| model             | String | Model of the airpod                                                                                                                              |
+| isSingle          | boolean | True if the model is single (ie. Beats Studio, Beats Solo, etc.)                                                                                 |
+| leftPodStatus     | String | Battery percentage (with % suffix) of the left pod if it is connected, blank if disconnected. **Only applicable for non-single pod models**      |
+| rightPodStatus    | String  | Battery percentage (with % suffix) of the right pod if it is connected, blank if disconnected. **Only applicable for non-single pod models**     |
+| caseStatus        | String  | Battery percentage (with % suffix) of the charging case if it is connected, blank if disconnected. **Only applicable for non-single pod models** |
+| singlePodStatus   | String  | Battery percentage (with % suffix) of the airpod if it is connected, blank if disconnected. **Only applicable for single pod models**            |
+| leftPodInEar      | boolean | If left pod is detected to be in ear. **Only applicable for non-single pod models**                                                              |
+| rightPodInEar     | boolean | If right pod is detected to be in ear. **Only applicable for non-single pod models**                                                             |
+
 ## DO NOT REUPLOAD TO GOOGLE PLAY
 **This app violates Google Play policies and is designed to break if you try to fix that unless you really know what you're doing.**<br />
 Legal actions can and will be taken when uploading a compiled version to the Google Play Store that does not comply with the terms and conditions of the app's license. As a result, you may no longer be able to publish apps to the Google Play Store. This app is not intended to be uploaded to the Google Play Store. The developer is legally allowed to demand compensation.
