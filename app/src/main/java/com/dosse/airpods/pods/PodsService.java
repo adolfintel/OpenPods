@@ -108,7 +108,10 @@ public class PodsService extends Service {
                 public void onStatus(PodsStatus newStatus) {
                     mStatus = newStatus;
 
-                    sendBroadcast();
+                    // Sometimes after disconnecting, the scanner still lingers
+                    if (mMaybeConnected) {
+                        sendBroadcast();
+                    }
                 }
             };
 
@@ -167,6 +170,10 @@ public class PodsService extends Service {
                 Logger.debug("BT OFF");
                 mMaybeConnected = false;
                 stopAirPodsScanner();
+
+                // Reset status back to disconnected and send the broadcast
+                mStatus = PodsStatus.DISCONNECTED;
+                sendBroadcast();
             }
 
             @Override
@@ -186,6 +193,10 @@ public class PodsService extends Service {
                     // Airpods disconnected, remove notification but leave the scanner going.
                     Logger.debug("ACL DISCONNECTED");
                     mMaybeConnected = false;
+
+                    // Reset status back to disconnected and send the broadcast
+                    mStatus = PodsStatus.DISCONNECTED;
+                    sendBroadcast();
                 }
             }
         };
@@ -352,6 +363,13 @@ public class PodsService extends Service {
     private void sendBroadcast() {
         Intent intent = new Intent();
         intent.setAction(ACTION_STATUS);
+
+        if (mStatus == PodsStatus.DISCONNECTED) {
+            intent.putExtra(EXTRA_IS_ALL_DISCONNECTED, true);
+            sendBroadcast(intent);
+            return;
+        }
+
         intent.putExtra(EXTRA_IS_ALL_DISCONNECTED, mStatus.isAllDisconnected());
         intent.putExtra(EXTRA_MODEL, mStatus.getAirpods().getModel());
         intent.putExtra(EXTRA_IS_SINGLE, mStatus.getAirpods().isSingle());
