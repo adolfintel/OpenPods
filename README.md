@@ -64,11 +64,19 @@ To register for a broadcast receiver:
 **AndroidManifest.xml**
 ```xml
 <receiver android:name=".AirpodReceiver"
-    android:exported="true">
+    android:exported="true"
+    android:permission="com.dosse.airpods.permission.ACCESS_AIRPOD_INFORMATION">
     <intent-filter>
         <action android:name="com.dosse.airpods.status"/>
     </intent-filter>
 </receiver>
+```
+
+**Check and request permission**
+```java
+if (checkSelfPermission(context, "com.dosse.airpods.permission.ACCESS_AIRPOD_INFORMATION") == PackageManager.PERMISSION_DENIED) {
+    context.requestPermissions(new String[]{"com.dosse.airpods.permission.ACCESS_AIRPOD_INFORMATION"}, 201);
+}
 ```
 
 **Receiver**

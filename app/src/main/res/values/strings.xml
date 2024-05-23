@@ -47,6 +47,9 @@
     <string name="restart" tools:ignore="MissingTranslation">Restart Service</string>
     <string name="restart_desc" tools:ignore="MissingTranslation">Do this if the notification is not showing</string>
 
+    <string name="read_permission_label">Read Airpod Information</string>
+    <string name="read_permission_desc">access information about your AirPods, including battery status, connection status, and device settings</string>
+
     <string name="about">About</string>
     <string name="about_dev">Developed by Federico Dossena and Itai Levin</string>
     <string name="fdroid" translatable="false">F-Droid</string>

@@ -23,6 +23,14 @@
         android:name="android.hardware.bluetooth_le"
         android:required="false" />
 
+    <permission
+        android:name="com.dosse.airpods.permission.ACCESS_AIRPOD_INFORMATION"
+        android:label="@string/read_permission_label"
+        android:description="@string/read_permission_desc"
+        android:icon="@drawable/icon_small"
+        android:roundIcon="@drawable/icon_small"
+        android:protectionLevel="dangerous" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
