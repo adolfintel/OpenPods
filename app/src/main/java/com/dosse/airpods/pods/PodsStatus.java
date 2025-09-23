@@ -6,6 +6,7 @@ import com.dosse.airpods.pods.models.AirPods3;
 import com.dosse.airpods.pods.models.AirPodsMax;
 import com.dosse.airpods.pods.models.AirPodsPro;
 import com.dosse.airpods.pods.models.AirPodsPro2;
+import com.dosse.airpods.pods.models.AirPodsPro3;
 import com.dosse.airpods.pods.models.BeatsFlex;
 import com.dosse.airpods.pods.models.BeatsSolo3;
 import com.dosse.airpods.pods.models.BeatsStudio3;
@@ -82,6 +83,8 @@ public class PodsStatus {
             mPods = new AirPodsPro(leftPod, rightPod, casePod); // Airpods Pro
         } else if ("1420".equals(idFull) || "2420".equals(idFull)) {
             mPods = new AirPodsPro2(leftPod, rightPod, casePod); // Airpods Pro 2
+        } else if ("2720".equals(idFull)) {
+            mPods = new AirPodsPro3(leftPod, rightPod, casePod); // Airpods Pro 3
         } else if ('A' == idSingle) {
             mPods = new AirPodsMax(singlePod); // Airpods Max
         } else if ('B' == idSingle) {
