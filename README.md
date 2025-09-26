@@ -48,6 +48,7 @@
 * Apple AirPods 3rd gen
 * Apple AirPods Pro
 * Apple AirPods Pro 2
+* Apple AirPods Pro 3
 * Apple AirPods Max
 * Beats X
 * Beats Flex

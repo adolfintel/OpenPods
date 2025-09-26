@@ -9,6 +9,7 @@
     <string name="airpods1">&#8226; Apple AirPods 一代</string>
     <string name="airpods2">&#8226; Apple AirPods 二代</string>
     <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodspro3">&#8226; Apple AirPods Pro 3</string>
     <string name="airpodsmax">&#8226; Apple AirPods Max</string>
     <string name="beatsx">&#8226; Beats X</string>
     <string name="beatsflex">&#8226; Beats Flex</string>
@@ -26,4 +27,5 @@
     <string name="about_dev">由 Federico Dossena 和 Itai Levin 开发</string>
     <string name="website">网站</string>
     <string name="donate">捐赠</string>
+    <string name="airpodspro2">&#8226; Apple AirPods Pro 2</string>
 </resources>

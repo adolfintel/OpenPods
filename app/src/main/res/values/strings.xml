@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">OpenPods</string>
 
-    <string name="bg_noti_channel" translatable="false">Background Notification</string>
+    <string name="bg_noti_channel" tools:ignore="MissingTranslation">Background Notification</string>
     <string name="bg_noti_title" tools:ignore="MissingTranslation">Running in the background</string>
     <string name="bg_noti_text" tools:ignore="MissingTranslation">Click to open notification settings</string>
 
@@ -52,7 +52,7 @@
     <string name="about_dev">Developed by Federico Dossena and Itai Levin</string>
     <string name="fdroid" translatable="false">F-Droid</string>
     <string name="website">Website</string>
-    <string name="github" tools:ignore="MissingTranslation">Github</string>
+    <string name="github" translatable="false">Github</string>
     <string name="donate">Donate</string>
 
     <string name="fdroid_url" translatable="false">https://f-droid.org/packages/com.dosse.airpods/</string>

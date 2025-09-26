@@ -11,6 +11,7 @@
     <string name="airpods3">• אפל איירפודס דור שלישי</string>
     <string name="airpodspro">• אפל איירפודס פרו</string>
     <string name="airpodspro2">• אפל איירפודס פרו 2</string>
+    <string name="airpodspro3">• אפל איירפודס פרו 3</string>
     <string name="airpodsmax">• אפל איירפודס מקס</string>
     <string name="beatsx">• ביטס אקס</string>
     <string name="beatsflex">• ביטס פלקס</string>
@@ -32,6 +33,5 @@
     <string name="about">אודות</string>
     <string name="about_dev">פותח על ידי פדריקו דוסנה ואיתי לוין</string>
     <string name="website">אתר המפתח</string>
-    <string name="github">קוד מקור</string>
     <string name="donate">תרומה</string>
 </resources>

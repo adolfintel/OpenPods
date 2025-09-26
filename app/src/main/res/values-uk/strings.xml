@@ -9,6 +9,7 @@
     <string name="airpods1">&#8226; Apple AirPods 1st gen</string>
     <string name="airpods2">&#8226; Apple AirPods 2nd gen</string>
     <string name="airpodspro">&#8226; Apple AirPods Pro</string>
+    <string name="airpodspro3">&#8226; Apple AirPods Pro 3</string>
     <string name="airpodsmax">&#8226; Apple AirPods Max</string>
     <string name="beatsx">&#8226; Beats X</string>
     <string name="beatsflex">&#8226; Beats Flex</string>
@@ -30,4 +31,5 @@
     <string name="about_dev">Розроблено Federico Dossena й Itai Levin</string>
     <string name="website">Сайт</string>
     <string name="donate">Підтримати</string>
+    <string name="airpodspro2">&#8226; Apple AirPods Pro 2</string>
 </resources>
